@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 20 — Entropy and the Second Law of Thermodynamics (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 20</span>
+      <span>•</span>
+      <span>Entropy and the Second Law</span>
+    </div>
+    <h1>Entropy and the Second Law of Thermodynamics</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: entropy as a state function, the second law (ΔS<sub>univ</sub> ≥ 0),
+      heat engines and the Carnot limit, refrigerators and real devices, and the statistical link S = k ln Ω.
+      Source reading: <a href="28 - Chapter 20_ Entropy and the Second Law of Thermodynamics.pdf#page=1&pagemode=bookmarks">28 - Chapter 20_ Entropy and the Second Law of Thermodynamics.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s201">20.1 Entropy</a>
+        <a class="pdf-link" href="28 - Chapter 20_ Entropy and the Second Law of Thermodynamics.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2011">20.1.1 Definition for reversible heat</a>
+      <a href="#s2012">20.1.2 Worked example: isothermal ideal-gas expansion</a>
+
+      <div class="toc-item">
+        <a href="#s202">20.2 Entropy in the Real World: Engines</a>
+        <a class="pdf-link" href="28 - Chapter 20_ Entropy and the Second Law of Thermodynamics.pdf#page=8&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2021">20.2.1 Carnot efficiency and ΔS</a>
+      <a href="#s2022">20.2.2 Worked example: maximum efficiency</a>
+
+      <div class="toc-item">
+        <a href="#s203">20.3 Refrigerators and Real Engines</a>
+        <a class="pdf-link" href="28 - Chapter 20_ Entropy and the Second Law of Thermodynamics.pdf#page=14&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2031">20.3.1 Coefficient of performance (COP)</a>
+      <a href="#s2032">20.3.2 Worked example: ideal refrigerator COP</a>
+
+      <div class="toc-item">
+        <a href="#s204">20.4 A Statistical View of Entropy</a>
+        <a class="pdf-link" href="28 - Chapter 20_ Entropy and the Second Law of Thermodynamics.pdf#page=17&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2041">20.4.1 Microstates and S = k ln Ω</a>
+      <a href="#s2042">20.4.2 Worked example: entropy change from multiplicity</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 20.1 -->
+      <section id="s201">
+        <h2>20.1 Entropy</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Entropy S is a state function that tracks the dispersal of energy and the “direction” of real processes.
+              The second law says the total entropy of an isolated system never decreases.
+            </p>
+            <div class="kpi">
+              <span class="pill">State function</span>
+              <span class="pill">Direction of processes</span>
+              <span class="pill">ΔS<sub>univ</sub> ≥ 0</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Second law</h3>
+            <div class="formula">ΔS<sub>universe</sub> = ΔS<sub>system</sub> + ΔS<sub>surroundings</sub> ≥ 0</div>
+            <p class="tiny">Equality holds for an ideal reversible process; strict &gt; 0 for irreversible processes.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 20.1.1 -->
+      <section id="s2011">
+        <h2>20.1.1 Definition for Reversible Heat</h2>
+
+        <h3>Definition</h3>
+        <div class="formula">dS = dQ<sub>rev</sub>/T</div>
+        <p class="tiny">
+          You can compute ΔS using any convenient reversible path connecting the same initial and final states (even if the real process is irreversible).
+        </p>
+
+        <details>
+          <summary>Common special cases (quick)</summary>
+          <div class="formula">ΔS (ideal gas, isothermal) = nR ln(V<sub>f</sub>/V<sub>i</sub>) = nR ln(P<sub>i</sub>/P<sub>f</sub>)</div>
+          <div class="formula">ΔS (heating, constant T) = Q/T</div>
+          <div class="formula">ΔS (warming a substance) = ∫(mc dT)/T = mc ln(T<sub>f</sub>/T<sub>i</sub>) (if c constant)</div>
+        </details>
+      </section>
+
+      <!-- 20.1.2 -->
+      <section id="s2012">
+        <h2>20.1.2 Worked Example: Isothermal Ideal-Gas Expansion</h2>
+
+        <details open>
+          <summary>Compute entropy change for doubling the volume</summary>
+          <p><strong>Given:</strong> 1.00 mol ideal gas expands isothermally from V<sub>i</sub> = 10.0 L to V<sub>f</sub> = 20.0 L at T = 300 K.</p>
+          <ol class="steps">
+            <li>Use ΔS = nR ln(V<sub>f</sub>/V<sub>i</sub>).</li>
+            <li>ΔS = (1.00)(8.314 J/mol·K) ln(2) = 5.76 J/K.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> The gas entropy increases by about 5.8 J/K.</p>
+        </details>
+      </section>
+
+      <!-- 20.2 -->
+      <section id="s202">
+        <h2>20.2 Entropy in the Real World: Engines</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A heat engine absorbs heat Q<sub>H</sub> from a hot reservoir (T<sub>H</sub>), does work W, and expels heat Q<sub>C</sub> to a cold reservoir (T<sub>C</sub>).
+            The second law limits efficiency: no engine can be more efficient than a reversible (Carnot) engine operating between the same temperatures.
+          </p>
+        </div>
+      </section>
+
+      <!-- 20.2.1 -->
+      <section id="s2021">
+        <h2>20.2.1 Carnot Efficiency and ΔS</h2>
+
+        <h3>Efficiency and entropy</h3>
+        <div class="formula">e = W/Q<sub>H</sub> = 1 − Q<sub>C</sub>/Q<sub>H</sub></div>
+        <div class="formula">For a reversible engine: Q<sub>C</sub>/Q<sub>H</sub> = T<sub>C</sub>/T<sub>H</sub></div>
+        <div class="formula">Carnot (maximum) efficiency: e<sub>max</sub> = 1 − T<sub>C</sub>/T<sub>H</sub></div>
+
+        <div class="note warn">
+          <p>
+            A reversible engine produces zero net entropy change per cycle (ΔS<sub>universe</sub> = 0). Real engines generate entropy (ΔS<sub>universe</sub> &gt; 0),
+            which reduces efficiency.
+          </p>
+        </div>
+      </section>
+
+      <!-- 20.2.2 -->
+      <section id="s2022">
+        <h2>20.2.2 Worked Example: Maximum Efficiency</h2>
+
+        <details open>
+          <summary>Find Carnot efficiency between 600 K and 300 K</summary>
+          <p><strong>Given:</strong> T<sub>H</sub> = 600 K, T<sub>C</sub> = 300 K.</p>
+          <ol class="steps">
+            <li>e<sub>max</sub> = 1 − T<sub>C</sub>/T<sub>H</sub> = 1 − 300/600 = 0.50.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> The best possible efficiency is 50%.</p>
+        </details>
+      </section>
+
+      <!-- 20.3 -->
+      <section id="s203">
+        <h2>20.3 Refrigerators and Real Engines</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A refrigerator (or heat pump) uses work input W to move heat from a cold reservoir to a hot one.
+            Performance is measured by a coefficient of performance (COP), not efficiency.
+          </p>
+        </div>
+      </section>
+
+      <!-- 20.3.1 -->
+      <section id="s2031">
+        <h2>20.3.1 Coefficient of Performance (COP)</h2>
+
+        <h3>Definitions</h3>
+        <div class="formula">K<sub>R</sub> = Q<sub>C</sub>/W (refrigerator)</div>
+        <div class="formula">K<sub>HP</sub> = Q<sub>H</sub>/W (heat pump)</div>
+        <div class="formula">For an ideal (Carnot) refrigerator: K<sub>R,max</sub> = T<sub>C</sub>/(T<sub>H</sub> − T<sub>C</sub>)</div>
+
+        <div class="note warn">
+          <p>
+            Cooling gets harder as T<sub>C</sub> approaches T<sub>H</sub>: the required work per unit heat removed grows.
+          </p>
+        </div>
+      </section>
+
+      <!-- 20.3.2 -->
+      <section id="s2032">
+        <h2>20.3.2 Worked Example: Ideal Refrigerator COP</h2>
+
+        <details open>
+          <summary>Compute COP for a fridge at 270 K dumping heat to 295 K</summary>
+          <p><strong>Given:</strong> T<sub>C</sub> = 270 K, T<sub>H</sub> = 295 K.</p>
+          <ol class="steps">
+            <li>K<sub>R,max</sub> = T<sub>C</sub>/(T<sub>H</sub> − T<sub>C</sub>) = 270/(295 − 270) = 10.8.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> The maximum possible COP is about 11 (real devices are lower).</p>
+        </details>
+      </section>
+
+      <!-- 20.4 -->
+      <section id="s204">
+        <h2>20.4 A Statistical View of Entropy</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The second law emerges from probability. Systems evolve toward macrostates with the greatest number of compatible microstates (largest multiplicity Ω).
+            Entropy is a measure of that multiplicity.
+          </p>
+        </div>
+      </section>
+
+      <!-- 20.4.1 -->
+      <section id="s2041">
+        <h2>20.4.1 Microstates and S = k ln Ω</h2>
+
+        <h3>Boltzmann relation</h3>
+        <div class="formula">S = k ln Ω</div>
+        <p class="tiny">k is Boltzmann’s constant, 1.38×10<sup>−23</sup> J/K.</p>
+
+        <div class="note">
+          <p>
+            If a macrostate’s multiplicity increases by a factor, entropy increases by k ln(factor). Because Ω is typically enormous,
+            entropy changes are macroscopic even though k is tiny.
+          </p>
+        </div>
+      </section>
+
+      <!-- 20.4.2 -->
+      <section id="s2042">
+        <h2>20.4.2 Worked Example: Entropy Change from Multiplicity</h2>
+
+        <details open>
+          <summary>Compute ΔS when multiplicity increases by 1000×</summary>
+          <p><strong>Given:</strong> Ω<sub>f</sub> = 1000 Ω<sub>i</sub>.</p>
+          <ol class="steps">
+            <li>ΔS = k ln(Ω<sub>f</sub>/Ω<sub>i</sub>) = k ln(1000) = k(6.907).</li>
+            <li>ΔS = (1.38×10<sup>−23</sup>)(6.907) = 9.5×10<sup>−23</sup> J/K.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> ΔS ≈ 9.5×10<sup>−23</sup> J/K for a single microscopic system; for macroscopic systems Ω ratios are vastly larger.</p>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for entropy problems, identify the system, pick a reversible path to compute ΔS, and remember the second-law test:
+        if you compute ΔS<sub>universe</sub> &lt; 0 for a proposed process, something is impossible or a sign is wrong.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

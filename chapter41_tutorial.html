@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 41 — Conduction of Electricity in Solids (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 41</span>
+      <span>•</span>
+      <span>Conduction of Electricity in Solids</span>
+    </div>
+    <h1>Conduction of Electricity in Solids</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: why metals conduct well, drift velocity and conductivity,
+      why semiconductors conduct differently, what doping changes, and how the p-n junction and transistor work at the circuit level.
+      Source reading: <a href="49 - Chapter 41_ Conduction of Electricity in Solids.pdf#page=1&pagemode=bookmarks">49 - Chapter 41_ Conduction of Electricity in Solids.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s411">41.1 The Electrical Properties of Metals</a>
+        <a class="pdf-link" href="49 - Chapter 41_ Conduction of Electricity in Solids.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4111">41.1.1 Drift, current density, conductivity</a>
+      <a href="#s4112">41.1.2 Worked example: drift speed in copper</a>
+
+      <div class="toc-item">
+        <a href="#s412">41.2 Semiconductors and Doping</a>
+        <a class="pdf-link" href="49 - Chapter 41_ Conduction of Electricity in Solids.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4121">41.2.1 Carriers: electrons and holes</a>
+      <a href="#s4122">41.2.2 Worked example: doped silicon conductivity</a>
+
+      <div class="toc-item">
+        <a href="#s413">41.3 The p-n Junction and the Transistor</a>
+        <a class="pdf-link" href="49 - Chapter 41_ Conduction of Electricity in Solids.pdf#page=15&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4131">41.3.1 Depletion region and diode behavior</a>
+      <a href="#s4132">41.3.2 Transistor as a controlled current source</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 41.1 -->
+      <section id="s411">
+        <h2>41.1 The Electrical Properties of Metals</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              In a metal, many electrons are available to move through the lattice. An applied electric field nudges their motion,
+              producing a small net <strong>drift velocity</strong> superimposed on rapid thermal motion.
+            </p>
+            <div class="kpi">
+              <span class="pill">Lots of mobile carriers</span>
+              <span class="pill">Small drift speeds</span>
+              <span class="pill">Collisions set resistance</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Ohmic form</h3>
+            <div class="formula"><span class="hat">J</span> = σ<span class="hat">E</span></div>
+            <p class="tiny">Current density J is proportional to electric field E. Conductivity σ is large for good metals.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 41.1.1 -->
+      <section id="s4111">
+        <h2>41.1.1 Drift, Current Density, Conductivity</h2>
+
+        <h3>Useful relations</h3>
+        <div class="formula">I = nqAv<sub>d</sub></div>
+        <div class="formula"><span class="hat">J</span> = nq<span class="hat">v</span><sub>d</sub></div>
+        <div class="formula">σ = nqμ = nq<sup>2</sup>τ/m</div>
+
+        <div class="note">
+          <p>
+            μ is mobility, τ is mean time between collisions (“relaxation time”). Bigger τ means carriers keep their drift longer, so σ is larger.
+          </p>
+        </div>
+
+        <details>
+          <summary>Why does resistivity increase with temperature in metals?</summary>
+          <p class="tiny">
+            Higher temperature increases lattice vibration (phonons), which increases scattering and decreases τ. Since σ ∝ τ, conductivity drops,
+            and resistivity ρ = 1/σ rises.
+          </p>
+        </details>
+      </section>
+
+      <!-- 41.1.2 -->
+      <section id="s4112">
+        <h2>41.1.2 Worked Example: Drift Speed in Copper</h2>
+
+        <details open>
+          <summary>Estimate electron drift speed in a wire</summary>
+          <p><strong>Given:</strong> Copper wire carries I = 2.0 A, cross-section A = 1.0 mm<sup>2</sup> = 1.0×10<sup>−6</sup> m<sup>2</sup>.
+            Take carrier density n ≈ 8.5×10<sup>28</sup> m<sup>−3</sup> (≈ 1 conduction electron per atom).</p>
+          <ol class="steps">
+            <li>Use I = nqAv<sub>d</sub> ⇒ v<sub>d</sub> = I/(nqA).</li>
+            <li>v<sub>d</sub> = 2.0 / (8.5×10<sup>28</sup> · 1.60×10<sup>−19</sup> · 1.0×10<sup>−6</sup>) = 1.47×10<sup>−4</sup> m/s.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> v<sub>d</sub> ≈ 1.5×10<sup>−4</sup> m/s ≈ 0.15 mm/s (surprisingly slow).</p>
+        </details>
+      </section>
+
+      <!-- 41.2 -->
+      <section id="s412">
+        <h2>41.2 Semiconductors and Doping</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Semiconductors have far fewer free carriers than metals at room temperature. Conduction can occur by <strong>electrons</strong> in the
+            conduction band and by <strong>holes</strong> in the valence band. Adding small amounts of impurity atoms (<strong>doping</strong>)
+            can increase carrier density dramatically.
+          </p>
+        </div>
+      </section>
+
+      <!-- 41.2.1 -->
+      <section id="s4121">
+        <h2>41.2.1 Carriers: Electrons and Holes</h2>
+
+        <h3>Conductivity (two-carrier form)</h3>
+        <div class="formula">σ = q(nμ<sub>n</sub> + pμ<sub>p</sub>)</div>
+        <p class="tiny">n is electron density, p is hole density, μ are mobilities.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>n-type</h3>
+            <p class="tiny">Donor impurities add electrons: n increases (electrons dominate).</p>
+          </div>
+          <div class="card">
+            <h3>p-type</h3>
+            <p class="tiny">Acceptor impurities create holes: p increases (holes dominate).</p>
+          </div>
+        </div>
+
+        <div class="note warn">
+          <p>
+            “Holes” behave like positive-charge carriers: they move opposite electron drift in the valence band picture, but they produce current
+            in the same direction as a positive charge would.
+          </p>
+        </div>
+      </section>
+
+      <!-- 41.2.2 -->
+      <section id="s4122">
+        <h2>41.2.2 Worked Example: Doped Silicon Conductivity</h2>
+
+        <details open>
+          <summary>Estimate σ for n-type Si with N<sub>D</sub> = 10<sup>16</sup> cm<sup>−3</sup></summary>
+          <p><strong>Given:</strong> Assume n ≈ N<sub>D</sub> = 10<sup>16</sup> cm<sup>−3</sup>, electron mobility μ<sub>n</sub> ≈ 1350 cm<sup>2</sup>/(V·s),
+            and ignore the hole term. Use q = 1.60×10<sup>−19</sup> C.</p>
+          <ol class="steps">
+            <li>σ ≈ qnμ<sub>n</sub> = (1.60×10<sup>−19</sup>)(10<sup>16</sup>)(1350) = 2.16 (Ω·cm)<sup>−1</sup>.</li>
+            <li>Resistivity ρ = 1/σ ≈ 0.46 Ω·cm.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Doping to 10<sup>16</sup> cm<sup>−3</sup> yields σ ≈ 2.2 (Ω·cm)<sup>−1</sup> (ρ ≈ 0.46 Ω·cm).</p>
+        </details>
+      </section>
+
+      <!-- 41.3 -->
+      <section id="s413">
+        <h2>41.3 The p-n Junction and the Transistor</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            When p-type and n-type regions touch, carriers diffuse and leave behind charged ions. The result is a <strong>depletion region</strong>
+            with an internal electric field. This built-in field makes current flow easy in one bias direction and difficult in the other: a diode.
+          </p>
+        </div>
+      </section>
+
+      <!-- 41.3.1 -->
+      <section id="s4131">
+        <h2>41.3.1 Depletion Region and Diode Behavior</h2>
+
+        <h3>Bias directions</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Forward bias</h3>
+            <p class="tiny">
+              Apply a voltage that reduces the barrier. The depletion region shrinks; carriers cross and recombine, producing a large current.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Reverse bias</h3>
+            <p class="tiny">
+              Apply a voltage that increases the barrier. The depletion region widens; only a tiny leakage current flows (until breakdown).
+            </p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Diode I–V shape (qualitative)</summary>
+          <p class="tiny">
+            The current rises very rapidly with forward voltage and remains near zero for moderate reverse voltage. A useful scale is the thermal
+            voltage V<sub>T</sub> = kT/q ≈ 25.9 mV at room temperature, which appears in exponential diode models.
+          </p>
+        </details>
+      </section>
+
+      <!-- 41.3.2 -->
+      <section id="s4132">
+        <h2>41.3.2 Transistor as a Controlled Current Source</h2>
+
+        <h3>Big idea</h3>
+        <div class="card">
+          <p>
+            A transistor uses p-n junction physics to let a small input signal control a much larger current. In a bipolar junction transistor (BJT),
+            a small base current (or base–emitter voltage) controls the collector current. In field-effect transistors (FETs), a gate voltage controls
+            a conducting channel.
+          </p>
+        </div>
+
+        <div class="note">
+          <p>
+            Circuit viewpoint: the transistor is an active element that can provide amplification because it controls how much current a power source
+            delivers to a load.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for conduction problems, write the same story three ways: microscopic (n, μ, τ), field form (J = σE), and circuit form (V = IR).
+        Then decide which variables a problem gives you and which story matches.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

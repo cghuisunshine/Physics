@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 12 — Equilibrium and Elasticity (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 12</span>
+      <span>•</span>
+      <span>Equilibrium &amp; Elasticity</span>
+    </div>
+    <h1>Equilibrium and Elasticity</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: static equilibrium conditions, torque balance, and basic elasticity (stress/strain
+      and elastic moduli).
+      Source reading: <a href="20 - Chapter 12_ Equilibrium and Elasticity.pdf#page=1&pagemode=bookmarks">20 - Chapter 12_ Equilibrium and Elasticity.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s121">12.1 Equilibrium</a>
+        <a class="pdf-link" href="20 - Chapter 12_ Equilibrium and Elasticity.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s122">12.2 Examples of Static Equilibrium</a>
+        <a class="pdf-link" href="20 - Chapter 12_ Equilibrium and Elasticity.pdf#page=6&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s123">12.3 Elasticity</a>
+        <a class="pdf-link" href="20 - Chapter 12_ Equilibrium and Elasticity.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s121">
+        <h2>12.1 Equilibrium</h2>
+        <div class="card">
+          <p>
+            Static equilibrium means an object has no linear acceleration and no angular acceleration. That requires both net force and net torque
+            to be zero.
+          </p>
+          <div class="kpi">
+            <span class="pill">ΣF = 0</span>
+            <span class="pill">Στ = 0</span>
+            <span class="pill">Choose pivot wisely</span>
+          </div>
+        </div>
+        <h3>Equilibrium conditions</h3>
+        <div class="formula">ΣF<sub>x</sub> = 0, ΣF<sub>y</sub> = 0, …</div>
+        <div class="formula">Στ = 0 (about any axis)</div>
+      </section>
+
+      <section id="s122">
+        <h2>12.2 Examples of Static Equilibrium</h2>
+        <div class="card">
+          <p>
+            The standard workflow: draw a free-body diagram, pick a pivot to simplify torques, write ΣF = 0 and Στ = 0, then solve.
+          </p>
+        </div>
+        <details open>
+          <summary>Worked example pattern: uniform beam + supports</summary>
+          <ol class="steps">
+            <li>Place the beam, supports, loads, and the weight of the beam at its center of mass.</li>
+            <li>Take torques about one support to eliminate that unknown force.</li>
+            <li>Use ΣF<sub>y</sub> = 0 to find the other support force.</li>
+          </ol>
+        </details>
+      </section>
+
+      <section id="s123">
+        <h2>12.3 Elasticity</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Elasticity describes how materials deform under applied forces and how they return when forces are removed (within the elastic limit).
+              The response is often linear for small strains.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Core definitions</h3>
+            <div class="formula">stress = F/A</div>
+            <div class="formula">strain = ΔL/L</div>
+          </div>
+        </div>
+        <h3>Elastic moduli</h3>
+        <div class="formula">Y = (stress)/(strain) &nbsp; (Young’s modulus)</div>
+        <div class="formula">B = −ΔP/(ΔV/V) &nbsp; (bulk modulus)</div>
+        <div class="formula">S = (shear stress)/(shear strain) &nbsp; (shear modulus)</div>
+        <div class="note warn">
+          <p class="tiny">These are material properties; the geometry enters through A, L, and how the load is applied.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: equilibrium problems are bookkeeping: pick axes, pick a pivot, then write the two sets of equations (forces + torques).
+        Elasticity problems are bookkeeping too: identify stress and strain, then apply the right modulus.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

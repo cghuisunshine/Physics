@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 28 — Magnetic Fields (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 28</span>
+      <span>•</span>
+      <span>Magnetic Fields</span>
+    </div>
+    <h1>Magnetic Fields</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: defining <span class="vec">B</span> via magnetic force,
+      crossed fields (electron discovery + Hall effect), charged-particle motion in <span class="vec">B</span>,
+      and forces/torques on current-carrying conductors.
+      Source reading: <a href="36 - Chapter 28_ Magnetic Fields.pdf#page=1&pagemode=bookmarks">36 - Chapter 28_ Magnetic Fields.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <div class="toc-item">
+        <a href="#s281">28.1 Magnetic Fields and the Definition of <span class="vec">B</span></a>
+        <a class="pdf-link" href="36 - Chapter 28_ Magnetic Fields.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2811">28.1.1 Magnetic force on a charge</a>
+      <a href="#s2812">28.1.2 Direction (right-hand rule)</a>
+      <a href="#s2813">28.1.3 Work/energy: force is perpendicular</a>
+
+      <div class="toc-item">
+        <a href="#s282">28.2 Crossed Fields: Discovery of the Electron</a>
+        <a class="pdf-link" href="36 - Chapter 28_ Magnetic Fields.pdf#page=6&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2821">28.2.1 Velocity selector</a>
+      <a href="#s2822">28.2.2 Why crossed fields are powerful</a>
+
+      <div class="toc-item">
+        <a href="#s283">28.3 Crossed Fields: The Hall Effect</a>
+        <a class="pdf-link" href="36 - Chapter 28_ Magnetic Fields.pdf#page=8&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2831">28.3.1 Hall voltage and carrier density</a>
+
+      <div class="toc-item">
+        <a href="#s284">28.4 A Circulating Charged Particle</a>
+        <a class="pdf-link" href="36 - Chapter 28_ Magnetic Fields.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2841">28.4.1 Circular motion basics</a>
+      <a href="#s2842">28.4.2 Helical motion</a>
+
+      <div class="toc-item">
+        <a href="#s285">28.5 Cyclotrons and Synchrotrons</a>
+        <a class="pdf-link" href="36 - Chapter 28_ Magnetic Fields.pdf#page=17&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2851">28.5.1 Cyclotron frequency</a>
+      <a href="#s2852">28.5.2 Why synchrotrons are needed</a>
+
+      <div class="toc-item">
+        <a href="#s286">28.6 Magnetic Force on a Current-Carrying Wire</a>
+        <a class="pdf-link" href="36 - Chapter 28_ Magnetic Fields.pdf#page=20&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2861">28.6.1 Force on a segment</a>
+      <a href="#s2862">28.6.2 Nonuniform fields / curved wires</a>
+
+      <div class="toc-item">
+        <a href="#s287">28.7 Torque on a Current Loop</a>
+        <a class="pdf-link" href="36 - Chapter 28_ Magnetic Fields.pdf#page=23&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2871">28.7.1 Torque magnitude</a>
+
+      <div class="toc-item">
+        <a href="#s288">28.8 The Magnetic Dipole Moment</a>
+        <a class="pdf-link" href="36 - Chapter 28_ Magnetic Fields.pdf#page=25&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2881">28.8.1 Dipole moment and energy</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 28.1 -->
+      <section id="s281">
+        <h2>28.1 Magnetic Fields and the Definition of <span class="vec">B</span></h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Unlike electric fields, magnetic fields are not defined by forces on a stationary test charge.
+            Instead, we define <span class="vec">B</span> through the force on a <strong>moving</strong> charge.
+          </p>
+          <div class="kpi">
+            <span class="pill"><span class="vec">B</span> is a vector field</span>
+            <span class="pill">Force depends on velocity</span>
+            <span class="pill">Force is perpendicular to <span class="vec">v</span> and <span class="vec">B</span></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 28.1.1 -->
+      <section id="s2811">
+        <h2>28.1.1 Magnetic Force on a Moving Charge</h2>
+
+        <h3>Core law</h3>
+        <div class="formula"><span class="vec">F</span><sub>B</sub> = q(<span class="vec">v</span> × <span class="vec">B</span>)</div>
+        <div class="formula">F<sub>B</sub> = |q| vB sinϕ</div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Meaning</th>
+              <th>Unit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="vec">B</span></td>
+              <td>Magnetic field</td>
+              <td>T (tesla)</td>
+            </tr>
+            <tr>
+              <td>q</td>
+              <td>Charge (sign included)</td>
+              <td>C</td>
+            </tr>
+            <tr>
+              <td><span class="vec">v</span></td>
+              <td>Velocity</td>
+              <td>m/s</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Worked Example: When is the magnetic force zero?</summary>
+          <ol class="steps">
+            <li>From F<sub>B</sub> = |q|vB sinϕ, we need sinϕ = 0.</li>
+            <li>That means ϕ = 0° or 180°: velocity parallel or antiparallel to <span class="vec">B</span>.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> No magnetic deflection if the particle moves along field lines.</p>
+        </details>
+      </section>
+
+      <!-- 28.1.2 -->
+      <section id="s2812">
+        <h2>28.1.2 Direction (Right-Hand Rule)</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The cross product direction comes from the right-hand rule: curl fingers from <span class="vec">v</span> to
+            <span class="vec">B</span>, thumb gives <span class="vec">v</span> × <span class="vec">B</span>.
+            Then multiply by q: negative charges reverse the force direction.
+          </p>
+        </div>
+
+        <details>
+          <summary>Worked Example: Force direction for a positive charge</summary>
+          <p><strong>Setup:</strong> <span class="vec">v</span> points east, <span class="vec">B</span> points up. Find direction of <span class="vec">F</span><sub>B</sub> for q &gt; 0.</p>
+          <ol class="steps">
+            <li>Compute <span class="vec">v</span> × <span class="vec">B</span>: east × up = south (using ENU right-hand coordinate sense).</li>
+            <li>q &gt; 0 ⇒ <span class="vec">F</span><sub>B</sub> points south.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> South for a positive charge; north for a negative charge.</p>
+        </details>
+      </section>
+
+      <!-- 28.1.3 -->
+      <section id="s2813">
+        <h2>28.1.3 Work and Energy</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            Magnetic force does no work on a moving charge because it is always perpendicular to the velocity.
+            It can change the <strong>direction</strong> of motion but not the <strong>speed</strong> (kinetic energy).
+          </p>
+        </div>
+
+        <div class="note">
+          <p>
+            This is why uniform magnetic fields produce circular/helical paths: they bend trajectories without changing kinetic energy.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.2 -->
+      <section id="s282">
+        <h2>28.2 Crossed Fields: Discovery of the Electron</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            When uniform electric and magnetic fields are perpendicular, a charged particle can be made to travel straight if the
+            electric and magnetic forces cancel. This “crossed-fields” setup was central to early measurements of electron properties.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.2.1 -->
+      <section id="s2821">
+        <h2>28.2.1 Velocity Selector</h2>
+
+        <h3>Key result</h3>
+        <div class="formula">If |q|E = |q|vB, then v = E/B</div>
+
+        <details>
+          <summary>Worked Example: Selecting a speed</summary>
+          <p><strong>Given:</strong> E = 3.0 × 10<sup>4</sup> V/m and B = 0.20 T.</p>
+          <ol class="steps">
+            <li>v = E/B = (3.0×10<sup>4</sup>)/(0.20) = 1.5×10<sup>5</sup> m/s.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> v = 1.5 × 10<sup>5</sup> m/s.</p>
+        </details>
+      </section>
+
+      <!-- 28.2.2 -->
+      <section id="s2822">
+        <h2>28.2.2 Why Crossed Fields Are Powerful</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Electric deflection depends on E and q, magnetic deflection depends on v and B. Using both lets you separate unknowns
+            like v, q, and m (historically enabling m/|q| measurements).
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.3 -->
+      <section id="s283">
+        <h2>28.3 Crossed Fields: The Hall Effect</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A current-carrying conductor in a magnetic field experiences sideways magnetic forces on its charge carriers.
+            Charges build up on the sides until an internal electric field forms and balances the magnetic force, creating a
+            measurable Hall voltage.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.3.1 -->
+      <section id="s2831">
+        <h2>28.3.1 Hall Voltage and Carrier Density</h2>
+
+        <h3>Useful relations</h3>
+        <div class="formula">V = Ed</div>
+        <div class="formula">At balance: E = vB  &nbsp;&nbsp;⇒&nbsp;&nbsp; V = vBd</div>
+        <div class="formula">Carrier density (strip thickness l): &nbsp; n = Bi/(Vle)</div>
+
+        <details>
+          <summary>Worked Example: Hall voltage from motion</summary>
+          <p><strong>Given:</strong> A conductor moves at v = 4.0 m/s through B = 0.050 T. Width d = 1.5 cm.</p>
+          <ol class="steps">
+            <li>V = vBd = (4.0)(0.050)(0.015) = 0.0030 V.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> 3.0 mV.</p>
+        </details>
+      </section>
+
+      <!-- 28.4 -->
+      <section id="s284">
+        <h2>28.4 A Circulating Charged Particle</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            In a uniform magnetic field, a charged particle moves in a circle if <span class="vec">v</span> ⟂ <span class="vec">B</span>.
+            If there is also a component of velocity parallel to <span class="vec">B</span>, the path becomes a helix.
+          </p>
+          <div class="kpi">
+            <span class="pill">Circular: v ⟂ B</span>
+            <span class="pill">Straight line: v ∥ B</span>
+            <span class="pill">Helix: v has both components</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 28.4.1 -->
+      <section id="s2841">
+        <h2>28.4.1 Circular Motion Basics</h2>
+
+        <h3>Key results</h3>
+        <div class="formula">r = mv/(|q|B)</div>
+        <div class="formula">ω = |q|B/m  &nbsp;&nbsp;⇒&nbsp;&nbsp; T = 2π/ω = 2πm/(|q|B)</div>
+
+        <details>
+          <summary>Worked Example: Radius of an electron path</summary>
+          <p><strong>Given:</strong> Electron speed v = 2.0 × 10<sup>7</sup> m/s in B = 0.020 T. Use m = 9.11×10<sup>−31</sup> kg, |q| = e.</p>
+          <ol class="steps">
+            <li>r = mv/(eB) ≈ (9.11×10<sup>−31</sup>)(2.0×10<sup>7</sup>)/[(1.60×10<sup>−19</sup>)(0.020)].</li>
+            <li>r ≈ 5.7 × 10<sup>−3</sup> m.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> r ≈ 5.7 mm.</p>
+        </details>
+      </section>
+
+      <!-- 28.4.2 -->
+      <section id="s2842">
+        <h2>28.4.2 Helical Motion</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Decompose velocity into components: v<sub>⊥</sub> (perpendicular) creates circular motion, v<sub>∥</sub> (parallel)
+            causes forward motion along field lines. The helical pitch is the distance advanced in one period.
+          </p>
+        </div>
+
+        <h3>Useful relations</h3>
+        <div class="formula">r = mv<sub>⊥</sub>/(|q|B)</div>
+        <div class="formula">pitch p = v<sub>∥</sub>T</div>
+      </section>
+
+      <!-- 28.5 -->
+      <section id="s285">
+        <h2>28.5 Cyclotrons and Synchrotrons</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Accelerators use electric fields to increase kinetic energy and magnetic fields to bend particle paths so the particles
+            pass through the accelerating region repeatedly.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.5.1 -->
+      <section id="s2851">
+        <h2>28.5.1 Cyclotron Frequency (Nonrelativistic)</h2>
+
+        <h3>Key result</h3>
+        <div class="formula">f = ω/(2π) = |q|B/(2πm)</div>
+
+        <div class="note">
+          <p>
+            In the ideal cyclotron, this frequency does not depend on speed (as long as v ≪ c so m is effectively constant).
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.5.2 -->
+      <section id="s2852">
+        <h2>28.5.2 Why Synchrotrons Are Needed</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            At very high speeds, relativistic effects increase the effective inertia. The particle’s revolution frequency shifts, so a fixed
+            RF accelerating frequency no longer stays in resonance; synchrotrons adjust fields/timing to keep acceleration effective.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.6 -->
+      <section id="s286">
+        <h2>28.6 Magnetic Force on a Current-Carrying Wire</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A magnetic field exerts a force on the moving charges in a wire. By Newton’s third law, the wire experiences an equal and
+            opposite force, producing macroscopic deflection and motor action.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.6.1 -->
+      <section id="s2861">
+        <h2>28.6.1 Force on a Straight Segment</h2>
+
+        <h3>Key laws</h3>
+        <div class="formula"><span class="vec">F</span><sub>B</sub> = i(<span class="vec">L</span> × <span class="vec">B</span>)</div>
+        <div class="formula">d<span class="vec">F</span><sub>B</sub> = i(d<span class="vec">L</span> × <span class="vec">B</span>)</div>
+
+        <details>
+          <summary>Worked Example: Magnitude and direction of wire force</summary>
+          <p><strong>Given:</strong> A straight wire segment of length L = 0.20 m carries i = 5.0 A. B = 0.30 T is perpendicular to the wire.</p>
+          <ol class="steps">
+            <li>Magnitude: F = iLB = (5.0)(0.20)(0.30) = 0.30 N.</li>
+            <li>Direction: use right-hand rule on <span class="vec">L</span> × <span class="vec">B</span> (current direction sets <span class="vec">L</span>).</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> 0.30 N, perpendicular to both the current direction and the field.</p>
+        </details>
+      </section>
+
+      <!-- 28.6.2 -->
+      <section id="s2862">
+        <h2>28.6.2 Curved Wires and Nonuniform Fields</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            When the wire is curved or <span class="vec">B</span> varies with position, compute the force by integrating:
+            d<span class="vec">F</span><sub>B</sub> = i(d<span class="vec">L</span> × <span class="vec">B</span>) along the wire.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.7 -->
+      <section id="s287">
+        <h2>28.7 Torque on a Current Loop</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            In a uniform magnetic field, a loop can have zero net force but a nonzero net torque that tends to rotate the loop
+            (motor principle). The torque is maximum when the loop’s normal is perpendicular to <span class="vec">B</span>.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.7.1 -->
+      <section id="s2871">
+        <h2>28.7.1 Torque Magnitude</h2>
+
+        <h3>Result</h3>
+        <div class="formula">τ = NiAB sinθ</div>
+
+        <details>
+          <summary>Worked Example: Maximum torque and orientation</summary>
+          <p><strong>Question:</strong> When is τ maximum?</p>
+          <ol class="steps">
+            <li>τ = NiAB sinθ is maximum when sinθ = 1.</li>
+            <li>So θ = 90° (normal to loop is perpendicular to <span class="vec">B</span>).</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Maximum torque at θ = 90°.</p>
+        </details>
+      </section>
+
+      <!-- 28.8 -->
+      <section id="s288">
+        <h2>28.8 The Magnetic Dipole Moment</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A current loop behaves like a magnetic dipole. Its dipole moment vector <span class="vec">μ</span> points along the loop’s
+            normal (right-hand rule) and determines torque and energy in an external field.
+          </p>
+        </div>
+      </section>
+
+      <!-- 28.8.1 -->
+      <section id="s2881">
+        <h2>28.8.1 Dipole Moment and Orientation Energy</h2>
+
+        <h3>Key relations</h3>
+        <div class="formula"><span class="vec">μ</span> has magnitude μ = NiA</div>
+        <div class="formula"><span class="vec">τ</span> = <span class="vec">μ</span> × <span class="vec">B</span></div>
+        <div class="formula">U(θ) = −<span class="vec">μ</span> · <span class="vec">B</span> = −μB cosθ</div>
+
+        <details>
+          <summary>Worked Example: Lowest-energy orientation</summary>
+          <p><strong>Question:</strong> For fixed μ and B, what θ minimizes U?</p>
+          <ol class="steps">
+            <li>U = −μB cosθ is minimum when cosθ is maximum.</li>
+            <li>cosθ is maximum at 1 when θ = 0°.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Minimum energy when the dipole aligns with the field (θ = 0°).</p>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <strong>Study tip:</strong> Separate “direction” problems (right-hand rules) from “magnitude” problems (sinϕ factors, circular motion).
+      For many mistakes, the culprit is swapping <span class="vec">v</span> × <span class="vec">B</span> into <span class="vec">B</span> × <span class="vec">v</span>.
+    </p>
+  </footer>
+</body>
+</html>
+

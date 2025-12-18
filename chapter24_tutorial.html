@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 24 — Electric Potential (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 24</span>
+      <span>•</span>
+      <span>Electric Potential</span>
+    </div>
+    <h1>Electric Potential</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: potential vs. field, conservative work,
+      equipotential surfaces, potentials from point/continuous charges, getting <span class="vec">E</span> from V, and system energy.
+      Source reading: <a href="32 - Chapter 24_ Electric Potential.pdf#page=1&pagemode=bookmarks">32 - Chapter 24_ Electric Potential.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <div class="toc-item">
+        <a href="#s241">24.1 Electric Potential</a>
+        <a class="pdf-link" href="32 - Chapter 24_ Electric Potential.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2411">24.1.1 Potential energy and potential</a>
+      <a href="#s2412">24.1.2 Electron-volt (eV)</a>
+      <a href="#s2413">24.1.3 Energy method (ΔK, W<sub>app</sub>)</a>
+
+      <div class="toc-item">
+        <a href="#s242">24.2 Equipotential Surfaces and the Electric Field</a>
+        <a class="pdf-link" href="32 - Chapter 24_ Electric Potential.pdf#page=6&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2421">24.2.1 Equipotentials and work</a>
+      <a href="#s2422">24.2.2 ΔV from <span class="vec">E</span></a>
+
+      <div class="toc-item">
+        <a href="#s243">24.3 Potential Due to a Charged Particle</a>
+        <a class="pdf-link" href="32 - Chapter 24_ Electric Potential.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2431">24.3.1 Point charge</a>
+      <a href="#s2432">24.3.2 Many charges (scalar superposition)</a>
+
+      <div class="toc-item">
+        <a href="#s244">24.4 Potential Due to an Electric Dipole</a>
+        <a class="pdf-link" href="32 - Chapter 24_ Electric Potential.pdf#page=13&pagemode=bookmarks">PDF</a>
+      </div>
+
+      <div class="toc-item">
+        <a href="#s245">24.5 Potential Due to a Continuous Charge Distribution</a>
+        <a class="pdf-link" href="32 - Chapter 24_ Electric Potential.pdf#page=15&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2451">24.5.1 General integral</a>
+      <a href="#s2452">24.5.2 Line of charge (setup)</a>
+
+      <div class="toc-item">
+        <a href="#s246">24.6 Calculating the Field from the Potential</a>
+        <a class="pdf-link" href="32 - Chapter 24_ Electric Potential.pdf#page=18&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2461">24.6.1 Components from derivatives</a>
+
+      <div class="toc-item">
+        <a href="#s247">24.7 Electric Potential Energy of a System of Charged Particles</a>
+        <a class="pdf-link" href="32 - Chapter 24_ Electric Potential.pdf#page=20&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2471">24.7.1 Two charges</a>
+      <a href="#s2472">24.7.2 Many charges</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 24.1 -->
+      <section id="s241">
+        <h2>24.1 Electric Potential</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The electric force is <strong>conservative</strong>, so we can describe it using potential energy U and
+            electric potential V (a <strong>scalar</strong>). In many problems, working with V is easier than working with
+            <span class="vec">E</span> because <strong>potentials add algebraically</strong>.
+          </p>
+          <div class="kpi">
+            <span class="pill">V is scalar (no direction)</span>
+            <span class="pill">ΔV depends only on endpoints</span>
+            <span class="pill">Use energy: ΔU = qΔV</span>
+          </div>
+        </div>
+
+        <h3>Important formulas & meaning</h3>
+        <div class="formula">V = U / q</div>
+        <div class="formula">ΔU = qΔV = q(V<sub>f</sub> − V<sub>i</sub>)</div>
+
+        <details>
+          <summary>Worked Example (Concept): Why is V useful if we already have <span class="vec">E</span>?</summary>
+          <ol class="steps">
+            <li><strong>Field method:</strong> Find <span class="vec">E</span> (vector), then force <span class="vec">F</span> = q<span class="vec">E</span>, then use Newton + kinematics/energy.</li>
+            <li><strong>Potential method:</strong> Find V (scalar), then energy change ΔU = qΔV, then use ΔK + ΔU = W<sub>app</sub> (or conservation if W<sub>app</sub> = 0).</li>
+            <li><strong>Big win:</strong> adding scalars is simpler than adding vectors, and many geometries give V directly.</li>
+          </ol>
+          <p class="note">
+            Mental model: <span class="vec">E</span> is a “slope” (direction + steepness), V is the “height map”.
+          </p>
+        </details>
+      </section>
+
+      <!-- 24.1.1 -->
+      <section id="s2411">
+        <h2>24.1.1 Potential Energy and Potential</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              The potential <strong>V at a point</strong> is defined as potential energy per unit charge for a test charge placed there.
+            </p>
+            <p class="tiny">
+              Reference choice: often V = 0 at infinity, but you can choose any convenient zero.
+            </p>
+          </div>
+          <div class="card">
+            <p>
+              If the electric force does work W on the particle–source system, the potential energy changes by
+              <strong>ΔU = −W</strong>.
+            </p>
+            <p class="tiny">
+              Conservative forces: work depends only on endpoints ⇒ ΔU and ΔV are path independent.
+            </p>
+          </div>
+        </div>
+
+        <h3>Core relationships</h3>
+        <div class="formula">ΔV = V<sub>f</sub> − V<sub>i</sub>, &nbsp;&nbsp; ΔU = qΔV, &nbsp;&nbsp; W<sub>electric</sub> = −ΔU</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Quantity</th>
+              <th>Meaning</th>
+              <th>Units</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>V</td>
+              <td>Electric potential (scalar)</td>
+              <td>V (volt) = J/C</td>
+            </tr>
+            <tr>
+              <td>U</td>
+              <td>Electric potential energy</td>
+              <td>J</td>
+            </tr>
+            <tr>
+              <td>q</td>
+              <td>Charge</td>
+              <td>C</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Worked Example: Sign check (what happens to U when a positive charge moves to lower V?)</summary>
+          <p><strong>Given:</strong> q &gt; 0 and the particle moves so that V decreases (ΔV &lt; 0).</p>
+          <ol class="steps">
+            <li>ΔU = qΔV.</li>
+            <li>q is positive and ΔV is negative ⇒ ΔU &lt; 0.</li>
+            <li>So the potential energy decreases; the electric field can do positive work.</li>
+          </ol>
+          <p class="note"><strong>Conclusion:</strong> For q &gt; 0, moving “downhill” in V lowers U.</p>
+        </details>
+      </section>
+
+      <!-- 24.1.2 -->
+      <section id="s2412">
+        <h2>24.1.2 Electron-Volt (eV)</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The <strong>electron-volt</strong> is an energy unit convenient for microscopic charges.
+            It is the energy gained by a charge of magnitude e moving through 1 volt of potential difference.
+          </p>
+        </div>
+
+        <h3>Conversions</h3>
+        <div class="formula">1 eV = (1.602 × 10<sup>−19</sup> C)(1 V) = 1.602 × 10<sup>−19</sup> J</div>
+
+        <details>
+          <summary>Worked Example: How much energy is 2.0 keV in joules?</summary>
+          <p><strong>Given:</strong> 2.0 keV = 2.0 × 10<sup>3</sup> eV.</p>
+          <ol class="steps">
+            <li>Convert to joules: E = (2.0 × 10<sup>3</sup>)(1.602 × 10<sup>−19</sup>) J.</li>
+            <li>E = 3.204 × 10<sup>−16</sup> J.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> 2.0 keV ≈ 3.2 × 10<sup>−16</sup> J.</p>
+        </details>
+      </section>
+
+      <!-- 24.1.3 -->
+      <section id="s2413">
+        <h2>24.1.3 Energy Method (ΔK, W<sub>app</sub>)</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>No applied force:</strong> electric force converts potential energy ↔ kinetic energy.</p>
+            <div class="formula">ΔK = −qΔV</div>
+          </div>
+          <div class="card">
+            <p><strong>With applied force:</strong> external work can add/remove energy.</p>
+            <div class="formula">ΔK = −qΔV + W<sub>app</sub></div>
+          </div>
+        </div>
+
+        <details>
+          <summary>Worked Example: Electron accelerated through a potential difference</summary>
+          <p><strong>Problem:</strong> An electron starts from rest and moves through ΔV = +1500 V (from lower to higher potential). Find ΔK.</p>
+          <ol class="steps">
+            <li>Use ΔK = −qΔV with q = −e.</li>
+            <li>ΔK = −(−e)(1500 V) = e(1500 V) = 1500 eV.</li>
+            <li>In joules: ΔK = (1500)(1.602 × 10<sup>−19</sup>) ≈ 2.40 × 10<sup>−16</sup> J.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> ΔK = 1500 eV ≈ 2.4 × 10<sup>−16</sup> J.</p>
+        </details>
+
+        <div class="note warn">
+          <p>
+            Sign discipline: ΔV is “final minus initial”. If you swap endpoints, you must also swap the sign.
+            For electrons (q = −e), many signs flip.
+          </p>
+        </div>
+      </section>
+
+      <!-- 24.2 -->
+      <section id="s242">
+        <h2>24.2 Equipotential Surfaces and the Electric Field</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            An <strong>equipotential surface</strong> is a set of points with the same V. Moving a charge along an equipotential
+            does <strong>no work</strong> by the electric force. Electric field lines cross equipotentials at <strong>right angles</strong>.
+          </p>
+          <div class="kpi">
+            <span class="pill">Along equipotential: ΔV = 0 ⇒ W = 0</span>
+            <span class="pill"><span class="vec">E</span> ⟂ equipotential surfaces</span>
+            <span class="pill">Field points from high V to low V</span>
+          </div>
+        </div>
+
+        <h3>Important formulas</h3>
+        <div class="formula">V<sub>f</sub> − V<sub>i</sub> = −∫<sub>i</sub><sup>f</sup> <span class="vec">E</span> · d<span class="vec">s</span></div>
+        <div class="formula">Uniform field (perpendicular distance Δx): &nbsp; ΔV = −EΔx</div>
+      </section>
+
+      <!-- 24.2.1 -->
+      <section id="s2421">
+        <h2>24.2.1 Equipotentials and Work</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Because the electric force is conservative, the work done by the electric field depends only on the initial and final
+            equipotentials (not the path). If the endpoints are on the <strong>same</strong> equipotential, the net work is zero.
+          </p>
+        </div>
+
+        <details>
+          <summary>Worked Example (Concept): Why must <span class="vec">E</span> be perpendicular to equipotentials?</summary>
+          <ol class="steps">
+            <li>If <span class="vec">E</span> had a component tangent to an equipotential surface, a charge moving along that surface would feel a force along its motion.</li>
+            <li>That force would do work, changing the charge’s potential energy.</li>
+            <li>But along an equipotential, ΔV = 0 ⇒ ΔU = qΔV = 0 ⇒ work by field must be 0.</li>
+            <li>Therefore the tangential component must be zero; <span class="vec">E</span> is perpendicular.</li>
+          </ol>
+        </details>
+      </section>
+
+      <!-- 24.2.2 -->
+      <section id="s2422">
+        <h2>24.2.2 Computing ΔV from <span class="vec">E</span></h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Potential difference is the line integral of <span class="vec">E</span> along a path, with a minus sign.
+            If one path is messy, choose an easier one (same endpoints ⇒ same ΔV).
+          </p>
+        </div>
+
+        <details>
+          <summary>Worked Example: Uniform field between plates</summary>
+          <p><strong>Problem:</strong> A uniform field of magnitude 2.5 × 10<sup>4</sup> V/m points in the +x direction. What is ΔV from x = 1.0 cm to x = 5.0 cm?</p>
+          <ol class="steps">
+            <li>Δx = 0.050 − 0.010 = 0.040 m.</li>
+            <li>ΔV = −EΔx = −(2.5 × 10<sup>4</sup>)(0.040) = −1.0 × 10<sup>3</sup> V.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> V decreases by 1000 V in the +x direction.</p>
+        </details>
+      </section>
+
+      <!-- 24.3 -->
+      <section id="s243">
+        <h2>24.3 Potential Due to a Charged Particle</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            With V = 0 at infinity, a point charge q creates a potential that falls like 1/r.
+            The sign of V matches the sign of q.
+          </p>
+        </div>
+
+        <h3>Important formulas</h3>
+        <div class="formula">V(r) = (1 / 4πε<sub>0</sub>) (q / r) = kq/r</div>
+      </section>
+
+      <!-- 24.3.1 -->
+      <section id="s2431">
+        <h2>24.3.1 Point Charge</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Near a +q:</strong> V &gt; 0 and gets larger as you approach the charge.</p>
+          </div>
+          <div class="card">
+            <p><strong>Near a −q:</strong> V &lt; 0 and becomes more negative as you approach.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Worked Example: Potential at a point</summary>
+          <p><strong>Problem:</strong> What is V at r = 0.20 m from a charge q = +3.0 nC, with V = 0 at infinity?</p>
+          <ol class="steps">
+            <li>Use V = kq/r with k = 8.99 × 10<sup>9</sup> N·m<sup>2</sup>/C<sup>2</sup>.</li>
+            <li>V = (8.99 × 10<sup>9</sup>)(3.0 × 10<sup>−9</sup>) / 0.20 ≈ 135 V.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> V ≈ +1.35 × 10<sup>2</sup> V.</p>
+        </details>
+      </section>
+
+      <!-- 24.3.2 -->
+      <section id="s2432">
+        <h2>24.3.2 Many Charges (Scalar Superposition)</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Electric potential adds by <strong>ordinary algebra</strong>:
+            compute each contribution kq<sub>i</sub>/r<sub>i</sub> and sum.
+            (Unlike <span class="vec">E</span>, there is no vector addition.)
+          </p>
+        </div>
+
+        <h3>Important formula</h3>
+        <div class="formula">V = Σ (kq<sub>i</sub>/r<sub>i</sub>)</div>
+
+        <details>
+          <summary>Worked Example: Two charges on a line (find where V = 0)</summary>
+          <p><strong>Setup:</strong> +q at x = 0 and −q at x = a. Find x where V(x) = 0 on the x-axis (excluding the charges).</p>
+          <ol class="steps">
+            <li>V = kq/|x| + k(−q)/|x − a| = kq(1/|x| − 1/|x − a|).</li>
+            <li>Set V = 0 ⇒ 1/|x| = 1/|x − a| ⇒ |x| = |x − a|.</li>
+            <li>On the line, this occurs at the midpoint x = a/2 (between the charges).</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> V = 0 at x = a/2 (for equal and opposite charges).</p>
+        </details>
+
+        <div class="note warn">
+          <p>
+            “V = 0” does <em>not</em> mean “<span class="vec">E</span> = 0”. For +q and −q, the midpoint has V = 0 but the field is not zero.
+          </p>
+        </div>
+      </section>
+
+      <!-- 24.4 -->
+      <section id="s244">
+        <h2>24.4 Potential Due to an Electric Dipole</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Far from a dipole (r ≫ d), the potential falls faster than a single charge: it scales like 1/r<sup>2</sup>.
+            The sign depends on angle relative to the dipole moment direction.
+          </p>
+        </div>
+
+        <h3>Important formula (far field)</h3>
+        <div class="formula">V(r, θ) = (1 / 4πε<sub>0</sub>) (p cosθ / r<sup>2</sup>), &nbsp; for r ≫ d</div>
+
+        <details>
+          <summary>Worked Example (Concept): Where is the dipole potential zero?</summary>
+          <ol class="steps">
+            <li>From V ∝ cosθ, we have V = 0 when cosθ = 0.</li>
+            <li>So θ = 90°: points on the perpendicular bisector (equatorial line) have zero dipole potential (far away).</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> V = 0 on the equatorial line (θ = 90°) in the far-field approximation.</p>
+        </details>
+      </section>
+
+      <!-- 24.5 -->
+      <section id="s245">
+        <h2>24.5 Potential Due to a Continuous Charge Distribution</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            For a continuous distribution, split the charge into elements dq, treat each as a point charge contribution,
+            and integrate. Because V is scalar, there are no components to resolve.
+          </p>
+          <div class="kpi">
+            <span class="pill">dV = k dq / r</span>
+            <span class="pill">V = ∫ dV</span>
+            <span class="pill">Use λ, σ for dq</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 24.5.1 -->
+      <section id="s2451">
+        <h2>24.5.1 General Integral</h2>
+
+        <h3>Important formula</h3>
+        <div class="formula">V = (1 / 4πε<sub>0</sub>) ∫ (dq / r)</div>
+
+        <h3>Choosing dq</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Distribution</th>
+              <th>Density</th>
+              <th>dq</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Line (1D)</td>
+              <td>λ (C/m)</td>
+              <td>dq = λ dx</td>
+            </tr>
+            <tr>
+              <td>Surface (2D)</td>
+              <td>σ (C/m<sup>2</sup>)</td>
+              <td>dq = σ dA</td>
+            </tr>
+            <tr>
+              <td>Volume (3D)</td>
+              <td>ρ (C/m<sup>3</sup>)</td>
+              <td>dq = ρ dV</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 24.5.2 -->
+      <section id="s2452">
+        <h2>24.5.2 Line of Charge (Setup)</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The hard part is the geometry: write r(x) from the element dq to the field point, then integrate k dq/r.
+            Symmetry can reduce a 2D integral to 1D.
+          </p>
+        </div>
+
+        <details>
+          <summary>Worked Example: Uniform line segment on its perpendicular bisector (setup only)</summary>
+          <p><strong>Setup:</strong> Rod from x = −L/2 to +L/2 with linear density λ. Find V at point a distance d on the perpendicular bisector.</p>
+          <ol class="steps">
+            <li>Choose dq = λ dx.</li>
+            <li>Distance to the point: r = √(x<sup>2</sup> + d<sup>2</sup>).</li>
+            <li>Integrand: dV = k (λ dx)/√(x<sup>2</sup> + d<sup>2</sup>).</li>
+            <li>Use symmetry: integrate from 0 to L/2 and double.</li>
+          </ol>
+          <p class="note"><strong>Checkpoint:</strong> If λ &gt; 0 and V = 0 at infinity, V must be positive.</p>
+        </details>
+      </section>
+
+      <!-- 24.6 -->
+      <section id="s246">
+        <h2>24.6 Calculating the Field from the Potential</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The electric field is the <strong>negative gradient</strong> of V: it points in the direction where V decreases most rapidly.
+            In 1D, this becomes “minus the slope” of V(x).
+          </p>
+        </div>
+
+        <h3>Important formulas</h3>
+        <div class="formula">E<sub>s</sub> = −∂V/∂s</div>
+        <div class="formula">E<sub>x</sub> = −∂V/∂x, &nbsp; E<sub>y</sub> = −∂V/∂y, &nbsp; E<sub>z</sub> = −∂V/∂z</div>
+        <div class="formula">Uniform field: &nbsp; E = −ΔV/Δs</div>
+      </section>
+
+      <!-- 24.6.1 -->
+      <section id="s2461">
+        <h2>24.6.1 Components from Derivatives</h2>
+
+        <details>
+          <summary>Worked Example: Given V(x), find E<sub>x</sub>(x)</summary>
+          <p><strong>Given:</strong> V(x) = 50x<sup>2</sup> − 20x (V), with x in meters. Find E<sub>x</sub>(x).</p>
+          <ol class="steps">
+            <li>E<sub>x</sub> = −dV/dx.</li>
+            <li>dV/dx = 100x − 20.</li>
+            <li>E<sub>x</sub>(x) = −(100x − 20) = 20 − 100x (V/m).</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> E<sub>x</sub>(x) = 20 − 100x V/m.</p>
+        </details>
+
+        <div class="note warn">
+          <p>
+            Common mistake: forgetting the minus sign. If V increases with x, the field points in −x.
+          </p>
+        </div>
+      </section>
+
+      <!-- 24.7 -->
+      <section id="s247">
+        <h2>24.7 Electric Potential Energy of a System of Charged Particles</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            System potential energy U equals the work required to assemble the charges from infinity (with charges initially at rest).
+            For two charges, U depends on their product and separation.
+          </p>
+        </div>
+
+        <h3>Important formula</h3>
+        <div class="formula">U = (1 / 4πε<sub>0</sub>) (q<sub>1</sub>q<sub>2</sub>/r) = k q<sub>1</sub>q<sub>2</sub>/r</div>
+      </section>
+
+      <!-- 24.7.1 -->
+      <section id="s2471">
+        <h2>24.7.1 Two Charges</h2>
+
+        <details>
+          <summary>Worked Example: Sign and magnitude of U</summary>
+          <p><strong>Problem:</strong> Two charges q<sub>1</sub> = +2.0 nC and q<sub>2</sub> = −3.0 nC are separated by r = 0.50 m. Find U.</p>
+          <ol class="steps">
+            <li>Use U = k q<sub>1</sub>q<sub>2</sub>/r.</li>
+            <li>q<sub>1</sub>q<sub>2</sub> = (2.0×10<sup>−9</sup>)(−3.0×10<sup>−9</sup>) = −6.0×10<sup>−18</sup> C<sup>2</sup>.</li>
+            <li>U = (8.99×10<sup>9</sup>)(−6.0×10<sup>−18</sup>)/0.50 ≈ −1.08×10<sup>−7</sup> J.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> U ≈ −1.1 × 10<sup>−7</sup> J (negative because opposite charges attract).</p>
+        </details>
+      </section>
+
+      <!-- 24.7.2 -->
+      <section id="s2472">
+        <h2>24.7.2 Many Charges</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            For multiple charges, the total U can be written as a sum over pairs (count each pair once),
+            or as <code>U = (1/2) Σ q<sub>i</sub> V( r<sub>i</sub> )</code> where V excludes the “self” potential of charge i.
+          </p>
+        </div>
+
+        <details>
+          <summary>Worked Example (Strategy): Fast way to compute U for three charges</summary>
+          <p><strong>Idea:</strong> Use pairwise energy.</p>
+          <ol class="steps">
+            <li>Compute U<sub>12</sub> = kq<sub>1</sub>q<sub>2</sub>/r<sub>12</sub>, U<sub>13</sub> = kq<sub>1</sub>q<sub>3</sub>/r<sub>13</sub>, U<sub>23</sub> = kq<sub>2</sub>q<sub>3</sub>/r<sub>23</sub>.</li>
+            <li>Total: U = U<sub>12</sub> + U<sub>13</sub> + U<sub>23</sub>.</li>
+          </ol>
+          <p class="note"><strong>Checkpoint:</strong> Units must be joules; signs come from charge products.</p>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <strong>Study tip:</strong> If you can find V, use energy first: compute ΔV, then ΔU = qΔV, then relate to ΔK.
+      Remember: <span class="vec">E</span> points “downhill” in V and is perpendicular to equipotential surfaces.
+    </p>
+  </footer>
+</body>
+</html>
+

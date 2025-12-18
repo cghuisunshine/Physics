@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 18 — Temperature, Heat, and the First Law of Thermodynamics (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 18</span>
+      <span>•</span>
+      <span>Temperature &amp; Heat</span>
+    </div>
+    <h1>Temperature, Heat, and the First Law of Thermodynamics</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: temperature scales and thermal equilibrium, thermal expansion, heat capacity and
+      specific heat, calorimetry and phase change, the first law and PV work sign conventions, and heat transfer by conduction, convection, and
+      radiation.
+      Source reading: <a href="26 - Chapter 18_ Temperature, Heat, and the First Law of Thermodynamics.pdf#page=1&pagemode=bookmarks">26 - Chapter 18_ Temperature, Heat, and the First Law of Thermodynamics.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s181">18.1 Temperature</a>
+        <a class="pdf-link" href="26 - Chapter 18_ Temperature, Heat, and the First Law of Thermodynamics.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1811">18.1.1 Thermal equilibrium and thermometers</a>
+      <a href="#s1812">18.1.2 Kelvin scale and absolute zero</a>
+
+      <div class="toc-item">
+        <a href="#s182">18.2 The Celsius and Fahrenheit Scales</a>
+        <a class="pdf-link" href="26 - Chapter 18_ Temperature, Heat, and the First Law of Thermodynamics.pdf#page=5&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1821">18.2.1 Linear conversion between scales</a>
+      <a href="#s1822">18.2.2 Worked example: convert Fahrenheit to Celsius</a>
+
+      <div class="toc-item">
+        <a href="#s183">18.3 Thermal Expansion</a>
+        <a class="pdf-link" href="26 - Chapter 18_ Temperature, Heat, and the First Law of Thermodynamics.pdf#page=7&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1831">18.3.1 Linear expansion (solids)</a>
+      <a href="#s1832">18.3.2 Volume expansion and density change</a>
+      <a href="#s1833">18.3.3 Worked example: expansion of a rod</a>
+
+      <div class="toc-item">
+        <a href="#s184">18.4 Absorption of Heat</a>
+        <a class="pdf-link" href="26 - Chapter 18_ Temperature, Heat, and the First Law of Thermodynamics.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1841">18.4.1 Heat is energy transfer (units + sign)</a>
+      <a href="#s1842">18.4.2 Heat capacity and specific heat</a>
+      <a href="#s1843">18.4.3 Calorimetry and phase change</a>
+      <a href="#s1844">18.4.4 Worked example: ice in warm water</a>
+
+      <div class="toc-item">
+        <a href="#s185">18.5 The First Law of Thermodynamics</a>
+        <a class="pdf-link" href="26 - Chapter 18_ Temperature, Heat, and the First Law of Thermodynamics.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1851">18.5.1 The first law and sign conventions</a>
+      <a href="#s1852">18.5.2 PV work: W = ∫P dV</a>
+      <a href="#s1853">18.5.3 Common processes (isochoric/isothermal/adiabatic)</a>
+      <a href="#s1854">18.5.4 Worked example: isothermal expansion work</a>
+
+      <div class="toc-item">
+        <a href="#s186">18.6 Heat Transfer Mechanisms</a>
+        <a class="pdf-link" href="26 - Chapter 18_ Temperature, Heat, and the First Law of Thermodynamics.pdf#page=22&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1861">18.6.1 Conduction</a>
+      <a href="#s1862">18.6.2 Convection</a>
+      <a href="#s1863">18.6.3 Radiation</a>
+      <a href="#s1864">18.6.4 Worked example: conduction through insulation</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 18.1 -->
+      <section id="s181">
+        <h2>18.1 Temperature</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Temperature is a property we assign to systems that are in thermal equilibrium with each other. When two objects are put in contact,
+              energy may transfer until equilibrium is reached; then both share a common temperature.
+            </p>
+            <div class="kpi">
+              <span class="pill">Thermal equilibrium</span>
+              <span class="pill">Temperature is a state variable</span>
+              <span class="pill">Measured by a “thermometric” property</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Thermometric property</h3>
+            <p class="tiny">
+              A thermometer uses some measurable property that changes predictably with temperature (length of a liquid column, resistance of a wire,
+              brightness of radiation, etc.) and is calibrated using fixed points.
+            </p>
+            <div class="note warn">
+              <p><strong>Don’t confuse:</strong> temperature (how “hot”) vs heat <code>Q</code> (energy transfer due to ΔT).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 18.1.1 -->
+      <section id="s1811">
+        <h2>18.1.1 Thermal Equilibrium and Thermometers</h2>
+
+        <h3>Zeroth law (operational meaning of temperature)</h3>
+        <div class="formula">If A is in thermal equilibrium with B, and B with C, then A is in thermal equilibrium with C.</div>
+        <p class="tiny">
+          This lets us use B as a thermometer: if B equilibrates with A and with C, then A and C share the same temperature.
+        </p>
+
+        <details open>
+          <summary>Problem-solving pattern: “equilibrium implies equality”</summary>
+          <ol class="steps">
+            <li>Identify what is in thermal contact and what is insulated.</li>
+            <li>Equilibrium condition: equal temperature at the interface (for conduction problems) or a common final temperature (for mixing).</li>
+            <li>Then apply energy conservation to solve for that temperature.</li>
+          </ol>
+        </details>
+      </section>
+
+      <!-- 18.1.2 -->
+      <section id="s1812">
+        <h2>18.1.2 Kelvin Scale and Absolute Zero</h2>
+
+        <h3>Conversions</h3>
+        <div class="formula">T(K) = T(&deg;C) + 273.15</div>
+        <div class="formula">ΔT in K = ΔT in &deg;C</div>
+        <p class="tiny">
+          Absolute zero is 0 K = −273.15 &deg;C. Use Kelvin for thermodynamics (especially when formulas involve ratios like T<sub>2</sub>/T<sub>1</sub>).
+        </p>
+      </section>
+
+      <!-- 18.2 -->
+      <section id="s182">
+        <h2>18.2 The Celsius and Fahrenheit Scales</h2>
+
+        <h3>Fixed points and linear scales</h3>
+        <div class="card">
+          <p>
+            Many temperature scales are defined by choosing fixed points (like the freezing and boiling points of water at 1 atm) and assigning
+            numbers to them. A linear scale assumes equal temperature intervals correspond to equal numeric intervals.
+          </p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Event (1 atm)</th>
+              <th>Celsius</th>
+              <th>Fahrenheit</th>
+              <th>Kelvin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Freezing of water</td>
+              <td>0 &deg;C</td>
+              <td>32 &deg;F</td>
+              <td>273.15 K</td>
+            </tr>
+            <tr>
+              <td>Boiling of water</td>
+              <td>100 &deg;C</td>
+              <td>212 &deg;F</td>
+              <td>373.15 K</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 18.2.1 -->
+      <section id="s1821">
+        <h2>18.2.1 Linear Conversion Between Scales</h2>
+
+        <h3>Celsius ↔ Fahrenheit</h3>
+        <div class="formula">T(&deg;F) = (9/5)T(&deg;C) + 32</div>
+        <div class="formula">T(&deg;C) = (5/9)(T(&deg;F) − 32)</div>
+
+        <div class="note">
+          <p>
+            For any linear scales X and Y, a convenient method is to map both onto a common fractional position between two fixed points:
+            <code>(T − T<sub>1</sub>)/(T<sub>2</sub> − T<sub>1</sub>)</code>.
+          </p>
+        </div>
+      </section>
+
+      <!-- 18.2.2 -->
+      <section id="s1822">
+        <h2>18.2.2 Worked Example: Convert Fahrenheit to Celsius</h2>
+
+        <details open>
+          <summary>Human body temperature: 98.6 &deg;F in &deg;C</summary>
+          <p><strong>Given:</strong> T = 98.6 &deg;F.</p>
+          <ol class="steps">
+            <li>Use T(&deg;C) = (5/9)(T(&deg;F) − 32).</li>
+            <li>T(&deg;C) = (5/9)(98.6 − 32) = (5/9)(66.6) = 37.0 &deg;C.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> 98.6 &deg;F corresponds to 37.0 &deg;C.</p>
+        </details>
+      </section>
+
+      <!-- 18.3 -->
+      <section id="s183">
+        <h2>18.3 Thermal Expansion</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            Most materials expand when heated because the average separation between atoms/molecules increases. For modest temperature changes,
+            expansion is approximately proportional to the initial size and to ΔT.
+          </p>
+          <div class="kpi">
+            <span class="pill">Small ΔT → linear approximation</span>
+            <span class="pill">Coefficients depend on material</span>
+            <span class="pill">Constraints can create thermal stress</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 18.3.1 -->
+      <section id="s1831">
+        <h2>18.3.1 Linear Expansion (Solids)</h2>
+
+        <h3>Model</h3>
+        <div class="formula">ΔL = αL<sub>0</sub>ΔT</div>
+        <p class="tiny">
+          α is the coefficient of linear expansion (units 1/K or 1/&deg;C). This approximation works when αΔT is small.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Material (typical)</th>
+              <th>α (10<sup>−6</sup>/K)</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Steel</td>
+              <td>11</td>
+              <td>Structural metals often in 10–20 range</td>
+            </tr>
+            <tr>
+              <td>Aluminum</td>
+              <td>23</td>
+              <td>Expands about twice as much as steel</td>
+            </tr>
+            <tr>
+              <td>Glass</td>
+              <td>9</td>
+              <td>Lower expansion; can still crack under thermal gradients</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          <p>
+            If an object is prevented from expanding, it can develop large forces/stresses. Real engineering designs include expansion joints.
+          </p>
+        </div>
+      </section>
+
+      <!-- 18.3.2 -->
+      <section id="s1832">
+        <h2>18.3.2 Volume Expansion and Density Change</h2>
+
+        <h3>Volume expansion</h3>
+        <div class="formula">ΔV = βV<sub>0</sub>ΔT</div>
+        <p class="tiny">
+          For many solids, β ≈ 3α. For liquids, use β directly (linear expansion is not meaningful for a fluid).
+        </p>
+
+        <h3>Density change (mass fixed)</h3>
+        <div class="formula">ρ = m/V, so Δρ/ρ ≈ −ΔV/V = −βΔT</div>
+        <p class="tiny">Warmer material at the same mass tends to have lower density.</p>
+      </section>
+
+      <!-- 18.3.3 -->
+      <section id="s1833">
+        <h2>18.3.3 Worked Example: Expansion of a Rod</h2>
+
+        <details open>
+          <summary>How much does a 2.0 m rod expand when heated by 180 K?</summary>
+          <p><strong>Given:</strong> L<sub>0</sub> = 2.0 m, α = 2.3×10<sup>−5</sup>/K, ΔT = 180 K.</p>
+          <ol class="steps">
+            <li>Use ΔL = αL<sub>0</sub>ΔT.</li>
+            <li>ΔL = (2.3×10<sup>−5</sup>)(2.0)(180) = 8.28×10<sup>−3</sup> m.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> ΔL ≈ 8.3 mm.</p>
+        </details>
+      </section>
+
+      <!-- 18.4 -->
+      <section id="s184">
+        <h2>18.4 Absorption of Heat</h2>
+
+        <h3>Big picture</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Heat <code>Q</code> is energy transferred across a boundary because of a temperature difference. It is not “contained” in an object the
+              way internal energy is.
+            </p>
+            <div class="kpi">
+              <span class="pill">Heat flows due to ΔT</span>
+              <span class="pill">Q is path-dependent</span>
+              <span class="pill">Internal energy is a state variable</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Core relations</h3>
+            <div class="formula">Q = CΔT</div>
+            <div class="formula">Q = mcΔT</div>
+            <div class="formula">Q = mL</div>
+            <p class="tiny">C: heat capacity, c: specific heat, L: latent heat (fusion/vaporization, etc.).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 18.4.1 -->
+      <section id="s1841">
+        <h2>18.4.1 Heat Is Energy Transfer (Units + Sign)</h2>
+
+        <h3>Sign convention</h3>
+        <div class="formula">Q &gt; 0: energy enters the system as heat &nbsp;&nbsp;|&nbsp;&nbsp; Q &lt; 0: energy leaves</div>
+        <p class="tiny">“System” means whatever object or collection you choose to analyze; be consistent.</p>
+
+        <h3>Units</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Unit</th>
+              <th>Meaning</th>
+              <th>Conversion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>joule (J)</td>
+              <td>SI unit of energy</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>calorie (cal)</td>
+              <td>Historically: heat to raise 1 g water by 1 &deg;C</td>
+              <td>1 cal = 4.186 J</td>
+            </tr>
+            <tr>
+              <td>food Calorie (Cal)</td>
+              <td>kilocalorie</td>
+              <td>1 Cal = 1 kcal = 4186 J</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 18.4.2 -->
+      <section id="s1842">
+        <h2>18.4.2 Heat Capacity and Specific Heat</h2>
+
+        <h3>Definitions</h3>
+        <div class="formula">C = Q/ΔT</div>
+        <div class="formula">c = Q/(mΔT) so Q = mcΔT</div>
+        <p class="tiny">
+          C depends on the object (how much stuff, shape, etc.). Specific heat c is a material property per unit mass.
+        </p>
+
+        <div class="note warn">
+          <p>
+            Use ΔT = T<sub>f</sub> − T<sub>i</sub> with a sign. If an object cools, ΔT &lt; 0 and the computed Q will be negative.
+          </p>
+        </div>
+      </section>
+
+      <!-- 18.4.3 -->
+      <section id="s1843">
+        <h2>18.4.3 Calorimetry and Phase Change</h2>
+
+        <h3>Mixing problems (energy conservation)</h3>
+        <div class="formula">ΣQ = 0 &nbsp; (heat lost by hot parts + heat gained by cold parts + container = 0)</div>
+        <p class="tiny">
+          Often you assume the container is insulated from the outside during mixing (no net heat with the room) and that the final state has a
+          common temperature T<sub>f</sub>.
+        </p>
+
+        <h3>Phase change</h3>
+        <div class="formula">Q = mL</div>
+        <p class="tiny">
+          During melting/freezing/boiling/condensation, temperature stays constant while energy goes into (or comes from) breaking/forming
+          intermolecular structure.
+        </p>
+
+        <details>
+          <summary>Checklist: “stage” the energy accounting</summary>
+          <ol class="steps">
+            <li>List possible stages: warm/cool within a phase, then melt/freeze, then warm/cool liquid, etc.</li>
+            <li>At each stage, compute the energy needed/available.</li>
+            <li>Stop when the energy budget runs out; that tells you the final phase and temperature.</li>
+          </ol>
+        </details>
+      </section>
+
+      <!-- 18.4.4 -->
+      <section id="s1844">
+        <h2>18.4.4 Worked Example: Ice in Warm Water</h2>
+
+        <details open>
+          <summary>Will all the ice melt, and what is the final temperature?</summary>
+          <p>
+            <strong>Given:</strong> 0.200 kg liquid water at 20.0 &deg;C mixed with 0.050 kg ice at 0 &deg;C in an insulated cup.
+            Use c<sub>w</sub> = 4186 J/(kg·K), L<sub>f</sub> = 3.33×10<sup>5</sup> J/kg.
+          </p>
+          <ol class="steps">
+            <li>
+              Heat the warm water can release by cooling to 0 &deg;C:
+              Q<sub>cool</sub> = mcΔT = (0.200)(4186)(0 − 20.0) = −1.67×10<sup>4</sup> J.
+            </li>
+            <li>
+              Heat needed to melt all the ice:
+              Q<sub>melt</sub> = mL<sub>f</sub> = (0.050)(3.33×10<sup>5</sup>) = 1.67×10<sup>4</sup> J.
+            </li>
+            <li>
+              Compare magnitudes: |Q<sub>cool</sub>| is just slightly larger than Q<sub>melt</sub>, so all the ice melts and there is a small leftover
+              energy to warm the resulting 0.250 kg of water above 0 &deg;C.
+            </li>
+            <li>
+              Leftover heat: Q<sub>left</sub> ≈ 1.67×10<sup>4</sup> − 1.665×10<sup>4</sup> ≈ 9.4×10<sup>1</sup> J.
+              Then ΔT = Q<sub>left</sub>/(mc) = 94/(0.250·4186) = 0.090 K.
+            </li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> All the ice melts and T<sub>f</sub> ≈ 0.09 &deg;C (about 0 &deg;C).</p>
+        </details>
+      </section>
+
+      <!-- 18.5 -->
+      <section id="s185">
+        <h2>18.5 The First Law of Thermodynamics</h2>
+
+        <h3>Statement</h3>
+        <div class="formula">ΔE<sub>int</sub> = Q − W</div>
+        <p class="tiny">
+          E<sub>int</sub> is internal energy (microscopic kinetic + potential energies within the system). W is work done by the system on its
+          surroundings.
+        </p>
+
+        <div class="note">
+          <p>
+            The first law is an energy bookkeeping rule: any change in internal energy must come from energy transferred as heat and/or work.
+          </p>
+        </div>
+      </section>
+
+      <!-- 18.5.1 -->
+      <section id="s1851">
+        <h2>18.5.1 The First Law and Sign Conventions</h2>
+
+        <h3>Interpretation</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Term</th>
+              <th>Positive means…</th>
+              <th>Common confusion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Q</td>
+              <td>heat into the system</td>
+              <td>Heat is not “stored”; it is transfer</td>
+            </tr>
+            <tr>
+              <td>W</td>
+              <td>work done by the system</td>
+              <td>Some courses use the opposite sign; always check</td>
+            </tr>
+            <tr>
+              <td>ΔE<sub>int</sub></td>
+              <td>internal energy increases</td>
+              <td>Depends on state, not path</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          <p>
+            A quick sanity check: if the system expands and pushes the environment, W &gt; 0. If you compress the system, W &lt; 0.
+          </p>
+        </div>
+      </section>
+
+      <!-- 18.5.2 -->
+      <section id="s1852">
+        <h2>18.5.2 PV Work: W = ∫P dV</h2>
+
+        <h3>Quasi-static expansion/compression</h3>
+        <div class="formula">W = ∫ P dV</div>
+        <p class="tiny">
+          Graphically, W is the signed area under the curve on a P–V diagram. For approximately constant pressure, W ≈ PΔV.
+        </p>
+
+        <details>
+          <summary>Common sign traps</summary>
+          <ul class="steps">
+            <li>Expansion: ΔV &gt; 0 ⇒ W &gt; 0.</li>
+            <li>Compression: ΔV &lt; 0 ⇒ W &lt; 0.</li>
+            <li>No volume change: ΔV = 0 ⇒ W = 0.</li>
+          </ul>
+        </details>
+      </section>
+
+      <!-- 18.5.3 -->
+      <section id="s1853">
+        <h2>18.5.3 Common Processes (Isochoric/Isothermal/Adiabatic)</h2>
+
+        <h3>Quick table (using ΔE<sub>int</sub> = Q − W)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Process</th>
+              <th>Constraint</th>
+              <th>Work W</th>
+              <th>Heat Q</th>
+              <th>First-law implication</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Isochoric</td>
+              <td>V constant</td>
+              <td>W = 0</td>
+              <td>Q can be ±</td>
+              <td>ΔE<sub>int</sub> = Q</td>
+            </tr>
+            <tr>
+              <td>Isothermal (ideal gas)</td>
+              <td>T constant</td>
+              <td>W can be ±</td>
+              <td>Q matches W</td>
+              <td>ΔE<sub>int</sub> = 0 ⇒ Q = W</td>
+            </tr>
+            <tr>
+              <td>Adiabatic</td>
+              <td>Q = 0</td>
+              <td>W can be ±</td>
+              <td>Q = 0</td>
+              <td>ΔE<sub>int</sub> = −W</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="tiny">
+          The “isothermal (ideal gas)” row uses the fact that an ideal gas’s internal energy depends only on temperature.
+        </p>
+      </section>
+
+      <!-- 18.5.4 -->
+      <section id="s1854">
+        <h2>18.5.4 Worked Example: Isothermal Expansion Work</h2>
+
+        <details open>
+          <summary>1.00 mol ideal gas doubles its volume at 300 K</summary>
+          <p><strong>Given:</strong> n = 1.00 mol, T = 300 K, V<sub>f</sub> = 2V<sub>i</sub>.</p>
+          <ol class="steps">
+            <li>For an isothermal ideal gas, W = nRT ln(V<sub>f</sub>/V<sub>i</sub>).</li>
+            <li>W = (1.00)(8.314)(300) ln 2 = 1.73×10<sup>3</sup> J.</li>
+            <li>Isothermal ideal gas ⇒ ΔE<sub>int</sub> = 0 ⇒ Q = W.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> The gas does 1.73 kJ of work; it must absorb 1.73 kJ of heat to keep T constant.</p>
+        </details>
+      </section>
+
+      <!-- 18.6 -->
+      <section id="s186">
+        <h2>18.6 Heat Transfer Mechanisms</h2>
+
+        <h3>Three mechanisms</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Conduction:</strong> energy transfer by microscopic collisions in a material (dominant in solids).</p>
+            <p><strong>Convection:</strong> energy transfer by bulk fluid motion (natural or forced).</p>
+            <p><strong>Radiation:</strong> energy transfer by electromagnetic waves (works through vacuum).</p>
+          </div>
+          <div class="card">
+            <h3>Rule of thumb</h3>
+            <p class="tiny">
+              In real situations, multiple mechanisms act in parallel. A good first pass is to estimate each rate and see which is largest.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 18.6.1 -->
+      <section id="s1861">
+        <h2>18.6.1 Conduction</h2>
+
+        <h3>Steady-state slab model</h3>
+        <div class="formula">P<sub>cond</sub> = kA(ΔT/L)</div>
+        <p class="tiny">
+          k is thermal conductivity (W/m·K), A is area, L is thickness, and ΔT is the temperature difference across the material.
+        </p>
+
+        <div class="note warn">
+          <p>
+            This formula assumes a simple geometry and a linear temperature gradient. Surface convection can dominate the overall thermal resistance.
+          </p>
+        </div>
+      </section>
+
+      <!-- 18.6.2 -->
+      <section id="s1862">
+        <h2>18.6.2 Convection</h2>
+
+        <h3>Newton’s cooling law (empirical)</h3>
+        <div class="formula">P<sub>conv</sub> = hA(T − T<sub>env</sub>)</div>
+        <p class="tiny">
+          h depends strongly on fluid speed and geometry. Natural convection (buoyancy-driven) usually has smaller h than forced convection (fan).
+        </p>
+      </section>
+
+      <!-- 18.6.3 -->
+      <section id="s1863">
+        <h2>18.6.3 Radiation</h2>
+
+        <h3>Stefan–Boltzmann law</h3>
+        <div class="formula">P<sub>rad</sub> = εσA(T<sup>4</sup> − T<sub>env</sub><sup>4</sup>)</div>
+        <p class="tiny">
+          ε is emissivity (0–1) and σ = 5.67×10<sup>−8</sup> W/m<sup>2</sup>·K<sup>4</sup>. Use Kelvin in T<sup>4</sup>.
+        </p>
+      </section>
+
+      <!-- 18.6.4 -->
+      <section id="s1864">
+        <h2>18.6.4 Worked Example: Conduction Through Insulation</h2>
+
+        <details open>
+          <summary>Estimate heat-loss rate through a foam wall</summary>
+          <p>
+            <strong>Given:</strong> A = 10 m<sup>2</sup>, L = 0.10 m, k = 0.040 W/(m·K), indoor–outdoor ΔT = 25 K.
+          </p>
+          <ol class="steps">
+            <li>Use P = kA(ΔT/L).</li>
+            <li>P = (0.040)(10)(25/0.10) = 100 W.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Conduction through the insulation is about 100 W under these conditions.</p>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for any thermal problem, write the system boundary first, then track signs with the same convention throughout:
+        heat into system (Q &gt; 0) and work done by system (W &gt; 0). For calorimetry, do the energy accounting in stages.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

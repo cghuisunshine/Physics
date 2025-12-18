@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 13 — Gravitation (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 13</span>
+      <span>•</span>
+      <span>Gravitation</span>
+    </div>
+    <h1>Gravitation</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: Newton’s gravitation law, superposition, g near/inside Earth, gravitational
+      potential energy, Kepler’s laws, orbital energy, and a qualitative view of Einstein’s gravity.
+      Source reading: <a href="21 - Chapter 13_ Gravitation.pdf#page=1&pagemode=bookmarks">21 - Chapter 13_ Gravitation.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s131">13.1 Newton’s Law of Gravitation</a>
+        <a class="pdf-link" href="21 - Chapter 13_ Gravitation.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s132">13.2 Gravitation and Superposition</a>
+        <a class="pdf-link" href="21 - Chapter 13_ Gravitation.pdf#page=4&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s133">13.3 Gravitation Near Earth’s Surface</a>
+        <a class="pdf-link" href="21 - Chapter 13_ Gravitation.pdf#page=6&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s134">13.4 Gravitation Inside Earth</a>
+        <a class="pdf-link" href="21 - Chapter 13_ Gravitation.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s135">13.5 Gravitational Potential Energy</a>
+        <a class="pdf-link" href="21 - Chapter 13_ Gravitation.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s136">13.6 Kepler’s Laws</a>
+        <a class="pdf-link" href="21 - Chapter 13_ Gravitation.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s137">13.7 Satellites: Orbits and Energy</a>
+        <a class="pdf-link" href="21 - Chapter 13_ Gravitation.pdf#page=19&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s138">13.8 Einstein and Gravitation</a>
+        <a class="pdf-link" href="21 - Chapter 13_ Gravitation.pdf#page=22&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s131">
+        <h2>13.1 Newton’s Law of Gravitation</h2>
+        <div class="card">
+          <p>
+            Any two masses attract with a force along the line joining them. The law is inverse-square in distance and proportional to both masses.
+          </p>
+          <div class="kpi">
+            <span class="pill">Inverse-square</span>
+            <span class="pill">Central force</span>
+            <span class="pill">Always attractive</span>
+          </div>
+        </div>
+        <h3>Gravitational force magnitude</h3>
+        <div class="formula">F = Gm<sub>1</sub>m<sub>2</sub>/r<sup>2</sup></div>
+        <p class="tiny">G = 6.67×10<sup>−11</sup> N·m<sup>2</sup>/kg<sup>2</sup>.</p>
+      </section>
+
+      <section id="s132">
+        <h2>13.2 Gravitation and Superposition</h2>
+        <div class="card">
+          <p>
+            Gravitational forces add as vectors. Net force (or gravitational field) is the vector sum of contributions from each mass.
+          </p>
+        </div>
+        <h3>Gravitational field</h3>
+        <div class="formula">g = F/m = GM/r<sup>2</sup></div>
+        <p class="tiny">Field points toward the mass M.</p>
+      </section>
+
+      <section id="s133">
+        <h2>13.3 Gravitation Near Earth’s Surface</h2>
+        <div class="card">
+          <p>
+            Near Earth, g is approximately constant, but it decreases with altitude because r increases in g = GM/r<sup>2</sup>.
+          </p>
+        </div>
+        <h3>Altitude dependence (ratio form)</h3>
+        <div class="formula">g(h) = g<sub>0</sub>(R/(R + h))<sup>2</sup></div>
+        <p class="tiny">R is Earth’s radius; g<sub>0</sub> ≈ 9.80 m/s<sup>2</sup>.</p>
+      </section>
+
+      <section id="s134">
+        <h2>13.4 Gravitation Inside Earth</h2>
+        <div class="card">
+          <p>
+            Inside a spherically symmetric mass distribution, only the mass at radii smaller than your position contributes to the net force (shell
+            theorem). For uniform density, g increases linearly with r.
+          </p>
+        </div>
+        <h3>Uniform-density model</h3>
+        <div class="formula">g(r) = g<sub>0</sub>(r/R)</div>
+        <p class="tiny">Real Earth is not uniform, but this model is a useful first estimate.</p>
+      </section>
+
+      <section id="s135">
+        <h2>13.5 Gravitational Potential Energy</h2>
+        <div class="card">
+          <p>
+            Gravitational potential energy is defined so that changes in potential energy equal minus the work done by gravity. For point masses, the
+            zero is taken at infinity.
+          </p>
+        </div>
+        <h3>Two-mass potential energy</h3>
+        <div class="formula">U(r) = −GMm/r</div>
+        <div class="formula">ΔU = −W<sub>grav</sub></div>
+      </section>
+
+      <section id="s136">
+        <h2>13.6 Kepler’s Laws</h2>
+        <div class="card">
+          <p>
+            Planetary motion can be described by Kepler’s empirical laws. Newton’s gravitation explains them and generalizes them to satellites.
+          </p>
+        </div>
+        <h3>Kepler’s third law (circular/elliptic orbit)</h3>
+        <div class="formula">T<sup>2</sup> ∝ a<sup>3</sup></div>
+        <div class="formula">T<sup>2</sup> = (4π<sup>2</sup>/GM)a<sup>3</sup></div>
+        <p class="tiny">a is the semi-major axis; M is the central mass.</p>
+      </section>
+
+      <section id="s137">
+        <h2>13.7 Satellites: Orbits and Energy</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              For a circular orbit, gravity supplies the centripetal acceleration. Orbital speed and period depend only on the orbit radius and the
+              central mass.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Circular orbit</h3>
+            <div class="formula">v = √(GM/r)</div>
+            <div class="formula">E = −GMm/(2r)</div>
+          </div>
+        </div>
+        <details open>
+          <summary>Worked example: low Earth orbit speed</summary>
+          <p class="tiny">
+            Using v = √(GM/r), with r ≈ R + 400 km. Since GM is fixed for Earth, increasing r slightly reduces v; typical LEO speeds are near 7.7 km/s.
+          </p>
+        </details>
+      </section>
+
+      <section id="s138">
+        <h2>13.8 Einstein and Gravitation</h2>
+        <div class="card">
+          <p>
+            In general relativity, gravity is not a force in the Newtonian sense: mass-energy curves spacetime, and free-falling objects follow
+            geodesics. Newton’s law is an excellent approximation for weak fields and low speeds.
+          </p>
+        </div>
+        <div class="note">
+          <p class="tiny">
+            Qualitative takeaway: gravitational time dilation and light bending are real effects, but for most problems in this course, Newtonian
+            gravitation is sufficient.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: keep three linked ideas together: field (<code>g = GM/r²</code>), potential (<code>U = −GMm/r</code>), and circular-orbit
+        kinematics (<code>v = √(GM/r)</code>). Use whichever makes the calculation easiest.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

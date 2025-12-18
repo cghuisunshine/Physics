@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 11 — Rolling, Torque, and Angular Momentum (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 11</span>
+      <span>•</span>
+      <span>Rolling &amp; Angular Momentum</span>
+    </div>
+    <h1>Rolling, Torque, and Angular Momentum</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: rolling without slipping, energy of rolling, torque and angular momentum,
+      conservation, and gyroscope precession.
+      Source reading: <a href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=1&pagemode=bookmarks">19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s111">11.1 Rolling: Translation + Rotation</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s112">11.2 Forces and Kinetic Energy of Rolling</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=4&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s113">11.3 The Yo-Yo</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=7&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s114">11.4 Torque Revisited</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=8&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s115">11.5 Angular Momentum</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s116">11.6 Newton’s Second Law (Angular Form)</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=13&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s117">11.7 Angular Momentum of a Rigid Body</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s118">11.8 Conservation of Angular Momentum</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=19&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s119">11.9 Precession of a Gyroscope</a>
+        <a class="pdf-link" href="19 - Chapter 11_ Rolling, Torque, and Angular Momentum.pdf#page=24&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s111">
+        <h2>11.1 Rolling as Translation and Rotation Combined</h2>
+        <div class="card">
+          <p>
+            For rolling without slipping, translation of the center of mass and rotation about the center are linked. The no-slip constraint is the
+            key equation that connects linear and angular motion.
+          </p>
+          <div class="kpi">
+            <span class="pill">No slip</span>
+            <span class="pill">v = ωR</span>
+            <span class="pill">a = αR</span>
+          </div>
+        </div>
+        <h3>No-slip condition</h3>
+        <div class="formula">v<sub>cm</sub> = ωR</div>
+      </section>
+
+      <section id="s112">
+        <h2>11.2 Forces and Kinetic Energy of Rolling</h2>
+        <div class="card">
+          <p>
+            Static friction can be essential for rolling without slipping, even though it does no work at the point of contact (for pure rolling on
+            a rigid surface).
+          </p>
+        </div>
+        <h3>Total kinetic energy (rolling rigid body)</h3>
+        <div class="formula">K = (1/2)Mv<sub>cm</sub><sup>2</sup> + (1/2)I<sub>cm</sub>ω<sup>2</sup></div>
+        <p class="tiny">Using v = ωR often lets you write everything in terms of v or ω.</p>
+      </section>
+
+      <section id="s113">
+        <h2>11.3 The Yo-Yo</h2>
+        <div class="card">
+          <p>
+            A yo-yo is a great example of translation + rotation with a string tension producing both a net force and a torque about the center.
+          </p>
+        </div>
+        <div class="note">
+          <p class="tiny">
+            Workflow: ΣF gives a<sub>cm</sub>, Στ about center gives α, and the string constraint relates a and α.
+          </p>
+        </div>
+      </section>
+
+      <section id="s114">
+        <h2>11.4 Torque Revisited</h2>
+        <div class="card">
+          <p>
+            Torque measures the “rotational effectiveness” of a force about a chosen origin or axis. Choosing the origin wisely can simplify a
+            problem dramatically.
+          </p>
+        </div>
+        <h3>Torque magnitude</h3>
+        <div class="formula">τ = rF sin θ</div>
+        <p class="tiny">Vector form: τ = r × F.</p>
+      </section>
+
+      <section id="s115">
+        <h2>11.5 Angular Momentum</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Angular momentum depends on the choice of origin. For a particle, it’s the cross product of position and linear momentum.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Particle definition</h3>
+            <div class="formula">L = r × p</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s116">
+        <h2>11.6 Newton’s Second Law in Angular Form</h2>
+        <div class="card">
+          <p>
+            Torque is the time rate of change of angular momentum. This is the rotational analog of F = dp/dt.
+          </p>
+        </div>
+        <div class="formula">τ<sub>net</sub> = dL/dt</div>
+      </section>
+
+      <section id="s117">
+        <h2>11.7 Angular Momentum of a Rigid Body</h2>
+        <div class="card">
+          <p>
+            For rotation about a fixed axis, angular momentum aligns with the axis and has magnitude L = Iω. In more general 3D motion, L and ω
+            may not be parallel.
+          </p>
+        </div>
+        <div class="formula">L = Iω (fixed-axis rotation)</div>
+      </section>
+
+      <section id="s118">
+        <h2>11.8 Conservation of Angular Momentum</h2>
+        <div class="card">
+          <p>
+            If external torque about a chosen axis is zero, angular momentum about that axis is conserved. This explains spin-up when a skater pulls
+            in arms (I decreases, ω increases).
+          </p>
+        </div>
+        <div class="formula">τ<sub>ext</sub> = 0 ⇒ L = constant</div>
+        <details open>
+          <summary>Worked example: skater spin-up</summary>
+          <p class="tiny">
+            If I halves, conservation L = Iω implies ω doubles. Rotational kinetic energy usually increases; the extra energy comes from internal work.
+          </p>
+        </details>
+      </section>
+
+      <section id="s119">
+        <h2>11.9 Precession of a Gyroscope</h2>
+        <div class="card">
+          <p>
+            A torque applied to a spinning object changes the direction of its angular momentum, causing precession: the spin axis slowly rotates
+            around the vertical.
+          </p>
+        </div>
+        <h3>Precession rate (steady, small tilt)</h3>
+        <div class="formula">Ω = τ/L</div>
+        <p class="tiny">For gravity torque on a top: τ ≈ rMg and L ≈ Iω.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for rolling problems, start with the constraint (<code>v = ωR</code>) and energy. For torque/L problems, decide the axis first
+        and check whether external torque is zero (conservation).
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

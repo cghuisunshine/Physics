@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 14 — Fluids (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 14</span>
+      <span>•</span>
+      <span>Fluids</span>
+    </div>
+    <h1>Fluids</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: density and pressure, fluids at rest, pressure measurement, Pascal’s and
+      Archimedes’ principles, continuity, and Bernoulli’s equation.
+      Source reading: <a href="22 - Chapter 14_ Fluids.pdf#page=1&pagemode=bookmarks">22 - Chapter 14_ Fluids.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s141">14.1 Fluids, Density, and Pressure</a>
+        <a class="pdf-link" href="22 - Chapter 14_ Fluids.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s142">14.2 Fluids at Rest</a>
+        <a class="pdf-link" href="22 - Chapter 14_ Fluids.pdf#page=4&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s143">14.3 Measuring Pressure</a>
+        <a class="pdf-link" href="22 - Chapter 14_ Fluids.pdf#page=7&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s144">14.4 Pascal’s Principle</a>
+        <a class="pdf-link" href="22 - Chapter 14_ Fluids.pdf#page=8&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s145">14.5 Archimedes’ Principle</a>
+        <a class="pdf-link" href="22 - Chapter 14_ Fluids.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s146">14.6 The Equation of Continuity</a>
+        <a class="pdf-link" href="22 - Chapter 14_ Fluids.pdf#page=14&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s147">14.7 Bernoulli’s Equation</a>
+        <a class="pdf-link" href="22 - Chapter 14_ Fluids.pdf#page=18&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s141">
+        <h2>14.1 Fluids, Density, and Pressure</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Fluids (liquids and gases) flow and exert pressure normal to any surface. Many results come from balancing forces on small fluid
+              elements and applying energy conservation to flow.
+            </p>
+            <div class="kpi">
+              <span class="pill">ρ = m/V</span>
+              <span class="pill">P = F/A</span>
+              <span class="pill">Pressure acts normal</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Units</h3>
+            <div class="formula">1 Pa = 1 N/m<sup>2</sup></div>
+            <div class="formula">1 atm = 1.013×10<sup>5</sup> Pa</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s142">
+        <h2>14.2 Fluids at Rest</h2>
+        <div class="card">
+          <p>
+            In a static fluid, pressure increases with depth because of the weight of the fluid above. At the same depth in a connected fluid,
+            pressure is the same.
+          </p>
+        </div>
+        <h3>Hydrostatic pressure</h3>
+        <div class="formula">P = P<sub>0</sub> + ρgh</div>
+        <p class="tiny">h is depth below the surface where pressure is P<sub>0</sub>.</p>
+      </section>
+
+      <section id="s143">
+        <h2>14.3 Measuring Pressure</h2>
+        <div class="card">
+          <p>
+            Manometers and barometers convert pressure differences into height differences of a fluid column. It’s a direct application of
+            <code>P = P<sub>0</sub> + ρgh</code>.
+          </p>
+        </div>
+        <h3>Barometer idea</h3>
+        <div class="formula">P<sub>atm</sub> = ρgh</div>
+        <p class="tiny">For mercury, a “760 mmHg” column corresponds to 1 atm at standard conditions.</p>
+      </section>
+
+      <section id="s144">
+        <h2>14.4 Pascal’s Principle</h2>
+        <div class="card">
+          <p>
+            A change in pressure applied to an enclosed fluid is transmitted undiminished throughout the fluid. This enables hydraulic lifts.
+          </p>
+        </div>
+        <h3>Hydraulic relation</h3>
+        <div class="formula">F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub></div>
+        <details open>
+          <summary>Worked example: hydraulic lift</summary>
+          <p>
+            If A<sub>2</sub> = 20A<sub>1</sub>, then F<sub>2</sub> = 20F<sub>1</sub>. The tradeoff is distance: the small piston moves 20× farther.
+          </p>
+        </details>
+      </section>
+
+      <section id="s145">
+        <h2>14.5 Archimedes’ Principle</h2>
+        <div class="card">
+          <p>
+            Buoyant force arises because pressure increases with depth. The net upward force equals the weight of displaced fluid, regardless of the
+            object’s shape.
+          </p>
+        </div>
+        <h3>Buoyant force</h3>
+        <div class="formula">F<sub>b</sub> = ρ<sub>fluid</sub> g V<sub>disp</sub></div>
+        <p class="tiny">If the object floats, F<sub>b</sub> = weight of object ⇒ fraction submerged depends on densities.</p>
+      </section>
+
+      <section id="s146">
+        <h2>14.6 The Equation of Continuity</h2>
+        <div class="card">
+          <p>
+            For steady, incompressible flow, mass conservation implies the volume flow rate is constant along a streamline: narrow sections have
+            higher flow speed.
+          </p>
+        </div>
+        <h3>Continuity (incompressible)</h3>
+        <div class="formula">A<sub>1</sub>v<sub>1</sub> = A<sub>2</sub>v<sub>2</sub></div>
+        <p class="tiny">Also written as Q = Av (volume flow rate).</p>
+      </section>
+
+      <section id="s147">
+        <h2>14.7 Bernoulli’s Equation</h2>
+        <div class="card">
+          <p>
+            Bernoulli’s equation is energy conservation along a streamline for ideal flow (incompressible, nonviscous, steady). It ties together
+            pressure, flow speed, and height.
+          </p>
+        </div>
+        <h3>Bernoulli (along a streamline)</h3>
+        <div class="formula">P + (1/2)ρv<sup>2</sup> + ρgy = constant</div>
+        <div class="note warn">
+          <p class="tiny">If viscosity, turbulence, or pumps are important, Bernoulli needs extra loss/gain terms.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: in fluids, pick the right conservation law: static problems → force balance (hydrostatics); flow problems → mass conservation
+        (continuity) and energy conservation (Bernoulli).
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 2 — Motion Along a Straight Line (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 2</span>
+      <span>•</span>
+      <span>1D Kinematics</span>
+    </div>
+    <h1>Motion Along a Straight Line</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: position and displacement, velocity and speed, acceleration, constant-acceleration
+      equations, free fall, and interpreting motion graphs.
+      Source reading: <a href="10 - Chapter 2_ Motion Along a Straight Line.pdf#page=1&pagemode=bookmarks">10 - Chapter 2_ Motion Along a Straight Line.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s021">2.1 Position, Displacement, and Average Velocity</a>
+        <a class="pdf-link" href="10 - Chapter 2_ Motion Along a Straight Line.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s022">2.2 Instantaneous Velocity and Speed</a>
+        <a class="pdf-link" href="10 - Chapter 2_ Motion Along a Straight Line.pdf#page=6&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s023">2.3 Acceleration</a>
+        <a class="pdf-link" href="10 - Chapter 2_ Motion Along a Straight Line.pdf#page=8&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s024">2.4 Constant Acceleration</a>
+        <a class="pdf-link" href="10 - Chapter 2_ Motion Along a Straight Line.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s025">2.5 Free-Fall Acceleration</a>
+        <a class="pdf-link" href="10 - Chapter 2_ Motion Along a Straight Line.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s026">2.6 Graphical Integration in Motion Analysis</a>
+        <a class="pdf-link" href="10 - Chapter 2_ Motion Along a Straight Line.pdf#page=18&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s021">
+        <h2>2.1 Position, Displacement, and Average Velocity</h2>
+        <div class="card">
+          <p>
+            Position x is a coordinate; displacement is Δx = x<sub>f</sub> − x<sub>i</sub>. Average velocity uses displacement, not distance.
+          </p>
+        </div>
+        <div class="formula">v̄ = Δx/Δt</div>
+      </section>
+
+      <section id="s022">
+        <h2>2.2 Instantaneous Velocity and Speed</h2>
+        <div class="card">
+          <p>
+            Instantaneous velocity is the slope of the x(t) graph. Speed is the magnitude of velocity (nonnegative).
+          </p>
+        </div>
+        <div class="formula">v = dx/dt</div>
+      </section>
+
+      <section id="s023">
+        <h2>2.3 Acceleration</h2>
+        <div class="card">
+          <p>
+            Acceleration measures how velocity changes. It can be negative even when speed is increasing (depending on sign convention).
+          </p>
+        </div>
+        <div class="formula">ā = Δv/Δt</div>
+        <div class="formula">a = dv/dt = d<sup>2</sup>x/dt<sup>2</sup></div>
+      </section>
+
+      <section id="s024">
+        <h2>2.4 Constant Acceleration</h2>
+        <div class="card">
+          <p>
+            With constant acceleration, kinematics reduces to a small set of equations. Pick the one that uses the variables you know.
+          </p>
+        </div>
+        <div class="formula">v = v<sub>0</sub> + at</div>
+        <div class="formula">x − x<sub>0</sub> = v<sub>0</sub>t + (1/2)at<sup>2</sup></div>
+        <div class="formula">v<sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2a(x − x<sub>0</sub>)</div>
+      </section>
+
+      <section id="s025">
+        <h2>2.5 Free-Fall Acceleration</h2>
+        <div class="card">
+          <p>
+            Near Earth (ignoring air resistance), free-fall acceleration is approximately constant downward: a = −g. Then vertical motion is just
+            constant-acceleration kinematics.
+          </p>
+        </div>
+        <div class="formula">g ≈ 9.80 m/s<sup>2</sup></div>
+      </section>
+
+      <section id="s026">
+        <h2>2.6 Graphical Integration in Motion Analysis</h2>
+        <div class="card">
+          <p>
+            The area under a v(t) curve gives displacement; the slope of v(t) gives acceleration. For a(t), area gives Δv.
+          </p>
+        </div>
+        <div class="formula">Δx = ∫ v(t) dt</div>
+        <div class="formula">Δv = ∫ a(t) dt</div>
+        <details open>
+          <summary>Graph tip</summary>
+          <p class="tiny">Break the curve into simple shapes and compute signed areas. “Below axis” counts negative.</p>
+        </details>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: write your sign convention first (which direction is +). Most mistakes in 1D kinematics are sign errors, not algebra errors.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

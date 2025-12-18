@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 35 — Interference (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 35</span>
+      <span>•</span>
+      <span>Interference</span>
+    </div>
+    <h1>Interference</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: light as a wave, two-source interference (Young’s experiment),
+      double-slit intensity, thin-film interference, and Michelson interferometry.
+      Source reading: <a href="43 - Chapter 35_ Interference.pdf#page=1&pagemode=bookmarks">43 - Chapter 35_ Interference.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <div class="toc-item">
+        <a href="#s351">35.1 Light as a Wave</a>
+        <a class="pdf-link" href="43 - Chapter 35_ Interference.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3511">35.1.1 Huygens and refraction</a>
+      <a href="#s3512">35.1.2 Wavelength in a medium</a>
+      <a href="#s3513">35.1.3 Phase difference toolbox</a>
+
+      <div class="toc-item">
+        <a href="#s352">35.2 Young’s Interference Experiment</a>
+        <a class="pdf-link" href="43 - Chapter 35_ Interference.pdf#page=7&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3521">35.2.1 Path difference conditions</a>
+      <a href="#s3522">35.2.2 Fringe spacing</a>
+
+      <div class="toc-item">
+        <a href="#s353">35.3 Interference and Double-Slit Intensity</a>
+        <a class="pdf-link" href="43 - Chapter 35_ Interference.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3531">35.3.1 Two-slit intensity formula</a>
+      <a href="#s3532">35.3.2 Missing orders and envelopes</a>
+
+      <div class="toc-item">
+        <a href="#s354">35.4 Interference from Thin Films</a>
+        <a class="pdf-link" href="43 - Chapter 35_ Interference.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3541">35.4.1 Phase shifts on reflection</a>
+      <a href="#s3542">35.4.2 Film thickness conditions</a>
+
+      <div class="toc-item">
+        <a href="#s355">35.5 Michelson’s Interferometer</a>
+        <a class="pdf-link" href="43 - Chapter 35_ Interference.pdf#page=25&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3551">35.5.1 Fringe counting for displacement</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 35.1 -->
+      <section id="s351">
+        <h2>35.1 Light as a Wave</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Optical interference happens because light behaves like a wave: at a point, fields add (superposition), and intensity depends on
+              the square of the resulting amplitude. Stable interference requires coherent waves (a stable phase relationship).
+            </p>
+            <div class="kpi">
+              <span class="pill">Superposition</span>
+              <span class="pill">Phase matters</span>
+              <span class="pill">Intensity ~ amplitude<sup>2</sup></span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Index and wavelength</h3>
+            <div class="formula">n = c/v &nbsp;&nbsp;&nbsp; λ<sub>n</sub> = λ/n</div>
+            <p class="tiny">Frequency f stays the same when light enters a medium; v and λ change.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 35.1.1 -->
+      <section id="s3511">
+        <h2>35.1.1 Huygens’ Principle and Refraction</h2>
+
+        <h3>Huygens’ principle (concept)</h3>
+        <div class="card">
+          <p>
+            Every point on a wavefront acts as a source of secondary wavelets. A later wavefront is the surface tangent to these wavelets.
+            Refraction arises because wave speed differs between media, causing the wavefront to pivot as it crosses the interface.
+          </p>
+        </div>
+
+        <h3>Snell’s law (as a wave-speed statement)</h3>
+        <div class="formula">n<sub>1</sub> sinθ<sub>1</sub> = n<sub>2</sub> sinθ<sub>2</sub></div>
+      </section>
+
+      <!-- 35.1.2 -->
+      <section id="s3512">
+        <h2>35.1.2 Wavelength in a Medium</h2>
+
+        <h3>Internal wavelength</h3>
+        <div class="formula">λ<sub>n</sub> = λ/n</div>
+
+        <details>
+          <summary>Worked Example: Wavelength in glass</summary>
+          <p><strong>Given:</strong> λ = 600 nm in vacuum, glass index n = 1.50.</p>
+          <ol class="steps">
+            <li>λ<sub>n</sub> = λ/n = 600/1.50 = 400 nm.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> λ in glass is 400 nm (frequency unchanged).</p>
+        </details>
+      </section>
+
+      <!-- 35.1.3 -->
+      <section id="s3513">
+        <h2>35.1.3 Phase Difference Toolbox</h2>
+
+        <h3>Path and phase</h3>
+        <div class="formula">Δφ = (2π/λ)ΔL &nbsp;&nbsp; (same medium)</div>
+        <div class="formula">Optical path length: OPL = nL</div>
+        <div class="formula">Δφ = (2π/λ)(n<sub>1</sub>L<sub>1</sub> − n<sub>2</sub>L<sub>2</sub>)</div>
+
+        <div class="note">
+          <p>
+            When comparing rays that travel through different media, use optical path length (nL). A phase flip of π (half a cycle) can also occur
+            on reflection from a higher-index boundary (thin films).
+          </p>
+        </div>
+      </section>
+
+      <!-- 35.2 -->
+      <section id="s352">
+        <h2>35.2 Young’s Interference Experiment</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Two coherent sources (or two slits fed by one source) create an interference pattern on a distant screen. Bright and dark fringes come
+            from constructive and destructive interference at different viewing angles.
+          </p>
+        </div>
+      </section>
+
+      <!-- 35.2.1 -->
+      <section id="s3521">
+        <h2>35.2.1 Path Difference Conditions</h2>
+
+        <h3>Geometry (small-angle, far field)</h3>
+        <div class="formula">ΔL ≈ d sinθ</div>
+
+        <h3>Bright and dark fringes</h3>
+        <div class="formula">Bright: d sinθ = mλ &nbsp;&nbsp; (m = 0, ±1, ±2, …)</div>
+        <div class="formula">Dark: d sinθ = (m + 1/2)λ</div>
+
+        <details>
+          <summary>Worked Example: First dark fringe angle</summary>
+          <p><strong>Given:</strong> Slit separation d = 0.20 mm, wavelength λ = 500 nm.</p>
+          <ol class="steps">
+            <li>First dark: d sinθ = (1/2)λ ⇒ sinθ = λ/(2d).</li>
+            <li>sinθ = (5.0×10<sup>−7</sup>)/(2·2.0×10<sup>−4</sup>) = 1.25×10<sup>−3</sup>.</li>
+            <li>θ ≈ 1.25×10<sup>−3</sup> rad = 0.0716°.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> θ ≈ 0.072° for the first dark fringe.</p>
+        </details>
+      </section>
+
+      <!-- 35.2.2 -->
+      <section id="s3522">
+        <h2>35.2.2 Fringe Spacing on a Screen</h2>
+
+        <h3>Small-angle mapping</h3>
+        <div class="formula">y ≈ L tanθ ≈ L sinθ</div>
+
+        <h3>Fringe spacing</h3>
+        <div class="formula">Δy = Lλ/d</div>
+
+        <details>
+          <summary>Worked Example: Fringe spacing</summary>
+          <p><strong>Given:</strong> L = 2.0 m, d = 0.30 mm, λ = 600 nm.</p>
+          <ol class="steps">
+            <li>Δy = Lλ/d = 2.0(6.0×10<sup>−7</sup>)/(3.0×10<sup>−4</sup>).</li>
+            <li>Δy = 4.0×10<sup>−3</sup> m = 4.0 mm.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Adjacent bright fringes are separated by 4.0 mm.</p>
+        </details>
+      </section>
+
+      <!-- 35.3 -->
+      <section id="s353">
+        <h2>35.3 Interference and Double-Slit Intensity</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Interference describes where fringes land; the intensity formula tells you how bright they are. For two equal slits, intensity varies
+              smoothly between 0 and a maximum, not just “bright or dark”.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Phase form</h3>
+            <div class="formula">I = 4I<sub>0</sub>cos<sup>2</sup>(Δφ/2) &nbsp;&nbsp; (equal sources)</div>
+            <p class="tiny">Here I<sub>0</sub> is the intensity from one slit at the screen point.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 35.3.1 -->
+      <section id="s3531">
+        <h2>35.3.1 Two-Slit Intensity Formula</h2>
+
+        <h3>In terms of path difference</h3>
+        <div class="formula">Δφ = (2π/λ)ΔL</div>
+        <div class="formula">I(θ) = 4I<sub>0</sub>cos<sup>2</sup>(πΔL/λ) = 4I<sub>0</sub>cos<sup>2</sup>(πd sinθ/λ)</div>
+
+        <details>
+          <summary>Worked Example: Intensity at a given path difference</summary>
+          <p><strong>Given:</strong> ΔL = λ/3 and the two slits contribute equal intensity I<sub>0</sub> each.</p>
+          <ol class="steps">
+            <li>I = 4I<sub>0</sub>cos<sup>2</sup>(πΔL/λ) = 4I<sub>0</sub>cos<sup>2</sup>(π/3).</li>
+            <li>cos(π/3) = 1/2 ⇒ I = 4I<sub>0</sub>(1/4) = I<sub>0</sub>.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> I equals the intensity from one slit alone.</p>
+        </details>
+      </section>
+
+      <!-- 35.3.2 -->
+      <section id="s3532">
+        <h2>35.3.2 Missing Orders and Envelopes</h2>
+
+        <h3>When slits have finite width</h3>
+        <div class="card">
+          <p>
+            Real slits have width a, so single-slit diffraction creates an envelope that modulates the double-slit interference pattern. Some
+            interference maxima can “go missing” when a bright fringe would fall at a diffraction minimum.
+          </p>
+        </div>
+
+        <h3>Useful idea</h3>
+        <div class="formula">Diffraction minima: a sinθ = mλ &nbsp;&nbsp; (m = ±1, ±2, …)</div>
+      </section>
+
+      <!-- 35.4 -->
+      <section id="s354">
+        <h2>35.4 Interference from Thin Films</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            In a thin film, two reflected rays can interfere: one reflects from the top surface, another from the bottom surface after traveling
+            through the film. Whether you get bright or dark reflection depends on path difference in the film and possible phase shifts upon reflection.
+          </p>
+        </div>
+      </section>
+
+      <!-- 35.4.1 -->
+      <section id="s3541">
+        <h2>35.4.1 Phase Shifts on Reflection</h2>
+
+        <h3>Rule of thumb</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Reflection</th>
+              <th>Phase shift</th>
+              <th>Memory cue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Low n → high n</td>
+              <td>π (half-cycle)</td>
+              <td>“Hard boundary” flip</td>
+            </tr>
+            <tr>
+              <td>High n → low n</td>
+              <td>0</td>
+              <td>No flip</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 35.4.2 -->
+      <section id="s3542">
+        <h2>35.4.2 Film Thickness Conditions (Normal Incidence)</h2>
+
+        <h3>Extra path in film</h3>
+        <div class="formula">ΔL<sub>film</sub> = 2nt</div>
+
+        <div class="note">
+          <p>
+            Combine the film path difference with any reflection phase flips (0 or π) to decide constructive vs destructive interference for the reflected light.
+          </p>
+        </div>
+
+        <h3>Common case: one π flip</h3>
+        <div class="formula">Bright reflection: 2nt = (m + 1/2)λ</div>
+        <div class="formula">Dark reflection: 2nt = mλ</div>
+
+        <details>
+          <summary>Worked Example: Minimum thickness for bright reflection</summary>
+          <p><strong>Given:</strong> Soap film (n = 1.33) in air, λ = 550 nm, normal incidence, assume one phase flip.</p>
+          <ol class="steps">
+            <li>First bright (m = 0): 2nt = (1/2)λ ⇒ t = λ/(4n).</li>
+            <li>t = 550/(4·1.33) nm = 103 nm.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> t ≈ 1.0×10<sup>2</sup> nm.</p>
+        </details>
+      </section>
+
+      <!-- 35.5 -->
+      <section id="s355">
+        <h2>35.5 Michelson’s Interferometer</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A beam splitter sends light along two paths that recombine. If one mirror moves, the optical path difference changes and the output intensity
+            cycles through bright and dark fringes. Counting fringes measures tiny displacements and wavelength.
+          </p>
+        </div>
+      </section>
+
+      <!-- 35.5.1 -->
+      <section id="s3551">
+        <h2>35.5.1 Fringe Counting for Mirror Displacement</h2>
+
+        <h3>Path difference change</h3>
+        <div class="formula">Δ(OPL) = 2Δx &nbsp;&nbsp; (mirror moves by Δx)</div>
+
+        <h3>Fringe count</h3>
+        <div class="formula">Number of fringes N = 2Δx/λ</div>
+
+        <details>
+          <summary>Worked Example: Displacement from fringe count</summary>
+          <p><strong>Given:</strong> λ = 633 nm (He–Ne laser). You count N = 200 fringes as a mirror moves.</p>
+          <ol class="steps">
+            <li>Δx = Nλ/2 = 200(633×10<sup>−9</sup>)/2 = 6.33×10<sup>−5</sup> m.</li>
+            <li>Δx = 63 μm.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Mirror displacement is about 6.3×10<sup>−5</sup> m.</p>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for interference problems, write everything in terms of <strong>phase</strong>. Use <code>Δφ = (2π/λ)Δ(OPL)</code>, then apply
+        “bright ↔ Δφ = 2mπ” and “dark ↔ Δφ = (2m + 1)π”. This keeps path differences, media (n), and reflection flips in one place.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

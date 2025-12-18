@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 37 — Relativity (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 37</span>
+      <span>•</span>
+      <span>Relativity</span>
+    </div>
+    <h1>Relativity</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: simultaneity, time dilation, length contraction, Lorentz transformations,
+      relativistic velocity addition and Doppler shift, and relativistic momentum and energy.
+      Source reading: <a href="45 - Chapter 37_ Relativity.pdf#page=1&pagemode=bookmarks">45 - Chapter 37_ Relativity.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <div class="toc-item">
+        <a href="#s371">37.1 Simultaneity and Time Dilation</a>
+        <a class="pdf-link" href="45 - Chapter 37_ Relativity.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3711">37.1.1 Postulates and γ</a>
+      <a href="#s3712">37.1.2 Proper time and dilation</a>
+
+      <div class="toc-item">
+        <a href="#s372">37.2 The Relativity of Length</a>
+        <a class="pdf-link" href="45 - Chapter 37_ Relativity.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3721">37.2.1 Length contraction</a>
+
+      <div class="toc-item">
+        <a href="#s373">37.3 The Lorentz Transformation</a>
+        <a class="pdf-link" href="45 - Chapter 37_ Relativity.pdf#page=14&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3731">37.3.1 x–t transforms</a>
+      <a href="#s3732">37.3.2 Spacetime interval idea</a>
+
+      <div class="toc-item">
+        <a href="#s374">37.4 The Relativity of Velocities</a>
+        <a class="pdf-link" href="45 - Chapter 37_ Relativity.pdf#page=19&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3741">37.4.1 Velocity addition (1D)</a>
+
+      <div class="toc-item">
+        <a href="#s375">37.5 Doppler Effect for Light</a>
+        <a class="pdf-link" href="45 - Chapter 37_ Relativity.pdf#page=20&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3751">37.5.1 Frequency and wavelength shift</a>
+
+      <div class="toc-item">
+        <a href="#s376">37.6 Momentum and Energy</a>
+        <a class="pdf-link" href="45 - Chapter 37_ Relativity.pdf#page=24&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3761">37.6.1 Relativistic momentum and energy</a>
+      <a href="#s3762">37.6.2 Energy–momentum relation</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 37.1 -->
+      <section id="s371">
+        <h2>37.1 Simultaneity and Time Dilation</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Special relativity applies to <strong>inertial frames</strong> (constant relative velocity). Observers in different inertial frames
+              can disagree about whether separated events are simultaneous, and they measure different time intervals between the same pair of events.
+            </p>
+            <div class="kpi">
+              <span class="pill">No absolute simultaneity</span>
+              <span class="pill">Proper time is special</span>
+              <span class="pill">γ sets the scale</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Speed and factors</h3>
+            <div class="formula">β = v/c &nbsp;&nbsp;&nbsp; γ = 1/√(1 − β<sup>2</sup>)</div>
+            <p class="tiny">As v → c, γ grows without bound.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 37.1.1 -->
+      <section id="s3711">
+        <h2>37.1.1 Postulates and the Lorentz Factor</h2>
+
+        <h3>Two postulates (special relativity)</h3>
+        <div class="card">
+          <ol class="steps">
+            <li>All inertial observers agree on the laws of physics.</li>
+            <li>The speed of light in vacuum has the same value c in all inertial frames, regardless of source/observer motion.</li>
+          </ol>
+        </div>
+
+        <div class="note">
+          <p>
+            These postulates force spacetime coordinates (x, t) to mix between frames via Lorentz transformations rather than Galilean transformations.
+          </p>
+        </div>
+      </section>
+
+      <!-- 37.1.2 -->
+      <section id="s3712">
+        <h2>37.1.2 Proper Time and Time Dilation</h2>
+
+        <h3>Time dilation</h3>
+        <div class="formula">Δt = γΔt<sub>0</sub></div>
+
+        <div class="card">
+          <p class="tiny">
+            Δt<sub>0</sub> (proper time) is measured in the frame where the two events occur at the same place (one clock).
+            Any frame moving relative to that frame measures a larger interval Δt.
+          </p>
+        </div>
+
+        <details>
+          <summary>Worked Example: Muon lifetime (time dilation)</summary>
+          <p><strong>Given:</strong> Proper lifetime Δt<sub>0</sub> = 2.2 μs, speed v = 0.98c.</p>
+          <ol class="steps">
+            <li>β = 0.98 ⇒ γ = 1/√(1 − 0.98<sup>2</sup>) = 1/√(0.0396) = 5.03.</li>
+            <li>Δt = γΔt<sub>0</sub> = 5.03(2.2 μs) = 11.1 μs.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Observed lifetime is about 11 μs.</p>
+        </details>
+      </section>
+
+      <!-- 37.2 -->
+      <section id="s372">
+        <h2>37.2 The Relativity of Length</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            A moving object is measured to be <strong>shorter along the direction of motion</strong>. The key is simultaneity: a length measurement
+            in a frame requires the positions of the endpoints at the same time in that frame.
+          </p>
+        </div>
+      </section>
+
+      <!-- 37.2.1 -->
+      <section id="s3721">
+        <h2>37.2.1 Length Contraction</h2>
+
+        <h3>Contraction formula</h3>
+        <div class="formula">L = L<sub>0</sub>/γ</div>
+
+        <div class="note">
+          <p>
+            L<sub>0</sub> is the <strong>proper length</strong> (measured in the object’s rest frame). Only lengths parallel to the motion contract.
+          </p>
+        </div>
+
+        <details>
+          <summary>Worked Example: Contracted length</summary>
+          <p><strong>Given:</strong> Proper length L<sub>0</sub> = 100 m, speed v = 0.80c.</p>
+          <ol class="steps">
+            <li>γ = 1/√(1 − 0.80<sup>2</sup>) = 1/√(0.36) = 1.667.</li>
+            <li>L = 100/1.667 = 60 m.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> L ≈ 60 m.</p>
+        </details>
+      </section>
+
+      <!-- 37.3 -->
+      <section id="s373">
+        <h2>37.3 The Lorentz Transformation</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Lorentz transformations relate the coordinates of a single event measured in two inertial frames in relative motion.
+              If S′ moves at +v along x relative to S, then x and t mix between frames.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Setup</h3>
+            <p class="tiny">Assume origins coincide at t = t′ = 0 and motion is along the shared x/x′ axis.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 37.3.1 -->
+      <section id="s3731">
+        <h2>37.3.1 x–t Transforms (1D)</h2>
+
+        <h3>Lorentz transformation</h3>
+        <div class="formula">x′ = γ(x − vt)</div>
+        <div class="formula">t′ = γ(t − vx/c<sup>2</sup>)</div>
+        <div class="formula">y′ = y &nbsp;&nbsp;&nbsp; z′ = z</div>
+
+        <details>
+          <summary>Worked Example: Transform an event</summary>
+          <p><strong>Given:</strong> In frame S, an event occurs at x = 300 m and t = 2.0 μs. Frame S′ moves at v = 0.60c.</p>
+          <ol class="steps">
+            <li>γ = 1/√(1 − 0.60<sup>2</sup>) = 1/0.8 = 1.25.</li>
+            <li>x′ = γ(x − vt) = 1.25(300 − 0.60c·2.0 μs).</li>
+            <li>c·2.0 μs = (3.00×10<sup>8</sup>)(2.0×10<sup>−6</sup>) = 600 m ⇒ vt = 0.60(600) = 360 m.</li>
+            <li>x′ = 1.25(300 − 360) = −75 m.</li>
+            <li>t′ = γ(t − vx/c<sup>2</sup>) = 1.25(2.0 μs − 0.60·300/c).</li>
+            <li>300/c = 1.0 μs ⇒ t′ = 1.25(2.0 − 0.60) μs = 1.75 μs.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> x′ = −75 m, t′ = 1.75 μs.</p>
+        </details>
+      </section>
+
+      <!-- 37.3.2 -->
+      <section id="s3732">
+        <h2>37.3.2 Spacetime Interval Idea</h2>
+
+        <h3>Invariant (1D form)</h3>
+        <div class="formula">s<sup>2</sup> = (cΔt)<sup>2</sup> − (Δx)<sup>2</sup></div>
+
+        <div class="note">
+          <p>
+            Different frames disagree about Δt and Δx for two events, but they agree on s<sup>2</sup>. This is the “geometry” behind proper time and proper length.
+          </p>
+        </div>
+      </section>
+
+      <!-- 37.4 -->
+      <section id="s374">
+        <h2>37.4 The Relativity of Velocities</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            Velocities don’t add by simple subtraction/addition when speeds are high. Relativistic addition guarantees that if each speed is
+            less than c, the resulting speed is also less than c.
+          </p>
+        </div>
+      </section>
+
+      <!-- 37.4.1 -->
+      <section id="s3741">
+        <h2>37.4.1 Velocity Addition (1D)</h2>
+
+        <h3>Formula</h3>
+        <div class="formula">u = (u′ + v)/(1 + u′v/c<sup>2</sup>)</div>
+
+        <details>
+          <summary>Worked Example: Two high speeds</summary>
+          <p><strong>Given:</strong> A ship moves at v = 0.80c relative to Earth. In the ship frame, a probe moves forward at u′ = 0.60c.</p>
+          <ol class="steps">
+            <li>u = (0.60c + 0.80c)/(1 + 0.60·0.80) = 1.40c/1.48.</li>
+            <li>u = 0.946c.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> The probe speed relative to Earth is 0.946c (not 1.40c).</p>
+        </details>
+      </section>
+
+      <!-- 37.5 -->
+      <section id="s375">
+        <h2>37.5 Doppler Effect for Light</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            For light, the Doppler shift must be relativistic. Motion toward the source gives a higher observed frequency (blueshift);
+            motion away gives a lower observed frequency (redshift).
+          </p>
+        </div>
+      </section>
+
+      <!-- 37.5.1 -->
+      <section id="s3751">
+        <h2>37.5.1 Frequency and Wavelength Shift (Along the Line of Sight)</h2>
+
+        <h3>Frequency form</h3>
+        <div class="formula">Approach: f′ = f √((1 + β)/(1 − β))</div>
+        <div class="formula">Recede: f′ = f √((1 − β)/(1 + β))</div>
+
+        <h3>Wavelength form (inverse)</h3>
+        <div class="formula">Approach: λ′ = λ √((1 − β)/(1 + β))</div>
+        <div class="formula">Recede: λ′ = λ √((1 + β)/(1 − β))</div>
+
+        <details>
+          <summary>Worked Example: Redshift from recession</summary>
+          <p><strong>Given:</strong> A galaxy recedes at v = 0.10c. A spectral line has λ = 500 nm in the rest frame.</p>
+          <ol class="steps">
+            <li>β = 0.10. For recession: λ′ = λ √((1 + β)/(1 − β)) = 500 √(1.10/0.90) nm.</li>
+            <li>√(1.222...) = 1.105 ⇒ λ′ ≈ 553 nm.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Observed wavelength is about 553 nm (redshift).</p>
+        </details>
+      </section>
+
+      <!-- 37.6 -->
+      <section id="s376">
+        <h2>37.6 Momentum and Energy</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              To keep conservation laws valid in all inertial frames, momentum and energy must be redefined at high speeds.
+              The classical forms p = mv and K = ½mv<sup>2</sup> are recovered when v ≪ c.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Core definitions</h3>
+            <div class="formula">p = γmv</div>
+            <div class="formula">E = γmc<sup>2</sup> &nbsp;&nbsp;&nbsp; K = (γ − 1)mc<sup>2</sup></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 37.6.1 -->
+      <section id="s3761">
+        <h2>37.6.1 Relativistic Momentum and Kinetic Energy</h2>
+
+        <details>
+          <summary>Worked Example: Speed from kinetic energy (electron)</summary>
+          <p><strong>Given:</strong> Electron kinetic energy K = 2.0 MeV. (Electron rest energy m c<sup>2</sup> = 0.511 MeV.)</p>
+          <ol class="steps">
+            <li>γ = 1 + K/(mc<sup>2</sup>) = 1 + 2.0/0.511 = 4.915.</li>
+            <li>β = √(1 − 1/γ<sup>2</sup>) = √(1 − 1/4.915<sup>2</sup>) = 0.979.</li>
+            <li>v = βc = 0.979c.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> v ≈ 0.98c.</p>
+        </details>
+      </section>
+
+      <!-- 37.6.2 -->
+      <section id="s3762">
+        <h2>37.6.2 Energy–Momentum Relation</h2>
+
+        <h3>Invariant relationship</h3>
+        <div class="formula">E<sup>2</sup> = (pc)<sup>2</sup> + (mc<sup>2</sup>)<sup>2</sup></div>
+
+        <div class="note">
+          <p>
+            For massless particles (m = 0), this gives E = pc (photons). For slow speeds, it reduces to E ≈ mc<sup>2</sup> + ½mv<sup>2</sup>.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: pick the “best” frame first. If events happen at one place in some frame, that frame gives proper time. If a length is at rest in some frame,
+        that frame gives proper length. Then use γ and (if needed) Lorentz transformations to move to other frames.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

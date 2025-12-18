@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 25 — Capacitance (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 25</span>
+      <span>•</span>
+      <span>Capacitance</span>
+    </div>
+    <h1>Capacitance</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: definition <code>q = CV</code>, computing C from geometry,
+      combining capacitors, stored energy/energy density, and how dielectrics change C, V, and <span class="vec">E</span>.
+      Source reading: <a href="33 - Chapter 25_ Capacitance.pdf#page=1&pagemode=bookmarks">33 - Chapter 25_ Capacitance.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <div class="toc-item">
+        <a href="#s251">25.1 Capacitance</a>
+        <a class="pdf-link" href="33 - Chapter 25_ Capacitance.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2511">25.1.1 Charging with a battery</a>
+
+      <div class="toc-item">
+        <a href="#s252">25.2 Calculating the Capacitance</a>
+        <a class="pdf-link" href="33 - Chapter 25_ Capacitance.pdf#page=3&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2521">25.2.1 Parallel plate</a>
+      <a href="#s2522">25.2.2 Cylindrical and spherical</a>
+      <a href="#s2523">25.2.3 Isolated sphere</a>
+
+      <div class="toc-item">
+        <a href="#s253">25.3 Capacitors in Parallel and in Series</a>
+        <a class="pdf-link" href="33 - Chapter 25_ Capacitance.pdf#page=7&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2531">25.3.1 Parallel rules</a>
+      <a href="#s2532">25.3.2 Series rules</a>
+      <a href="#s2533">25.3.3 Mixed networks strategy</a>
+
+      <div class="toc-item">
+        <a href="#s254">25.4 Energy Stored in an Electric Field</a>
+        <a class="pdf-link" href="33 - Chapter 25_ Capacitance.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2541">25.4.1 Energy formulas</a>
+      <a href="#s2542">25.4.2 Energy density</a>
+
+      <div class="toc-item">
+        <a href="#s255">25.5 Capacitor with a Dielectric</a>
+        <a class="pdf-link" href="33 - Chapter 25_ Capacitance.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2551">25.5.1 What changes (C, V, E, U)</a>
+
+      <div class="toc-item">
+        <a href="#s256">25.6 Dielectrics and Gauss’ Law</a>
+        <a class="pdf-link" href="33 - Chapter 25_ Capacitance.pdf#page=20&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2561">25.6.1 Free vs induced charge</a>
+      <a href="#s2562">25.6.2 Field inside uniform dielectric</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 25.1 -->
+      <section id="s251">
+        <h2>25.1 Capacitance</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A <strong>capacitor</strong> is two conductors separated so charge cannot flow across the gap. When charged, the plates
+            carry +q and −q. The <strong>capacitance</strong> C tells how much charge is stored per potential difference.
+          </p>
+          <div class="kpi">
+            <span class="pill">C depends on geometry + material</span>
+            <span class="pill">C does not depend on q or V (for linear dielectrics)</span>
+            <span class="pill">Unit: 1 F = 1 C/V</span>
+          </div>
+        </div>
+
+        <h3>Core definition</h3>
+        <div class="formula">q = CV &nbsp;&nbsp; (so C = q/V)</div>
+
+        <details>
+          <summary>Worked Example: Quick units + scale</summary>
+          <p><strong>Question:</strong> If C = 2.2 μF and V = 9.0 V, what is q?</p>
+          <ol class="steps">
+            <li>q = CV = (2.2 × 10<sup>−6</sup> F)(9.0 V) = 19.8 × 10<sup>−6</sup> C.</li>
+            <li>q = 19.8 μC.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> q ≈ 2.0 × 10<sup>−5</sup> C.</p>
+        </details>
+      </section>
+
+      <!-- 25.1.1 -->
+      <section id="s2511">
+        <h2>25.1.1 Charging with a Battery</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Closing the switch lets electrons shift through the wires; equal and opposite charges build up on the plates.
+            </p>
+          </div>
+          <div class="card">
+            <p>
+              Charging stops when the capacitor’s potential difference matches the battery voltage (no further net drive).
+            </p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Worked Example (Concept): Does charge “cross the gap”?</summary>
+          <ol class="steps">
+            <li>In the ideal capacitor model, no conduction charge crosses the dielectric/air gap.</li>
+            <li>Charge rearranges on each plate via the external circuit; the gap stores energy in the electric field.</li>
+            <li>The net charge of the capacitor is still zero: +q on one plate, −q on the other.</li>
+          </ol>
+        </details>
+      </section>
+
+      <!-- 25.2 -->
+      <section id="s252">
+        <h2>25.2 Calculating the Capacitance</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Recipe: assume charge ±q on conductors → find <span class="vec">E</span> from Gauss’ law → find V via
+            <code>V = −∫ <span class="vec">E</span> · d<span class="vec">s</span></code> → compute <code>C = q/V</code>.
+          </p>
+        </div>
+      </section>
+
+      <!-- 25.2.1 -->
+      <section id="s2521">
+        <h2>25.2.1 Parallel-Plate Capacitor</h2>
+
+        <h3>Result</h3>
+        <div class="formula">C = ε<sub>0</sub>A / d</div>
+
+        <div class="note">
+          <p>
+            Bigger area A → bigger C. Larger separation d → smaller C. This is why real capacitors use large effective area
+            (rolled foils) and tiny gaps (thin dielectrics).
+          </p>
+        </div>
+      </section>
+
+      <!-- 25.2.2 -->
+      <section id="s2522">
+        <h2>25.2.2 Cylindrical and Spherical Capacitors</h2>
+
+        <h3>Results</h3>
+        <div class="formula">Coaxial cylinders (length L, radii a&lt;b): &nbsp; C = 2π ε<sub>0</sub> L / ln(b/a)</div>
+        <div class="formula">Concentric spheres (radii a&lt;b): &nbsp; C = 4π ε<sub>0</sub> (ab)/(b − a)</div>
+
+        <details>
+          <summary>Worked Example: Trend check for cylinders</summary>
+          <p><strong>Question:</strong> If the outer radius b increases while a and L stay fixed, what happens to C?</p>
+          <ol class="steps">
+            <li>C ∝ 1/ln(b/a).</li>
+            <li>Increasing b increases ln(b/a).</li>
+            <li>So C decreases (slowly) as b grows.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> C decreases as b increases (for fixed a and L).</p>
+        </details>
+      </section>
+
+      <!-- 25.2.3 -->
+      <section id="s2523">
+        <h2>25.2.3 Isolated Sphere</h2>
+
+        <h3>Result</h3>
+        <div class="formula">C = 4π ε<sub>0</sub> R</div>
+
+        <div class="note warn">
+          <p>
+            This “capacitance” is relative to infinity. It shows why isolated objects can store charge even without a second
+            explicit plate.
+          </p>
+        </div>
+      </section>
+
+      <!-- 25.3 -->
+      <section id="s253">
+        <h2>25.3 Capacitors in Parallel and in Series</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            Learn the two wiring patterns by what they “share”: parallel shares the same V; series shares the same charge q.
+            From that, derive C<sub>eq</sub>.
+          </p>
+        </div>
+      </section>
+
+      <!-- 25.3.1 -->
+      <section id="s2531">
+        <h2>25.3.1 Parallel Rules</h2>
+
+        <h3>Facts</h3>
+        <div class="formula">Parallel: V is the same on each capacitor</div>
+        <div class="formula">C<sub>eq</sub> = C<sub>1</sub> + C<sub>2</sub> + …</div>
+        <div class="formula">q<sub>total</sub> = q<sub>1</sub> + q<sub>2</sub> + …</div>
+
+        <details>
+          <summary>Worked Example: Two capacitors in parallel</summary>
+          <p><strong>Given:</strong> C<sub>1</sub> = 2.0 μF, C<sub>2</sub> = 3.0 μF across V = 12 V.</p>
+          <ol class="steps">
+            <li>C<sub>eq</sub> = 5.0 μF.</li>
+            <li>q<sub>total</sub> = C<sub>eq</sub>V = (5.0 μF)(12 V) = 60 μC.</li>
+            <li>Individual charges: q<sub>1</sub> = C<sub>1</sub>V = 24 μC, q<sub>2</sub> = 36 μC.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> C<sub>eq</sub> = 5.0 μF; q<sub>1</sub> = 24 μC; q<sub>2</sub> = 36 μC.</p>
+        </details>
+      </section>
+
+      <!-- 25.3.2 -->
+      <section id="s2532">
+        <h2>25.3.2 Series Rules</h2>
+
+        <h3>Facts</h3>
+        <div class="formula">Series: q is the same on each capacitor</div>
+        <div class="formula">1/C<sub>eq</sub> = 1/C<sub>1</sub> + 1/C<sub>2</sub> + …</div>
+        <div class="formula">V<sub>total</sub> = V<sub>1</sub> + V<sub>2</sub> + …</div>
+
+        <details>
+          <summary>Worked Example: Two capacitors in series</summary>
+          <p><strong>Given:</strong> C<sub>1</sub> = 2.0 μF, C<sub>2</sub> = 3.0 μF across V = 12 V.</p>
+          <ol class="steps">
+            <li>1/C<sub>eq</sub> = 1/2.0 + 1/3.0 = 5/6 (μF)<sup>−1</sup> ⇒ C<sub>eq</sub> = 1.2 μF.</li>
+            <li>Common charge: q = C<sub>eq</sub>V = (1.2 μF)(12 V) = 14.4 μC.</li>
+            <li>Voltages: V<sub>1</sub> = q/C<sub>1</sub> = 7.2 V; V<sub>2</sub> = q/C<sub>2</sub> = 4.8 V.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> C<sub>eq</sub> = 1.2 μF; q = 14.4 μC; V splits as 7.2 V and 4.8 V.</p>
+        </details>
+      </section>
+
+      <!-- 25.3.3 -->
+      <section id="s2533">
+        <h2>25.3.3 Mixed Networks Strategy</h2>
+
+        <h3>Method</h3>
+        <div class="card">
+          <ol class="steps">
+            <li>Collapse obvious parallel groups (same two nodes).</li>
+            <li>Collapse obvious series chains (single path, same charge).</li>
+            <li>Repeat until one C<sub>eq</sub> remains; find q or V using the battery (if present).</li>
+            <li>Reverse the reductions to recover individual q’s and V’s (parallel: same V; series: same q).</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 25.4 -->
+      <section id="s254">
+        <h2>25.4 Energy Stored in an Electric Field</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Charging a capacitor requires work. That work becomes electric potential energy, stored in the field in the space
+            between conductors.
+          </p>
+        </div>
+      </section>
+
+      <!-- 25.4.1 -->
+      <section id="s2541">
+        <h2>25.4.1 Energy Formulas</h2>
+
+        <h3>Equivalent expressions</h3>
+        <div class="formula">U = q<sup>2</sup>/(2C) = (1/2)CV<sup>2</sup> = (1/2)qV</div>
+
+        <details>
+          <summary>Worked Example: Compute stored energy</summary>
+          <p><strong>Given:</strong> C = 10 μF, V = 12 V.</p>
+          <ol class="steps">
+            <li>U = (1/2)CV<sup>2</sup> = 0.5(10×10<sup>−6</sup>)(12<sup>2</sup>) J.</li>
+            <li>U = 7.2 × 10<sup>−4</sup> J.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> U = 0.72 mJ.</p>
+        </details>
+      </section>
+
+      <!-- 25.4.2 -->
+      <section id="s2542">
+        <h2>25.4.2 Energy Density</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            The energy is not “in the plates”; it is in the field region. Energy per unit volume (energy density) depends on
+            field strength.
+          </p>
+        </div>
+
+        <h3>Result</h3>
+        <div class="formula">u = (1/2) ε<sub>0</sub> E<sup>2</sup></div>
+
+        <div class="note">
+          <p>
+            Strong E means high u, which is why high-voltage equipment must manage breakdown and sparking.
+          </p>
+        </div>
+      </section>
+
+      <!-- 25.5 -->
+      <section id="s255">
+        <h2>25.5 Capacitor with a Dielectric</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A dielectric is an insulator. In an external field, its molecules polarize, creating induced (bound) charges that
+            reduce the net field inside the material. The net effect is a larger capacitance.
+          </p>
+          <div class="kpi">
+            <span class="pill">C increases by κ</span>
+            <span class="pill">Field inside dielectric is reduced</span>
+            <span class="pill">κ &gt; 1 (dielectric constant)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 25.5.1 -->
+      <section id="s2551">
+        <h2>25.5.1 What Changes (C, V, E, U)</h2>
+
+        <h3>Core replacement</h3>
+        <div class="formula">If fully filled: &nbsp; C = κC<sub>0</sub> &nbsp;&nbsp; (equivalently, replace ε<sub>0</sub> → κ ε<sub>0</sub>)</div>
+
+        <h3>Two common scenarios</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Battery connected (V fixed):</strong> C increases ⇒ q = CV increases; E ≈ V/d stays set by V and geometry.</p>
+          </div>
+          <div class="card">
+            <p><strong>Battery disconnected (q fixed):</strong> C increases ⇒ V = q/C decreases; E decreases.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Worked Example: Insert dielectric with battery disconnected</summary>
+          <p><strong>Given:</strong> Initially C<sub>0</sub> = 4.0 μF charged to V<sub>0</sub> = 100 V, then disconnected. Insert dielectric κ = 5.</p>
+          <ol class="steps">
+            <li>Initial charge: q = C<sub>0</sub>V<sub>0</sub> = (4.0 μF)(100 V) = 400 μC.</li>
+            <li>New capacitance: C = κC<sub>0</sub> = 20 μF.</li>
+            <li>New voltage: V = q/C = 400 μC / 20 μF = 20 V.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Voltage drops from 100 V to 20 V when κ = 5 (q fixed).</p>
+        </details>
+      </section>
+
+      <!-- 25.6 -->
+      <section id="s256">
+        <h2>25.6 Dielectrics and Gauss’ Law</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            With dielectrics, you often track two charges: <strong>free</strong> charge on conductors and <strong>induced</strong> (bound)
+            charge on dielectric surfaces. The induced charge reduces the net field in the dielectric.
+          </p>
+        </div>
+      </section>
+
+      <!-- 25.6.1 -->
+      <section id="s2561">
+        <h2>25.6.1 Free vs. Induced Charge</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Free charge:</strong> resides on conductors; can move through the circuit when potentials change.</p>
+          </div>
+          <div class="card">
+            <p><strong>Induced (bound) charge:</strong> appears on dielectric surfaces due to polarization; does not flow through wires.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 25.6.2 -->
+      <section id="s2562">
+        <h2>25.6.2 Field Inside a Uniform Dielectric</h2>
+
+        <h3>Parallel-plate intuition</h3>
+        <div class="card">
+          <p>
+            If a uniform dielectric completely fills the gap and κ is constant, the field magnitude inside is reduced by κ
+            for the same free charge.
+          </p>
+        </div>
+
+        <h3>Useful results (fully filled, uniform)</h3>
+        <div class="formula">No dielectric: &nbsp; E<sub>0</sub> = q/(ε<sub>0</sub>A)</div>
+        <div class="formula">With dielectric: &nbsp; E = q/(κ ε<sub>0</sub>A) = E<sub>0</sub>/κ</div>
+
+        <div class="note warn">
+          <p>
+            If the dielectric only partially fills the gap, you may have multiple regions with different E and must match
+            boundary conditions (often treat as series “slabs”).
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <strong>Study tip:</strong> For capacitor circuits, decide first whether the network is effectively parallel (same V) or series (same q),
+      then use <code>q = CV</code>. For dielectrics, always ask: is V fixed (battery connected) or is q fixed (isolated capacitor)?
+    </p>
+  </footer>
+</body>
+</html>
+

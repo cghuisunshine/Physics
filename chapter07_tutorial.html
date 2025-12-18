@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 7 — Kinetic Energy and Work (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 7</span>
+      <span>•</span>
+      <span>Work &amp; Energy</span>
+    </div>
+    <h1>Kinetic Energy and Work</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: kinetic energy, work, the work–kinetic energy theorem, work by gravity and
+      springs, variable forces, and power.
+      Source reading: <a href="15 - Chapter 7_ Kinetic Energy and Work.pdf#page=1&pagemode=bookmarks">15 - Chapter 7_ Kinetic Energy and Work.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s071">7.1 Kinetic Energy</a>
+        <a class="pdf-link" href="15 - Chapter 7_ Kinetic Energy and Work.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s072">7.2 Work and Kinetic Energy</a>
+        <a class="pdf-link" href="15 - Chapter 7_ Kinetic Energy and Work.pdf#page=3&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s073">7.3 Work Done by Gravity</a>
+        <a class="pdf-link" href="15 - Chapter 7_ Kinetic Energy and Work.pdf#page=8&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s074">7.4 Work Done by a Spring Force</a>
+        <a class="pdf-link" href="15 - Chapter 7_ Kinetic Energy and Work.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s075">7.5 Work Done by a General Variable Force</a>
+        <a class="pdf-link" href="15 - Chapter 7_ Kinetic Energy and Work.pdf#page=15&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s076">7.6 Power</a>
+        <a class="pdf-link" href="15 - Chapter 7_ Kinetic Energy and Work.pdf#page=19&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s071">
+        <h2>7.1 Kinetic Energy</h2>
+        <div class="card">
+          <p>
+            Kinetic energy measures energy associated with motion. It depends on speed, not direction.
+          </p>
+        </div>
+        <div class="formula">K = (1/2)mv<sup>2</sup></div>
+      </section>
+
+      <section id="s072">
+        <h2>7.2 Work and Kinetic Energy</h2>
+        <div class="card">
+          <p>
+            Work is energy transferred by a force acting through a displacement. Net work equals the change in kinetic energy.
+          </p>
+        </div>
+        <div class="formula">W = ∫ F · dr</div>
+        <div class="formula">W<sub>net</sub> = ΔK</div>
+        <p class="tiny">For constant F along displacement: W = Fd cos θ.</p>
+      </section>
+
+      <section id="s073">
+        <h2>7.3 Work Done by the Gravitational Force</h2>
+        <div class="card">
+          <p>
+            Gravity is conservative near Earth: work depends only on the change in height, not the path.
+          </p>
+        </div>
+        <div class="formula">W<sub>g</sub> = −ΔU<sub>g</sub> = mg(y<sub>i</sub> − y<sub>f</sub>)</div>
+      </section>
+
+      <section id="s074">
+        <h2>7.4 Work Done by a Spring Force</h2>
+        <div class="card">
+          <p>
+            Spring force is variable: F = −kx. Work done by the spring is related to the change in spring potential energy.
+          </p>
+        </div>
+        <div class="formula">U<sub>s</sub> = (1/2)kx<sup>2</sup></div>
+        <div class="formula">W<sub>s</sub> = −ΔU<sub>s</sub></div>
+      </section>
+
+      <section id="s075">
+        <h2>7.5 Work Done by a General Variable Force</h2>
+        <div class="card">
+          <p>
+            For variable forces, work is the area under the F vs x curve (in 1D) or the line integral in multiple dimensions.
+          </p>
+        </div>
+        <div class="formula">W = ∫<sub>x<sub>i</sub></sub><sup>x<sub>f</sub></sup> F(x) dx</div>
+        <details open>
+          <summary>Worked example: piecewise force graph</summary>
+          <p class="tiny">Compute work by summing geometric areas (rectangles/triangles) under the curve with the correct sign.</p>
+        </details>
+      </section>
+
+      <section id="s076">
+        <h2>7.6 Power</h2>
+        <div class="card">
+          <p>
+            Power is the rate of doing work (energy transfer per time). Instantaneous power is force dotted with velocity.
+          </p>
+        </div>
+        <div class="formula">P̄ = W/Δt</div>
+        <div class="formula">P = dW/dt = F · v</div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: when forces vary or multiple forces act, use <code>W<sub>net</sub> = ΔK</code>. For conservative forces, translate work into a
+        potential-energy change to simplify.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

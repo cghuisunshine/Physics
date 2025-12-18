@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 21 — Coulomb’s Law (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 21</span>
+      <span>•</span>
+      <span>Coulomb’s Law</span>
+    </div>
+    <h1>Coulomb’s Law</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: force between point charges (magnitude + direction),
+      superposition and vector addition, quantization of charge (q = ne), and charge conservation in interactions.
+      Source reading: <a href="29 - Chapter 21_ Coulomb’s Law.pdf#page=1&pagemode=bookmarks">29 - Chapter 21_ Coulomb’s Law.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s211">21.1 Coulomb’s Law</a>
+        <a class="pdf-link" href="29 - Chapter 21_ Coulomb’s Law.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2111">21.1.1 Vector form and superposition</a>
+      <a href="#s2112">21.1.2 Worked example: force between two charges</a>
+      <a href="#s2113">21.1.3 Worked example: net force from two charges (2D)</a>
+
+      <div class="toc-item">
+        <a href="#s212">21.2 Charge Is Quantized</a>
+        <a class="pdf-link" href="29 - Chapter 21_ Coulomb’s Law.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2121">21.2.1 q = ne and counting electrons</a>
+
+      <div class="toc-item">
+        <a href="#s213">21.3 Charge Is Conserved</a>
+        <a class="pdf-link" href="29 - Chapter 21_ Coulomb’s Law.pdf#page=14&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s2131">21.3.1 Conservation in contact and separation</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 21.1 -->
+      <section id="s211">
+        <h2>21.1 Coulomb’s Law</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Two point charges exert forces on each other along the line joining them. Like charges repel; unlike charges attract.
+              The magnitude falls off as 1/r<sup>2</sup>, just like gravity.
+            </p>
+            <div class="kpi">
+              <span class="pill">Force along the line</span>
+              <span class="pill">Inverse-square</span>
+              <span class="pill">Attract vs repel</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Magnitude</h3>
+            <div class="formula">F = k|q<sub>1</sub>q<sub>2</sub>|/r<sup>2</sup></div>
+            <p class="tiny">k = 1/(4πϵ<sub>0</sub>) ≈ 8.99×10<sup>9</sup> N·m<sup>2</sup>/C<sup>2</sup>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 21.1.1 -->
+      <section id="s2111">
+        <h2>21.1.1 Vector Form and Superposition</h2>
+
+        <h3>Vector form</h3>
+        <div class="formula"><span class="vec">F</span><sub>12</sub> = (1/4πϵ<sub>0</sub)(q<sub>1</sub>q<sub>2</sub>/r<sup>2</sup>) <span class="hat">r</span><sub>12</sub></div>
+        <p class="tiny">
+          <span class="hat">r</span><sub>12</sub> is the unit vector pointing from charge 1 to charge 2.
+          The sign of q<sub>1</sub>q<sub>2</sub> determines whether the force points along +<span class="hat">r</span><sub>12</sub> (repulsion) or −<span class="hat">r</span><sub>12</sub> (attraction).
+        </p>
+
+        <h3>Superposition</h3>
+        <div class="card">
+          <p>
+            If multiple charges act on a charge q, the net force is the vector sum:
+            <code><span class="vec">F</span><sub>net</sub> = Σ<span class="vec">F</span><sub>i</sub></code>.
+            Compute each pairwise Coulomb force (with directions), then add components.
+          </p>
+        </div>
+
+        <div class="note warn">
+          <p>
+            Don’t “add magnitudes” unless forces are collinear. In general, resolve into x/y components and add vectors.
+          </p>
+        </div>
+      </section>
+
+      <!-- 21.1.2 -->
+      <section id="s2112">
+        <h2>21.1.2 Worked Example: Force Between Two Charges</h2>
+
+        <details open>
+          <summary>Find the magnitude and direction of the force</summary>
+          <p><strong>Given:</strong> q<sub>1</sub> = +2.0 μC, q<sub>2</sub> = −5.0 μC, separation r = 0.30 m.</p>
+          <ol class="steps">
+            <li>Magnitude: F = k|q<sub>1</sub>q<sub>2</sub>|/r<sup>2</sup> = (8.99×10<sup>9</sup>)(|2.0×10<sup>−6</sup>·5.0×10<sup>−6</sup>|)/(0.30)<sup>2</sup>.</li>
+            <li>Compute: |q<sub>1</sub>q<sub>2</sub>| = 1.0×10<sup>−11</sup> C<sup>2</sup>, so F = (8.99×10<sup>9</sup>)(1.0×10<sup>−11</sup>)/0.09 ≈ 1.00 N.</li>
+            <li>Direction: q<sub>1</sub>q<sub>2</sub> is negative → attraction. Each force points toward the other charge.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> F ≈ 1.0 N, attractive (toward the other charge along the line joining them).</p>
+        </details>
+      </section>
+
+      <!-- 21.1.3 -->
+      <section id="s2113">
+        <h2>21.1.3 Worked Example: Net Force from Two Charges (2D)</h2>
+
+        <details open>
+          <summary>Add Coulomb forces as vectors</summary>
+          <p><strong>Setup:</strong> A test charge q<sub>0</sub> = +1.0 μC is at the origin.
+            A charge q<sub>x</sub> = −2.0 μC is at (0.30 m, 0).
+            A charge q<sub>y</sub> = +3.0 μC is at (0, 0.40 m).</p>
+          <ol class="steps">
+            <li>Force from q<sub>x</sub>: magnitude F<sub>x</sub> = k|q<sub>0</sub>q<sub>x</sub>|/(0.30)<sup>2</sup> = (8.99×10<sup>9</sup>)(2.0×10<sup>−12</sup>)/0.09 ≈ 0.200 N, direction +x (attraction).</li>
+            <li>Force from q<sub>y</sub>: magnitude F<sub>y</sub> = k|q<sub>0</sub>q<sub>y</sub>|/(0.40)<sup>2</sup> = (8.99×10<sup>9</sup>)(3.0×10<sup>−12</sup>)/0.16 ≈ 0.169 N, direction −y (repulsion).</li>
+            <li>Net components: F<sub>net,x</sub> = +0.200 N, F<sub>net,y</sub> = −0.169 N.</li>
+            <li>Magnitude: |F<sub>net</sub>| = √(0.200<sup>2</sup> + 0.169<sup>2</sup>) ≈ 0.262 N.</li>
+            <li>Direction: θ = tan<sup>−1</sup>(|F<sub>net,y</sub>|/F<sub>net,x</sub>) ≈ 40° below the +x axis.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> <span class="vec">F</span><sub>net</sub> ≈ (0.200<span class="hat">i</span> − 0.169<span class="hat">j</span>) N, magnitude ≈ 0.262 N at ~40° below +x.</p>
+        </details>
+      </section>
+
+      <!-- 21.2 -->
+      <section id="s212">
+        <h2>21.2 Charge Is Quantized</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Electric charge comes in discrete chunks. The smallest free charge magnitude is the elementary charge e.
+              Any isolated object’s net charge is an integer multiple of e.
+            </p>
+            <div class="kpi">
+              <span class="pill">q = ne</span>
+              <span class="pill">e = 1.602×10<sup>−19</sup> C</span>
+              <span class="pill">Integers only</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Quantization</h3>
+            <div class="formula">q = n e, with n = 0, ±1, ±2, …</div>
+            <p class="tiny">Electrons carry −e; protons carry +e.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 21.2.1 -->
+      <section id="s2121">
+        <h2>21.2.1 q = ne and Counting Electrons</h2>
+
+        <details open>
+          <summary>How many excess electrons correspond to −4.8 nC?</summary>
+          <p><strong>Given:</strong> q = −4.8 nC = −4.8×10<sup>−9</sup> C, e = 1.602×10<sup>−19</sup> C.</p>
+          <ol class="steps">
+            <li>n = q/e = (−4.8×10<sup>−9</sup>)/(−1.602×10<sup>−19</sup>) = 3.0×10<sup>10</sup>.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> About 3×10<sup>10</sup> excess electrons.</p>
+        </details>
+
+        <div class="note warn">
+          <p>
+            Quantization is usually invisible in macroscopic charges because even 1 nC corresponds to ~6×10<sup>9</sup> electrons.
+          </p>
+        </div>
+      </section>
+
+      <!-- 21.3 -->
+      <section id="s213">
+        <h2>21.3 Charge Is Conserved</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The total electric charge of an isolated system remains constant. Charge can move from one object to another, but the net sum does not change.
+            This is as fundamental as conservation of energy and momentum.
+          </p>
+        </div>
+      </section>
+
+      <!-- 21.3.1 -->
+      <section id="s2131">
+        <h2>21.3.1 Conservation in Contact and Separation</h2>
+
+        <h3>Touching conductors (simple model)</h3>
+        <div class="card">
+          <p class="tiny">
+            If two identical conducting spheres touch, charge redistributes until their potentials are equal. For identical spheres, that means
+            they share charge equally: each ends with (q<sub>1</sub> + q<sub>2</sub>)/2.
+          </p>
+        </div>
+
+        <details open>
+          <summary>Worked Example: Two spheres share charge</summary>
+          <p><strong>Given:</strong> Sphere A has +6 nC, sphere B has −2 nC. They touch and are separated (assume identical spheres).</p>
+          <ol class="steps">
+            <li>Total charge: q<sub>tot</sub> = +6 nC + (−2 nC) = +4 nC (conserved).</li>
+            <li>Identical sharing: each ends with q<sub>f</sub> = q<sub>tot</sub>/2 = +2 nC.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> After contact, each sphere has +2 nC; total remains +4 nC.</p>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for electrostatics, write a “three-step recipe”: (1) draw positions and signs, (2) write each Coulomb force with a unit vector,
+        (3) add components. If you get stuck, check units: N = (N·m<sup>2</sup>/C<sup>2</sup>)·C<sup>2</sup>/m<sup>2</sup>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

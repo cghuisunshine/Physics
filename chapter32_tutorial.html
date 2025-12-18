@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 32 — Maxwell’s Equations; Magnetism of Matter (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 32</span>
+      <span>•</span>
+      <span>Maxwell’s Equations; Magnetism of Matter</span>
+    </div>
+    <h1>Maxwell’s Equations; Magnetism of Matter</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: Gauss’ law for magnetism and the Ampère–Maxwell law,
+      displacement current, and the microscopic origin of magnetism (electron moments) leading to dia-, para-, and ferromagnetism.
+      Source reading: <a href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=1&pagemode=bookmarks">40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <div class="toc-item">
+        <a href="#s321">32.1 Gauss’ Law for Magnetic Fields</a>
+        <a class="pdf-link" href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3211">32.1.1 No magnetic monopoles</a>
+      <a href="#s3212">32.1.2 Maxwell’s equations snapshot</a>
+
+      <div class="toc-item">
+        <a href="#s322">32.2 Induced Magnetic Fields</a>
+        <a class="pdf-link" href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=3&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3221">32.2.1 Ampère–Maxwell law</a>
+      <a href="#s3222">32.2.2 Field around a charging capacitor</a>
+
+      <div class="toc-item">
+        <a href="#s323">32.3 Displacement Current</a>
+        <a class="pdf-link" href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=6&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3231">32.3.1 Definition and consistency</a>
+
+      <div class="toc-item">
+        <a href="#s324">32.4 Magnets</a>
+        <a class="pdf-link" href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3241">32.4.1 Dipoles, torque, energy</a>
+
+      <div class="toc-item">
+        <a href="#s325">32.5 Magnetism and Electrons</a>
+        <a class="pdf-link" href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3251">32.5.1 Spin and orbital moments</a>
+      <a href="#s3252">32.5.2 Magnetization and susceptibility</a>
+
+      <div class="toc-item">
+        <a href="#s326">32.6 Diamagnetism</a>
+        <a class="pdf-link" href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=18&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3261">32.6.1 χ<sub>m</sub> &lt; 0 and weak repulsion</a>
+
+      <div class="toc-item">
+        <a href="#s327">32.7 Paramagnetism</a>
+        <a class="pdf-link" href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=19&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3271">32.7.1 Alignment vs temperature</a>
+
+      <div class="toc-item">
+        <a href="#s328">32.8 Ferromagnetism</a>
+        <a class="pdf-link" href="40 - Chapter 32_ Maxwell’s Equations; Magnetism of Matter.pdf#page=22&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s3281">32.8.1 Domains and hysteresis</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 32.1 -->
+      <section id="s321">
+        <h2>32.1 Gauss’ Law for Magnetic Fields</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Magnetic field lines form <strong>closed loops</strong>. Unlike electric charge, there is no known isolated “magnetic charge”
+              (no magnetic monopoles). This is encoded in Gauss’ law for magnetism.
+            </p>
+            <div class="kpi">
+              <span class="pill">Dipoles are fundamental</span>
+              <span class="pill">Net magnetic flux through closed surface = 0</span>
+              <span class="pill">Field lines never start/stop</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Gauss’ law (magnetism)</h3>
+            <div class="formula">∮ <span class="vec">B</span> · d<span class="vec">A</span> = 0</div>
+            <p class="tiny">Same idea as “what enters must leave” for <span class="vec">B</span> through a closed surface.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 32.1.1 -->
+      <section id="s3211">
+        <h2>32.1.1 No Magnetic Monopoles</h2>
+
+        <h3>Practical consequence</h3>
+        <div class="card">
+          <p>
+            Break a bar magnet into two pieces and each piece becomes a smaller magnet with its own north and south poles.
+            You cannot isolate a “north-only” magnet.
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.1.2 -->
+      <section id="s3212">
+        <h2>32.1.2 Maxwell’s Equations (Snapshot)</h2>
+
+        <h3>Integral form (most used in this course)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Law</th>
+              <th>Equation</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gauss (electric)</td>
+              <td>∮ <span class="vec">E</span> · d<span class="vec">A</span> = Q<sub>enc</sub>/ε<sub>0</sub></td>
+              <td>Charges are sources/sinks of <span class="vec">E</span></td>
+            </tr>
+            <tr>
+              <td>Gauss (magnetic)</td>
+              <td>∮ <span class="vec">B</span> · d<span class="vec">A</span> = 0</td>
+              <td>No monopoles; closed <span class="vec">B</span> loops</td>
+            </tr>
+            <tr>
+              <td>Faraday</td>
+              <td>∮ <span class="vec">E</span> · d<span class="vec">s</span> = − dΦ<sub>B</sub>/dt</td>
+              <td>Changing Φ<sub>B</sub> induces circulating <span class="vec">E</span></td>
+            </tr>
+            <tr>
+              <td>Ampère–Maxwell</td>
+              <td>∮ <span class="vec">B</span> · d<span class="vec">s</span> = μ<sub>0</sub>i<sub>enc</sub> + μ<sub>0</sub>ε<sub>0</sub>dΦ<sub>E</sub>/dt</td>
+              <td>Currents and changing Φ<sub>E</sub> produce <span class="vec">B</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 32.2 -->
+      <section id="s322">
+        <h2>32.2 Induced Magnetic Fields</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Faraday’s law says a changing magnetic flux induces an electric field. Maxwell found the “partner” idea:
+            a changing electric flux induces a magnetic field, completing the symmetry between electricity and magnetism.
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.2.1 -->
+      <section id="s3221">
+        <h2>32.2.1 Ampère–Maxwell Law</h2>
+
+        <h3>Combined law</h3>
+        <div class="formula">∮ <span class="vec">B</span> · d<span class="vec">s</span> = μ<sub>0</sub>i<sub>enc</sub> + μ<sub>0</sub>ε<sub>0</sub>dΦ<sub>E</sub>/dt</div>
+
+        <div class="note">
+          <p>
+            The added term μ<sub>0</sub>ε<sub>0</sub>dΦ<sub>E</sub>/dt fixes an inconsistency you would get using Ampère’s law alone for a charging capacitor:
+            different surfaces spanning the same loop would predict different fields unless the changing electric flux is included.
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.2.2 -->
+      <section id="s3222">
+        <h2>32.2.2 Field Around a Charging Capacitor</h2>
+
+        <h3>Circular symmetry result (between plates)</h3>
+        <div class="formula">B(2πr) = μ<sub>0</sub>i<sub>d,enc</sub></div>
+
+        <div class="card">
+          <p class="tiny">
+            For a parallel-plate capacitor (plate radius R) being charged so that the displacement current is uniformly “spread” over the plate
+            area, the enclosed displacement current scales like area: i<sub>d,enc</sub> = i(r<sup>2</sup>/R<sup>2</sup>) for r ≤ R.
+          </p>
+        </div>
+
+        <details>
+          <summary>Worked Example: B-field inside a charging capacitor</summary>
+          <p><strong>Given:</strong> A circular loop of radius r = 2.0 cm lies between plates of radius R = 6.0 cm. The conduction current charging the capacitor is i = 0.60 A (steady at that instant).</p>
+          <ol class="steps">
+            <li>For r ≤ R: i<sub>d,enc</sub> = i(r<sup>2</sup>/R<sup>2</sup>) = 0.60(0.02<sup>2</sup>/0.06<sup>2</sup>) = 0.60(1/9) = 0.0667 A.</li>
+            <li>B = μ<sub>0</sub>i<sub>d,enc</sub>/(2πr) = (4π×10<sup>−7</sup>)(0.0667)/(2π·0.020).</li>
+            <li>B = 6.7×10<sup>−7</sup> T.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> B ≈ 6.7×10<sup>−7</sup> T at r = 2.0 cm.</p>
+        </details>
+      </section>
+
+      <!-- 32.3 -->
+      <section id="s323">
+        <h2>32.3 Displacement Current</h2>
+
+        <h3>Key idea</h3>
+        <div class="card">
+          <p>
+            In regions with no conduction current (like the gap between capacitor plates), a time-changing electric field still produces
+            magnetic effects. Maxwell’s “displacement current” term is what makes the magnetic field prediction consistent everywhere.
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.3.1 -->
+      <section id="s3231">
+        <h2>32.3.1 Definition and Consistency Check</h2>
+
+        <h3>Displacement current</h3>
+        <div class="formula">i<sub>d</sub> = ε<sub>0</sub> dΦ<sub>E</sub>/dt</div>
+
+        <h3>Parallel-plate capacitor (useful shortcut)</h3>
+        <div class="formula">i = C dV/dt = ε<sub>0</sub>(A/d) dV/dt</div>
+
+        <details>
+          <summary>Worked Example: Displacement current equals conduction current</summary>
+          <p><strong>Given:</strong> A parallel-plate capacitor has A = 5.0×10<sup>−3</sup> m<sup>2</sup>, plate separation d = 1.0 mm. The voltage increases at dV/dt = 20 V/s.</p>
+          <ol class="steps">
+            <li>C = ε<sub>0</sub>A/d = (8.85×10<sup>−12</sup>)(5.0×10<sup>−3</sup>)/(1.0×10<sup>−3</sup>) = 4.43×10<sup>−11</sup> F.</li>
+            <li>i = C dV/dt = (4.43×10<sup>−11</sup>)(20) = 8.9×10<sup>−10</sup> A.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> i = i<sub>d</sub> ≈ 8.9×10<sup>−10</sup> A.</p>
+        </details>
+      </section>
+
+      <!-- 32.4 -->
+      <section id="s324">
+        <h2>32.4 Magnets</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              The simplest magnetic structure is a <strong>dipole</strong> (north–south pair). A small current loop is also a magnetic dipole.
+              In external fields, dipoles experience torque and have orientation-dependent potential energy.
+            </p>
+          </div>
+          <div class="card">
+            <div class="formula"><span class="vec">τ</span> = <span class="vec">μ</span> × <span class="vec">B</span></div>
+            <div class="formula">U = −<span class="vec">μ</span> · <span class="vec">B</span> = −μB cosθ</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 32.4.1 -->
+      <section id="s3241">
+        <h2>32.4.1 Dipole Moment, Torque, and Energy</h2>
+
+        <h3>Current loop magnetic moment</h3>
+        <div class="formula">μ = NiA</div>
+
+        <details>
+          <summary>Worked Example: Torque and energy of a dipole</summary>
+          <p><strong>Given:</strong> A loop has μ = 0.040 A·m<sup>2</sup> in a uniform B = 0.50 T field. The angle is θ = 60°.</p>
+          <ol class="steps">
+            <li>Torque magnitude: τ = μB sinθ = (0.040)(0.50)sin60° = 0.0173 N·m.</li>
+            <li>Potential energy: U = −μB cosθ = −(0.040)(0.50)(0.50) = −0.010 J.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> τ ≈ 1.7×10<sup>−2</sup> N·m, U = −1.0×10<sup>−2</sup> J.</p>
+        </details>
+      </section>
+
+      <!-- 32.5 -->
+      <section id="s325">
+        <h2>32.5 Magnetism and Electrons</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Atomic-scale magnetism largely comes from electron <strong>orbital</strong> motion (a current-loop-like effect) and electron
+            <strong>spin</strong> (intrinsic angular momentum). Many material behaviors follow from how these moments respond to an external field.
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.5.1 -->
+      <section id="s3251">
+        <h2>32.5.1 Spin and Orbital Magnetic Moments</h2>
+
+        <h3>Common proportionalities</h3>
+        <div class="formula"><span class="vec">μ</span><sub>orb</sub> = −(e/2m)<span class="vec">L</span></div>
+        <div class="formula"><span class="vec">μ</span><sub>s</sub> ≈ −(e/m)<span class="vec">S</span> &nbsp;&nbsp; (spin g ≈ 2)</div>
+
+        <div class="note">
+          <p>
+            Magnitudes are often expressed in units of the Bohr magneton: μ<sub>B</sub> = eħ/(2m<sub>e</sub>) ≈ 9.27×10<sup>−24</sup> J/T.
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.5.2 -->
+      <section id="s3252">
+        <h2>32.5.2 Magnetization and Susceptibility</h2>
+
+        <h3>Definitions (linear materials)</h3>
+        <div class="formula"><span class="vec">M</span> = χ<sub>m</sub><span class="vec">H</span></div>
+        <div class="formula"><span class="vec">B</span> = μ<sub>0</sub>(<span class="vec">H</span> + <span class="vec">M</span>) = μ<sub>0</sub>(1 + χ<sub>m</sub>)<span class="vec">H</span></div>
+
+        <div class="card">
+          <p class="tiny">
+            χ<sub>m</sub> &lt; 0 → diamagnetic (weakly repelled). χ<sub>m</sub> &gt; 0 → paramagnetic (weakly attracted) or ferromagnetic (strongly attracted, nonlinear).
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.6 -->
+      <section id="s326">
+        <h2>32.6 Diamagnetism</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Diamagnetism is a weak, universal response of bound electrons: an applied magnetic field slightly changes electron motion,
+            inducing a magnetic moment that <strong>opposes</strong> the applied field (Lenz-like behavior on the atomic scale).
+          </p>
+          <div class="kpi">
+            <span class="pill">χ<sub>m</sub> &lt; 0</span>
+            <span class="pill">Weak repulsion in nonuniform fields</span>
+            <span class="pill">Temperature-independent (often)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 32.6.1 -->
+      <section id="s3261">
+        <h2>32.6.1 χ<sub>m</sub> &lt; 0 and Weak Repulsion</h2>
+
+        <h3>Field relations</h3>
+        <div class="formula">μ = μ<sub>0</sub>(1 + χ<sub>m</sub>) &nbsp;&nbsp; (with χ<sub>m</sub> negative)</div>
+
+        <div class="note">
+          <p>
+            In a nonuniform field, a diamagnetic object tends to move toward regions of weaker field (it is “pushed out” of strong-field regions).
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.7 -->
+      <section id="s327">
+        <h2>32.7 Paramagnetism</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Paramagnetic materials have atoms with permanent magnetic moments (often from unpaired electron spins). In an external field, these
+            moments partially align with the field, giving a small positive susceptibility.
+          </p>
+          <div class="kpi">
+            <span class="pill">χ<sub>m</sub> &gt; 0 (small)</span>
+            <span class="pill">Alignment competes with thermal agitation</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 32.7.1 -->
+      <section id="s3271">
+        <h2>32.7.1 Alignment vs Temperature (Curie Law)</h2>
+
+        <h3>Typical dependence (weak fields)</h3>
+        <div class="formula">χ<sub>m</sub> = C/T</div>
+
+        <div class="note warn">
+          <p>
+            Higher temperature randomizes orientations more strongly, reducing net alignment and thus reducing χ<sub>m</sub>.
+          </p>
+        </div>
+      </section>
+
+      <!-- 32.8 -->
+      <section id="s328">
+        <h2>32.8 Ferromagnetism</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Ferromagnets (iron, cobalt, nickel, etc.) can have very large magnetization because quantum interactions favor parallel alignment
+            of neighboring magnetic moments, producing <strong>domains</strong> of aligned spins.
+          </p>
+          <div class="kpi">
+            <span class="pill">Large, nonlinear response</span>
+            <span class="pill">Domains + domain walls</span>
+            <span class="pill">Hysteresis and remanence</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 32.8.1 -->
+      <section id="s3281">
+        <h2>32.8.1 Domains and Hysteresis</h2>
+
+        <h3>B–H behavior (qualitative)</h3>
+        <div class="card">
+          <p>
+            When you increase H, domains grow/reorient and B rises rapidly, then approaches saturation. If you reduce H back to zero, B does not
+            generally return to zero (remanent magnetization). You must apply a reverse field to bring B back to zero (coercive field).
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for Maxwell-law problems, decide which flux changes (Φ<sub>E</sub> or Φ<sub>B</sub>), pick a symmetry-friendly loop/surface, and write the integral law.
+        For magnetism-of-matter problems, separate <strong>microscopic moment</strong> (electron physics) from <strong>macroscopic response</strong> (M, χ<sub>m</sub>, domains).
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

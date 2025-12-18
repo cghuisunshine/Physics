@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 3 — Vectors (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 3</span>
+      <span>•</span>
+      <span>Vectors</span>
+    </div>
+    <h1>Vectors</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: vector components, unit vectors, vector addition by components, and dot/cross
+      products.
+      Source reading: <a href="11 - Chapter 3_ Vectors.pdf#page=1&pagemode=bookmarks">11 - Chapter 3_ Vectors.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s031">3.1 Vectors and Their Components</a>
+        <a class="pdf-link" href="11 - Chapter 3_ Vectors.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s032">3.2 Unit Vectors and Adding by Components</a>
+        <a class="pdf-link" href="11 - Chapter 3_ Vectors.pdf#page=7&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s033">3.3 Multiplying Vectors</a>
+        <a class="pdf-link" href="11 - Chapter 3_ Vectors.pdf#page=9&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s031">
+        <h2>3.1 Vectors and Their Components</h2>
+        <div class="card">
+          <p>
+            Vectors have magnitude and direction. Components express a vector in a coordinate basis, making addition/subtraction and kinematics much
+            easier.
+          </p>
+        </div>
+        <h3>Components (2D)</h3>
+        <div class="formula">A = (A<sub>x</sub>, A<sub>y</sub>)</div>
+        <div class="formula">|A| = √(A<sub>x</sub><sup>2</sup> + A<sub>y</sub><sup>2</sup>)</div>
+      </section>
+
+      <section id="s032">
+        <h2>3.2 Unit Vectors, Adding Vectors by Components</h2>
+        <div class="card">
+          <p>
+            Unit vectors give direction only and form a convenient basis: î, ĵ, k̂. Add vectors by adding components.
+          </p>
+        </div>
+        <div class="formula">A = A<sub>x</sub> î + A<sub>y</sub> ĵ (+ A<sub>z</sub> k̂)</div>
+        <div class="formula">A + B = (A<sub>x</sub> + B<sub>x</sub>)î + (A<sub>y</sub> + B<sub>y</sub>)ĵ</div>
+        <details open>
+          <summary>Worked example: add two vectors</summary>
+          <p class="tiny">
+            Convert each vector to components using cos/sin, add components, then convert back to magnitude/angle if needed.
+          </p>
+        </details>
+      </section>
+
+      <section id="s033">
+        <h2>3.3 Multiplying Vectors</h2>
+        <div class="card">
+          <p>
+            The dot product relates to projection and work; the cross product relates to torque and angular momentum. They encode different
+            geometric relationships.
+          </p>
+        </div>
+        <h3>Dot product</h3>
+        <div class="formula">A · B = |A||B| cos θ</div>
+        <div class="formula">A · B = A<sub>x</sub>B<sub>x</sub> + A<sub>y</sub>B<sub>y</sub> + A<sub>z</sub>B<sub>z</sub></div>
+        <h3>Cross product</h3>
+        <div class="formula">|A × B| = |A||B| sin θ</div>
+        <p class="tiny">Direction is given by the right-hand rule.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: do vector problems in components early. Save “magnitude/angle” for the final answer unless a diagram demands it.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

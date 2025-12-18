@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 42 — Nuclear Physics (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 42</span>
+      <span>•</span>
+      <span>Nuclear Physics</span>
+    </div>
+    <h1>Nuclear Physics</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: how the nucleus was discovered, basic nuclear properties and binding energy,
+      radioactive decay (activity and half-life), alpha and beta decay mechanisms, radioactive dating, radiation dosage, and nuclear models.
+      Source reading: <a href="50 - Chapter 42_ Nuclear Physics.pdf#page=1&pagemode=bookmarks">50 - Chapter 42_ Nuclear Physics.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s421">42.1 Discovering the Nucleus</a>
+        <a class="pdf-link" href="50 - Chapter 42_ Nuclear Physics.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4211">42.1.1 Closest approach in Rutherford scattering</a>
+
+      <div class="toc-item">
+        <a href="#s422">42.2 Some Nuclear Properties</a>
+        <a class="pdf-link" href="50 - Chapter 42_ Nuclear Physics.pdf#page=4&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4221">42.2.1 Radius and density</a>
+      <a href="#s4222">42.2.2 Worked example: He-4 binding energy</a>
+
+      <div class="toc-item">
+        <a href="#s423">42.3 Radioactive Decay</a>
+        <a class="pdf-link" href="50 - Chapter 42_ Nuclear Physics.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4231">42.3.1 Decay law, activity, half-life</a>
+      <a href="#s4232">42.3.2 Worked example: activity after 3 half-lives</a>
+
+      <div class="toc-item">
+        <a href="#s424">42.4 Alpha Decay</a>
+        <a class="pdf-link" href="50 - Chapter 42_ Nuclear Physics.pdf#page=14&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4241">42.4.1 Q-value and recoil sharing</a>
+
+      <div class="toc-item">
+        <a href="#s425">42.5 Beta Decay</a>
+        <a class="pdf-link" href="50 - Chapter 42_ Nuclear Physics.pdf#page=17&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4251">42.5.1 β−, β+, and electron capture</a>
+
+      <div class="toc-item">
+        <a href="#s426">42.6 Radioactive Dating</a>
+        <a class="pdf-link" href="50 - Chapter 42_ Nuclear Physics.pdf#page=20&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4261">42.6.1 Worked example: carbon-14 age</a>
+
+      <div class="toc-item">
+        <a href="#s427">42.7 Measuring Radiation Dosage</a>
+        <a class="pdf-link" href="50 - Chapter 42_ Nuclear Physics.pdf#page=21&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4271">42.7.1 Gray, sievert, weighting factor</a>
+
+      <div class="toc-item">
+        <a href="#s428">42.8 Nuclear Models</a>
+        <a class="pdf-link" href="50 - Chapter 42_ Nuclear Physics.pdf#page=22&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4281">42.8.1 Liquid-drop vs shell model</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 42.1 -->
+      <section id="s421">
+        <h2>42.1 Discovering the Nucleus</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Rutherford’s gold-foil scattering showed atoms are mostly empty space: most alpha particles pass through, but a tiny fraction
+              scatter through large angles. That implies a small, dense, positively charged <strong>nucleus</strong>.
+            </p>
+            <div class="kpi">
+              <span class="pill">Atoms mostly empty</span>
+              <span class="pill">Small positive nucleus</span>
+              <span class="pill">Coulomb repulsion</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Scale</h3>
+            <p class="tiny">
+              Atomic size is ~10<sup>−10</sup> m, nuclear size is ~10<sup>−15</sup> m. The nucleus is ~10<sup>5</sup> times smaller in radius,
+              so ~10<sup>15</sup> times smaller in volume.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 42.1.1 -->
+      <section id="s4211">
+        <h2>42.1.1 Closest Approach in Rutherford Scattering</h2>
+
+        <h3>Head-on (simplified) estimate</h3>
+        <div class="formula">K = (1/4πϵ<sub>0</sub)(Z<sub>1</sub>Z<sub>2</sub>e<sup>2</sup>)/r<sub>min</sub>  ⇒  r<sub>min</sub> = (1/4πϵ<sub>0</sub)(Z<sub>1</sub>Z<sub>2</sub>e<sup>2</sup>)/K</div>
+        <p class="tiny">
+          For an alpha particle, Z<sub>1</sub> = 2. For a target nucleus, Z<sub>2</sub> = Z.
+        </p>
+
+        <details open>
+          <summary>Worked Example: 5.0 MeV alpha on gold (Z = 79)</summary>
+          <p><strong>Given:</strong> K = 5.0 MeV, Z<sub>1</sub>Z<sub>2</sub> = 2·79 = 158. Use (1/4πϵ<sub>0</sub)e<sup>2</sup> = 1.44 MeV·fm.</p>
+          <ol class="steps">
+            <li>r<sub>min</sub> = (1.44 MeV·fm)(158)/(5.0 MeV) = 45.5 fm.</li>
+            <li>Convert: 45.5 fm = 4.55×10<sup>−14</sup> m.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> r<sub>min</sub> ≈ 4.6×10<sup>−14</sup> m (still larger than a typical nuclear radius, so “hard” hits are rare).</p>
+        </details>
+      </section>
+
+      <!-- 42.2 -->
+      <section id="s422">
+        <h2>42.2 Some Nuclear Properties</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Nuclei are built from protons (Z) and neutrons (N). The mass number is A = Z + N. Isotopes share Z but differ in N.
+            Nuclear size and binding energy show that the strong nuclear force is short-range and saturating.
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.2.1 -->
+      <section id="s4221">
+        <h2>42.2.1 Radius and Density</h2>
+
+        <h3>Empirical radius law</h3>
+        <div class="formula">R = R<sub>0</sub>A<sup>1/3</sup>, with R<sub>0</sub> ≈ 1.2 fm</div>
+        <div class="note">
+          <p>
+            Because volume scales as R<sup>3</sup> ∝ A, nuclear density is roughly constant across the periodic table.
+          </p>
+        </div>
+
+        <details>
+          <summary>Quick estimate: gold nucleus radius (A ≈ 197)</summary>
+          <p class="tiny">R ≈ 1.2 fm · 197<sup>1/3</sup> ≈ 7.0 fm.</p>
+        </details>
+      </section>
+
+      <!-- 42.2.2 -->
+      <section id="s4222">
+        <h2>42.2.2 Worked Example: He-4 Binding Energy</h2>
+
+        <h3>Mass defect → binding energy</h3>
+        <div class="formula">E<sub>b</sub> = Δmc<sup>2</sup>,  1 u = 931.5 MeV/c<sup>2</sup></div>
+        <div class="formula">Δm = Zm<sub>H</sub> + Nm<sub>n</sub> − m<sub>atom</sub></div>
+        <p class="tiny">Using atomic masses lets electron masses cancel cleanly (m<sub>H</sub> includes one electron).</p>
+
+        <details open>
+          <summary>Compute E<sub>b</sub> and E<sub>b</sub>/A for helium-4</summary>
+          <p><strong>Given:</strong> m<sub>H</sub> = 1.007825 u, m<sub>n</sub> = 1.008665 u, m(He-4 atom) = 4.002603 u. Z = 2, N = 2.</p>
+          <ol class="steps">
+            <li>Δm = 2m<sub>H</sub> + 2m<sub>n</sub> − m(He) = 0.030377 u.</li>
+            <li>E<sub>b</sub> = (0.030377 u)(931.5 MeV/u) = 28.3 MeV.</li>
+            <li>E<sub>b</sub>/A = 28.3/4 = 7.07 MeV per nucleon.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> He-4 binding energy is ≈ 28.3 MeV (≈ 7.1 MeV/nucleon), explaining its stability.</p>
+        </details>
+      </section>
+
+      <!-- 42.3 -->
+      <section id="s423">
+        <h2>42.3 Radioactive Decay</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Radioactive decay is a spontaneous transformation of an unstable nucleus. The decay of a large sample is predictable statistically:
+            each nucleus has a constant probability per unit time to decay.
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.3.1 -->
+      <section id="s4231">
+        <h2>42.3.1 Decay Law, Activity, Half-life</h2>
+
+        <h3>Core equations</h3>
+        <div class="formula">N(t) = N<sub>0</sub>e<sup>−λt</sup></div>
+        <div class="formula">A(t) = −dN/dt = λN(t)</div>
+        <div class="formula">t<sub>1/2</sub> = (ln 2)/λ</div>
+
+        <div class="note">
+          <p>
+            Activity A is measured in becquerel (Bq), where 1 Bq = 1 decay/s. A convenient “mental model” is that every half-life multiplies N and A by 1/2.
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.3.2 -->
+      <section id="s4232">
+        <h2>42.3.2 Worked Example: Activity After 3 Half-lives</h2>
+
+        <details open>
+          <summary>Compute activity after 30 days for t<sub>1/2</sub> = 10 days</summary>
+          <p><strong>Given:</strong> N<sub>0</sub> = 1.0×10<sup>20</sup> nuclei, half-life t<sub>1/2</sub> = 10 days, and t = 30 days.</p>
+          <ol class="steps">
+            <li>After 3 half-lives, N = N<sub>0</sub>/2<sup>3</sup> = N<sub>0</sub>/8 = 1.25×10<sup>19</sup>.</li>
+            <li>λ = ln 2 / t<sub>1/2</sub> = 0.693/(10 days) = 0.0693 day<sup>−1</sup> = 8.02×10<sup>−7</sup> s<sup>−1</sup>.</li>
+            <li>A(t) = λN = (8.02×10<sup>−7</sup> s<sup>−1</sup>)(1.25×10<sup>19</sup>) = 1.00×10<sup>13</sup> Bq.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> After 30 days, A ≈ 1×10<sup>13</sup> Bq (and it is 1/8 of the initial activity).</p>
+        </details>
+      </section>
+
+      <!-- 42.4 -->
+      <section id="s424">
+        <h2>42.4 Alpha Decay</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            In alpha decay, a nucleus emits an alpha particle (a tightly bound He-4 nucleus). Classically, the alpha particle would be trapped
+            by the Coulomb barrier, but quantum tunneling allows escape. The decay energy Q comes from the mass difference between initial and final states.
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.4.1 -->
+      <section id="s4241">
+        <h2>42.4.1 Q-value and Recoil Sharing</h2>
+
+        <h3>Energy split (two-body decay)</h3>
+        <div class="formula">Q = (m<sub>parent</sub> − m<sub>daughter</sub> − m<sub>α</sub>)c<sup>2</sup></div>
+        <div class="formula">K<sub>α</sub> ≈ Q · m<sub>daughter</sub>/(m<sub>daughter</sub> + m<sub>α</sub>)</div>
+
+        <details open>
+          <summary>Worked Example: How much of Q goes to the alpha?</summary>
+          <p><strong>Given:</strong> Q = 5.4 MeV, daughter mass ≈ 206 u, alpha mass ≈ 4 u.</p>
+          <ol class="steps">
+            <li>K<sub>α</sub> ≈ Q · 206/(206 + 4) = 5.4·206/210 = 5.30 MeV.</li>
+            <li>The recoil kinetic energy of the daughter is Q − K<sub>α</sub> ≈ 0.10 MeV.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> For heavy nuclei, the alpha carries almost all of Q; the daughter recoil is small.</p>
+        </details>
+      </section>
+
+      <!-- 42.5 -->
+      <section id="s425">
+        <h2>42.5 Beta Decay</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            In beta decay, a neutron and proton can transform into each other via the weak interaction. A key signature is a continuous electron/positron energy spectrum,
+            explained by the emission of a neutrino (or antineutrino) that carries away some energy and momentum.
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.5.1 -->
+      <section id="s4251">
+        <h2>42.5.1 β−, β+, and Electron Capture</h2>
+
+        <h3>Three related processes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Process</th>
+              <th>What changes</th>
+              <th>Example form</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>β− decay</td>
+              <td>n → p (Z increases by 1)</td>
+              <td>(A, Z) → (A, Z + 1) + e<sup>−</sup> + <span class="tiny">ν̄</span></td>
+            </tr>
+            <tr>
+              <td>β+ decay</td>
+              <td>p → n (Z decreases by 1)</td>
+              <td>(A, Z) → (A, Z − 1) + e<sup>+</sup> + <span class="tiny">ν</span></td>
+            </tr>
+            <tr>
+              <td>Electron capture</td>
+              <td>p + e<sup>−</sup> → n (Z decreases by 1)</td>
+              <td>(A, Z) + e<sup>−</sup> → (A, Z − 1) + <span class="tiny">ν</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          <p>
+            In β+ decay, the available energy Q must also cover creation of the positron (and, effectively, an electron when comparing atomic masses),
+            so β+ often competes with electron capture.
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.6 -->
+      <section id="s426">
+        <h2>42.6 Radioactive Dating</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            If you know the half-life of an isotope and can estimate how much was present initially (or compare parent/daughter amounts),
+            you can infer the time elapsed. Dating is an application of the same exponential decay law.
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.6.1 -->
+      <section id="s4261">
+        <h2>42.6.1 Worked Example: Carbon-14 Age</h2>
+
+        <details open>
+          <summary>Find the age if 25% of the original C-14 remains</summary>
+          <p><strong>Given:</strong> Carbon-14 half-life t<sub>1/2</sub> = 5730 years. A sample has N/N<sub>0</sub> = 0.25.</p>
+          <ol class="steps">
+            <li>0.25 = (1/2)<sup>2</sup>, so two half-lives have passed.</li>
+            <li>t = 2t<sub>1/2</sub> = 2(5730 years) = 11,460 years.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> The sample is about 1.15×10<sup>4</sup> years old.</p>
+        </details>
+      </section>
+
+      <!-- 42.7 -->
+      <section id="s427">
+        <h2>42.7 Measuring Radiation Dosage</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Dosage quantifies energy deposited in tissue and the biological damage potential. Different radiation types cause different damage per joule absorbed,
+            so we distinguish absorbed dose and equivalent dose.
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.7.1 -->
+      <section id="s4271">
+        <h2>42.7.1 Gray, Sievert, Weighting Factor</h2>
+
+        <h3>Definitions</h3>
+        <div class="formula">absorbed dose: D = (energy absorbed)/(mass)  (1 Gy = 1 J/kg)</div>
+        <div class="formula">equivalent dose: H = w<sub>R</sub>D  (unit: Sv)</div>
+        <p class="tiny">w<sub>R</sub> is a radiation weighting factor (roughly: alpha ~20, beta/gamma ~1).</p>
+
+        <details open>
+          <summary>Worked Example: Convert absorbed dose to equivalent dose</summary>
+          <p><strong>Given:</strong> D = 0.050 Gy from alpha particles (w<sub>R</sub> = 20).</p>
+          <ol class="steps">
+            <li>H = w<sub>R</sub>D = 20(0.050 Gy) = 1.0 Sv.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> 0.050 Gy of alpha radiation corresponds to 1.0 Sv equivalent dose.</p>
+        </details>
+      </section>
+
+      <!-- 42.8 -->
+      <section id="s428">
+        <h2>42.8 Nuclear Models</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            No single simple picture captures all nuclear behavior. Two complementary models are widely used:
+            the liquid-drop model (collective behavior, fission) and the shell model (single-particle levels, magic numbers).
+          </p>
+        </div>
+      </section>
+
+      <!-- 42.8.1 -->
+      <section id="s4281">
+        <h2>42.8.1 Liquid-drop vs Shell Model</h2>
+
+        <h3>Two viewpoints</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Picture</th>
+              <th>Explains well</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Liquid-drop</td>
+              <td>Nucleus as a drop of nuclear fluid with surface tension</td>
+              <td>Binding-energy trends, fission, collective modes</td>
+            </tr>
+            <tr>
+              <td>Shell model</td>
+              <td>Nucleons occupy quantized energy levels in a potential</td>
+              <td>Magic numbers, spins/parities, extra stability</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <p>
+            The famous binding-energy-per-nucleon curve peaks near iron: fusion releases energy for light nuclei; fission releases energy for very heavy nuclei.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: always start nuclear problems with bookkeeping: identify (A, Z), write the reaction/decay with conservation of A and charge,
+        then use mass differences for Q and exponential decay for time.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

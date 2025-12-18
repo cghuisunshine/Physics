@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 40 — All About Atoms (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 40</span>
+      <span>•</span>
+      <span>All About Atoms</span>
+    </div>
+    <h1>All About Atoms</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: atomic properties and spectra, spin quantization (Stern–Gerlach),
+      magnetic resonance, Pauli exclusion and multi-electron structure, periodic table logic, x-ray spectra, and lasers.
+      Source reading: <a href="48 - Chapter 40_ All About Atoms.pdf#page=1&pagemode=bookmarks">48 - Chapter 40_ All About Atoms.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s401">40.1 Properties of Atoms</a>
+        <a class="pdf-link" href="48 - Chapter 40_ All About Atoms.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4011">40.1.1 Spectral lines as energy differences</a>
+
+      <div class="toc-item">
+        <a href="#s402">40.2 The Stern–Gerlach Experiment</a>
+        <a class="pdf-link" href="48 - Chapter 40_ All About Atoms.pdf#page=8&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4021">40.2.1 Spin-1/2 and space quantization</a>
+
+      <div class="toc-item">
+        <a href="#s403">40.3 Magnetic Resonance</a>
+        <a class="pdf-link" href="48 - Chapter 40_ All About Atoms.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4031">40.3.1 Larmor precession and resonance condition</a>
+      <a href="#s4032">40.3.2 Worked example: proton resonance frequency</a>
+
+      <div class="toc-item">
+        <a href="#s404">40.4 Exclusion Principle and Multiple Electrons in a Trap</a>
+        <a class="pdf-link" href="48 - Chapter 40_ All About Atoms.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4041">40.4.1 Pauli principle and “two per orbital”</a>
+
+      <div class="toc-item">
+        <a href="#s405">40.5 Building the Periodic Table</a>
+        <a class="pdf-link" href="48 - Chapter 40_ All About Atoms.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4051">40.5.1 Quantum numbers and shell capacity</a>
+      <a href="#s4052">40.5.2 Periodic trends (why patterns repeat)</a>
+
+      <div class="toc-item">
+        <a href="#s406">40.6 X Rays and the Ordering of the Elements</a>
+        <a class="pdf-link" href="48 - Chapter 40_ All About Atoms.pdf#page=18&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4061">40.6.1 X-ray continuum + characteristic lines</a>
+      <a href="#s4062">40.6.2 Worked example: cutoff wavelength</a>
+
+      <div class="toc-item">
+        <a href="#s407">40.7 Lasers</a>
+        <a class="pdf-link" href="48 - Chapter 40_ All About Atoms.pdf#page=22&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4071">40.7.1 Stimulated emission and gain</a>
+      <a href="#s4072">40.7.2 Three-level laser idea</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 40.1 -->
+      <section id="s401">
+        <h2>40.1 Properties of Atoms</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Atoms have characteristic sizes (~Å), characteristic binding energies (~eV), and characteristic photons they absorb/emit
+              when electrons transition between allowed states.
+            </p>
+            <div class="kpi">
+              <span class="pill">Discrete electron energies</span>
+              <span class="pill">Photons carry ΔE</span>
+              <span class="pill">Spectra fingerprint elements</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Photon energy</h3>
+            <div class="formula">E = hf = hc/λ</div>
+            <p class="tiny">Spectral lines correspond to specific λ (or f) because energy differences are quantized.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 40.1.1 -->
+      <section id="s4011">
+        <h2>40.1.1 Spectral Lines as Energy Differences</h2>
+
+        <h3>Emission/absorption</h3>
+        <div class="card">
+          <p>
+            A transition from a higher energy level to a lower one emits a photon with energy
+            <code>hf = E<sub>initial</sub> − E<sub>final</sub></code>. Absorption reverses the direction.
+          </p>
+        </div>
+
+        <div class="note">
+          <p>
+            A useful shortcut is <code>hc ≈ 1240 eV·nm</code>. Then λ in nm is easy if ΔE is in eV.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.2 -->
+      <section id="s402">
+        <h2>40.2 The Stern–Gerlach Experiment</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A beam of atoms passing through a nonuniform magnetic field splits into discrete spots, revealing that magnetic moments
+            (and angular momentum components) are <strong>quantized</strong>, not continuous.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.2.1 -->
+      <section id="s4021">
+        <h2>40.2.1 Spin-1/2 and Space Quantization</h2>
+
+        <h3>Two-valued outcome</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p class="tiny">
+              For an electron’s intrinsic angular momentum (spin), measuring a component (say along z) gives only two values:
+              “spin up” or “spin down.” That’s why a silver-atom beam splits into two.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Energy in a field (idea)</h3>
+            <div class="formula">U = −<span class="vec">μ</span>·<span class="vec">B</span></div>
+            <p class="tiny">In a field gradient, different spin states feel different forces and separate spatially.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 40.3 -->
+      <section id="s403">
+        <h2>40.3 Magnetic Resonance</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A magnetic moment in a magnetic field precesses like a top. If you apply an oscillating magnetic field at the right frequency,
+            the system absorbs energy strongly: <strong>resonance</strong>. This underlies NMR and MRI.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.3.1 -->
+      <section id="s4031">
+        <h2>40.3.1 Larmor Precession and Resonance Condition</h2>
+
+        <h3>Resonance frequency</h3>
+        <div class="formula">ω<sub>0</sub> = γB,  f<sub>0</sub> = ω<sub>0</sub>/(2π) = (γ/2π)B</div>
+        <p class="tiny">γ is the gyromagnetic ratio (depends on particle: electron, proton, etc.).</p>
+
+        <div class="note warn">
+          <p>
+            In NMR, you often see (γ/2π) reported directly in MHz/T. For protons: (γ/2π) ≈ 42.58 MHz/T.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.3.2 -->
+      <section id="s4032">
+        <h2>40.3.2 Worked Example: Proton Resonance Frequency</h2>
+
+        <details open>
+          <summary>Find the NMR frequency for protons in a 1.5 T magnet</summary>
+          <p><strong>Given:</strong> (γ/2π) = 42.58 MHz/T for a proton, magnetic field B = 1.5 T.</p>
+          <ol class="steps">
+            <li>f<sub>0</sub> = (γ/2π)B = (42.58 MHz/T)(1.5 T) = 63.9 MHz.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> f<sub>0</sub> ≈ 64 MHz.</p>
+        </details>
+      </section>
+
+      <!-- 40.4 -->
+      <section id="s404">
+        <h2>40.4 Exclusion Principle and Multiple Electrons in a Trap</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Electrons are fermions. The <strong>Pauli exclusion principle</strong> says no two electrons in the same atom can share the same
+            complete set of quantum numbers. This single rule builds most of the structure of atoms and chemistry.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.4.1 -->
+      <section id="s4041">
+        <h2>40.4.1 Pauli Principle and “Two per Orbital”</h2>
+
+        <h3>Practical takeaway</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p class="tiny">
+              For a given spatial orbital (same n, ℓ, m<sub>ℓ</sub>), there are two allowed spin states. So each orbital holds at most
+              <strong>two</strong> electrons (spin up and spin down).
+            </p>
+          </div>
+          <div class="card">
+            <h3>Shell capacity (result)</h3>
+            <div class="formula">max electrons in shell n = 2n<sup>2</sup></div>
+            <p class="tiny">Because there are n<sup>2</sup> spatial orbitals for a given n and 2 spin states each.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 40.5 -->
+      <section id="s405">
+        <h2>40.5 Building the Periodic Table</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The periodic table is a map of how electrons fill available atomic states. As protons are added (higher Z),
+            electrons occupy orbitals in an order shaped by energy, screening, and the exclusion principle.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.5.1 -->
+      <section id="s4051">
+        <h2>40.5.1 Quantum Numbers and Shell Capacity</h2>
+
+        <h3>Quantum numbers (quick map)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Label</th>
+              <th>Symbol</th>
+              <th>Typical allowed values</th>
+              <th>Meaning (short)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Principal</td>
+              <td>n</td>
+              <td>1, 2, 3, …</td>
+              <td>Shell (overall size/energy scale)</td>
+            </tr>
+            <tr>
+              <td>Orbital</td>
+              <td>ℓ</td>
+              <td>0 … (n − 1)</td>
+              <td>Subshell (s, p, d, f …)</td>
+            </tr>
+            <tr>
+              <td>Magnetic</td>
+              <td>m<sub>ℓ</sub></td>
+              <td>−ℓ … +ℓ</td>
+              <td>Orbital orientation index</td>
+            </tr>
+            <tr>
+              <td>Spin</td>
+              <td>m<sub>s</sub></td>
+              <td>±1/2</td>
+              <td>Two-valued intrinsic angular momentum</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Quick check: how many electrons fit in n = 3?</summary>
+          <p><strong>Use:</strong> 2n<sup>2</sup> = 2·3<sup>2</sup> = 18.</p>
+          <p class="note"><strong>Answer:</strong> The n = 3 shell holds up to 18 electrons.</p>
+        </details>
+      </section>
+
+      <!-- 40.5.2 -->
+      <section id="s4052">
+        <h2>40.5.2 Periodic Trends (Why Patterns Repeat)</h2>
+
+        <h3>Idea</h3>
+        <div class="card">
+          <p class="tiny">
+            Chemical properties are governed by <strong>valence electrons</strong> (outermost partially filled shell/subshell).
+            When a shell is filled, the next element begins filling a new shell, and the pattern repeats across a period.
+          </p>
+        </div>
+
+        <div class="note">
+          <p>
+            Many trends (atomic radius, ionization energy) come from a tug-of-war between increasing nuclear charge Z and electron
+            screening by inner shells.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.6 -->
+      <section id="s406">
+        <h2>40.6 X Rays and the Ordering of the Elements</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            X rays are produced when energetic electrons strike a target: a continuum (“bremsstrahlung”) plus sharp characteristic lines
+            from atomic inner-shell transitions. The characteristic frequencies correlate strongly with atomic number Z.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.6.1 -->
+      <section id="s4061">
+        <h2>40.6.1 X-ray Continuum + Characteristic Lines</h2>
+
+        <h3>Two pieces of an x-ray spectrum</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Continuum (cutoff)</h3>
+            <p class="tiny">
+              The shortest possible wavelength occurs if an electron’s entire kinetic energy (from voltage V) becomes one photon.
+            </p>
+            <div class="formula">λ<sub>min</sub> = hc/(eV)</div>
+          </div>
+          <div class="card">
+            <h3>Characteristic lines</h3>
+            <p class="tiny">
+              If an inner-shell electron is knocked out, a higher electron drops down and emits a photon with a specific energy.
+              These lines are element-dependent (fingerprints).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 40.6.2 -->
+      <section id="s4062">
+        <h2>40.6.2 Worked Example: Cutoff Wavelength</h2>
+
+        <details open>
+          <summary>Find the minimum wavelength from a 50 kV x-ray tube</summary>
+          <p><strong>Given:</strong> Tube voltage V = 50 kV, and hc ≈ 1240 eV·nm.</p>
+          <ol class="steps">
+            <li>Electron energy: eV = 50,000 eV.</li>
+            <li>λ<sub>min</sub> = hc/(eV) = (1240 eV·nm)/(50,000 eV) = 0.0248 nm.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> λ<sub>min</sub> ≈ 2.5×10<sup>−2</sup> nm.</p>
+        </details>
+      </section>
+
+      <!-- 40.7 -->
+      <section id="s407">
+        <h2>40.7 Lasers</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A laser amplifies light by <strong>stimulated emission</strong>, producing a coherent beam (same frequency and phase relation).
+            Achieving amplification requires a <strong>population inversion</strong> plus an optical cavity for feedback.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.7.1 -->
+      <section id="s4071">
+        <h2>40.7.1 Stimulated Emission and Gain</h2>
+
+        <h3>Three processes</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Process</th>
+              <th>What happens</th>
+              <th>Photon output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Absorption</td>
+              <td>Atom absorbs a photon and moves up in energy</td>
+              <td>Photon removed</td>
+            </tr>
+            <tr>
+              <td>Spontaneous emission</td>
+              <td>Atom drops and emits a photon randomly</td>
+              <td>Random direction/phase</td>
+            </tr>
+            <tr>
+              <td>Stimulated emission</td>
+              <td>Incoming photon triggers emission of a second photon</td>
+              <td>Second photon matches the first</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          <p>
+            Without population inversion (more atoms in the upper level than the lower), absorption dominates and you cannot get net gain.
+          </p>
+        </div>
+      </section>
+
+      <!-- 40.7.2 -->
+      <section id="s4072">
+        <h2>40.7.2 Three-Level Laser Idea</h2>
+
+        <h3>How inversion is engineered</h3>
+        <div class="card">
+          <p class="tiny">
+            A pump excites atoms from the ground state to a high state that quickly decays into a long-lived metastable level. Because the
+            metastable level accumulates population, it becomes possible to achieve inversion between that level and a lower level, enabling
+            stimulated emission in the cavity.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: keep the “two quantizations” distinct: (1) energy levels (spectra) and (2) angular momentum components (Stern–Gerlach).
+        Then connect them to tools: resonance probes energy splitting, x rays probe inner shells, and lasers exploit stimulated emission.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

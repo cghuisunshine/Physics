@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 22 — Electric Fields (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      border-radius:10px;
+      text-decoration:none;
+      color:var(--text);
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      background:rgba(122,167,255,.08);
+      border-color:rgba(122,167,255,.22);
+    }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.14);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+      font-size:14px;
+    }
+    th{ color:var(--muted); font-weight:600; }
+    tr:last-child td{ border-bottom:none; }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 22</span>
+      <span>•</span>
+      <span>Electric Fields</span>
+    </div>
+    <h1>Electric Fields</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: definitions, meaning, core formulas,
+      vector reasoning, superposition, dipoles, and continuous charge distributions.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <a href="#s221">22.1 What Is an Electric Field?</a>
+      <a href="#s2211">22.1.1 Definition of Electric Field</a>
+      <a href="#s2212">22.1.2 Electric Field as a Vector Field</a>
+      <a href="#s2213">22.1.3 Electric Field Lines</a>
+      <a href="#s222">22.2 Field of a Point Charge</a>
+      <a href="#s2221">22.2.1 Superposition</a>
+      <a href="#s223">22.3 Electric Dipole</a>
+      <a href="#s224">22.4 Continuous Charge Distributions</a>
+      <a href="#s2241">22.4.1 Charged Ring (on axis)</a>
+      <a href="#s225">22.5 Charged Disk (on axis)</a>
+      <a href="#s226">22.6 Charge in an Electric Field</a>
+      <a href="#s227">22.7 Dipole in an External Field</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 22.1 -->
+      <section id="s221">
+        <h2>22.1 What Is an Electric Field?</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Electric charges exert forces <strong>without contact</strong>. The electric field is a way to describe
+            how a charge changes the space around it. Another charge placed in that region feels a force because it
+            is inside the field.
+          </p>
+          <div class="kpi">
+            <span class="pill">Field exists even if no test charge is present</span>
+            <span class="pill">Field is a property of space</span>
+            <span class="pill">Direction: where a positive charge would accelerate</span>
+          </div>
+        </div>
+
+        <h3>Important formulas & meaning</h3>
+        <div class="formula">Concept preview:  <span class="vec">E</span>  is defined as force per unit positive charge (see 22.1.1).</div>
+
+        <details>
+          <summary>Worked Example (Concept): Why introduce E instead of only using Coulomb force?</summary>
+          <ol class="steps">
+            <li><strong>Problem:</strong> Force depends on both the source charge(s) and the test charge.</li>
+            <li><strong>Idea:</strong> Separate “space caused by sources” from “response of a test charge.”</li>
+            <li><strong>Define:</strong> <span class="vec">E</span> = <span class="vec">F</span> / q<sub>0</sub>. Now <span class="vec">E</span> depends only on the source charges and geometry.</li>
+            <li><strong>Use:</strong> Once <span class="vec">E</span> is known, any charge q experiences <span class="vec">F</span> = q<span class="vec">E</span>.</li>
+          </ol>
+          <p class="note">
+            Interpretation: <span class="vec">E</span> is like a “force map” created by sources; q tells how strongly an object responds.
+          </p>
+        </details>
+      </section>
+
+      <!-- 22.1.1 -->
+      <section id="s2211">
+        <h2>22.1.1 Definition of the Electric Field</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Definition:</strong> The electric field at a point equals the force on a small positive test charge divided by the test charge.</p>
+            <p class="tiny">“Small” means it does not disturb the original charge distribution.</p>
+          </div>
+          <div class="card">
+            <p><strong>Direction:</strong> The direction of <span class="vec">E</span> is the direction of the force on a positive test charge.</p>
+            <p class="tiny">A negative charge feels force opposite the field direction.</p>
+          </div>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula"><span class="vec">E</span> = <span class="vec">F</span> / q<sub>0</sub></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Meaning</th>
+              <th>Units</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="vec">E</span></td>
+              <td>Electric field vector at a point</td>
+              <td>N/C</td>
+            </tr>
+            <tr>
+              <td><span class="vec">F</span></td>
+              <td>Electric force on the test charge</td>
+              <td>N</td>
+            </tr>
+            <tr>
+              <td>q<sub>0</sub></td>
+              <td>Positive test charge (small)</td>
+              <td>C</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Worked Example: Find E from a known force on a test charge</summary>
+          <p><strong>Given:</strong> A +2.0 μC test charge experiences a force of 0.060 N to the right.</p>
+          <p><strong>Find:</strong> Electric field <span class="vec">E</span> at that point.</p>
+          <ol class="steps">
+            <li>Convert charge: 2.0 μC = 2.0 × 10<sup>−6</sup> C.</li>
+            <li>Use definition: E = F/q<sub>0</sub>.</li>
+            <li>E = 0.060 / (2.0 × 10<sup>−6</sup>) = 3.0 × 10<sup>4</sup> N/C.</li>
+            <li>Direction is the same as force on + charge: to the right.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> <span class="vec">E</span> = 3.0 × 10<sup>4</sup> N/C to the right.</p>
+        </details>
+      </section>
+
+      <!-- 22.1.2 -->
+      <section id="s2212">
+        <h2>22.1.2 Electric Field as a Vector Field</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Electric fields are <strong>vector fields</strong>: at every point in space, the field has a magnitude and direction.
+            This is why vector addition is essential when multiple charges contribute.
+          </p>
+          <div class="kpi">
+            <span class="pill">Magnitude + direction at each point</span>
+            <span class="pill">Add using vectors, not just numbers</span>
+            <span class="pill">Often use components (x/y) to add</span>
+          </div>
+        </div>
+
+        <h3>Important formulas & meaning</h3>
+        <div class="formula">If <span class="vec">E</span> has components:  <span class="vec">E</span> = (E<sub>x</sub>)<span class="hat">i</span> + (E<sub>y</sub>)<span class="hat">j</span>  and  |<span class="vec">E</span>| = √(E<sub>x</sub><sup>2</sup> + E<sub>y</sub><sup>2</sup>)</div>
+
+        <details>
+          <summary>Worked Example: Add two perpendicular electric field vectors</summary>
+          <p><strong>Given:</strong> <span class="vec">E</span><sub>1</sub> = 300 N/C east, <span class="vec">E</span><sub>2</sub> = 400 N/C north.</p>
+          <p><strong>Find:</strong> Net field magnitude and direction.</p>
+          <ol class="steps">
+            <li>Choose axes: east = +x, north = +y.</li>
+            <li>E<sub>x</sub> = 300, E<sub>y</sub> = 400 (N/C).</li>
+            <li>|<span class="vec">E</span>| = √(300<sup>2</sup> + 400<sup>2</sup>) = √(90,000 + 160,000) = √250,000 = 500 N/C.</li>
+            <li>Angle from east: θ = tan<sup>−1</sup>(E<sub>y</sub>/E<sub>x</sub>) = tan<sup>−1</sup>(400/300) ≈ 53° north of east.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> <span class="vec">E</span><sub>net</sub> = 500 N/C at ~53° north of east.</p>
+        </details>
+      </section>
+
+      <!-- 22.1.3 -->
+      <section id="s2213">
+        <h2>22.1.3 Electric Field Lines</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Electric field lines are a drawing tool for visualizing electric fields.
+            They are not “real wires” in space—just a way to show direction and relative strength.
+          </p>
+        </div>
+
+        <h3>Rules/patterns/conditions</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Rule</th>
+              <th>Meaning (simple)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tangent rule</td>
+              <td><span class="vec">E</span> is tangent to the field line at every point.</td>
+            </tr>
+            <tr>
+              <td>Density rule</td>
+              <td>Closer lines ⇒ stronger field (larger |<span class="vec">E</span>|).</td>
+            </tr>
+            <tr>
+              <td>Start/end</td>
+              <td>Lines start on + charges and end on − charges (or infinity).</td>
+            </tr>
+            <tr>
+              <td>No crossing</td>
+              <td>Lines never intersect (field can’t have two directions at one point).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Worked Example: Determine field direction near a negative charge</summary>
+          <p><strong>Question:</strong> What is the direction of <span class="vec">E</span> near an isolated −q charge?</p>
+          <ol class="steps">
+            <li>Field direction is defined by force on a <strong>positive</strong> test charge.</li>
+            <li>A positive test charge is attracted to a negative source charge.</li>
+            <li>So <span class="vec">E</span> points <strong>toward</strong> the negative charge at every point.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Field lines point inward; <span class="vec">E</span> is directed toward −q.</p>
+        </details>
+
+        <div class="note warn">
+          Common mistake: Saying “field lines show the path a charge will take.” In general, motion depends on the particle’s initial velocity too. Field lines show instantaneous force direction, not a guaranteed trajectory.
+        </div>
+      </section>
+
+      <!-- 22.2 -->
+      <section id="s222">
+        <h2>22.2 Electric Field Due to a Point Charge</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A point charge creates a radial electric field. The magnitude falls off as <strong>1/r<sup>2</sup></strong>.
+            Direction is outward for +q and inward for −q.
+          </p>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula"><span class="vec">E</span> = (1 / (4π ε<sub>0</sub>)) · (q / r<sup>2</sup>) · <span class="hat">r</span></div>
+        <div class="formula">Magnitude:  E = (1 / (4π ε<sub>0</sub>)) · (|q| / r<sup>2</sup>)</div>
+        <p class="tiny">
+          Here <span class="hat">r</span> is a unit vector pointing from the source charge to the field point (radially outward).
+        </p>
+
+        <details>
+          <summary>Worked Example: Field magnitude at a distance from a point charge</summary>
+          <p><strong>Given:</strong> q = +3.0 nC, r = 0.20 m. Use k = 1/(4π ε<sub>0</sub>) ≈ 8.99×10<sup>9</sup> N·m<sup>2</sup>/C<sup>2</sup>.</p>
+          <p><strong>Find:</strong> E at that distance (magnitude + direction).</p>
+          <ol class="steps">
+            <li>Convert: 3.0 nC = 3.0 × 10<sup>−9</sup> C.</li>
+            <li>E = k|q|/r<sup>2</sup> = (8.99×10<sup>9</sup>)(3.0×10<sup>−9</sup>)/(0.20)<sup>2</sup></li>
+            <li>Compute numerator: 8.99×10<sup>9</sup> × 3.0×10<sup>−9</sup> = 26.97</li>
+            <li>Denominator: (0.20)<sup>2</sup> = 0.040</li>
+            <li>E = 26.97 / 0.040 ≈ 6.74×10<sup>2</sup> N/C</li>
+            <li>Direction: away from +q (radially outward)</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> E ≈ 6.7×10<sup>2</sup> N/C, pointing away from the charge.</p>
+        </details>
+      </section>
+
+      <!-- 22.2.1 -->
+      <section id="s2221">
+        <h2>22.2.1 Superposition of Electric Fields</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            When multiple charges are present, the net electric field is the <strong>vector sum</strong> of the fields
+            produced by each charge separately.
+          </p>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula"><span class="vec">E</span><sub>net</sub> = <span class="vec">E</span><sub>1</sub> + <span class="vec">E</span><sub>2</sub> + <span class="vec">E</span><sub>3</sub> + … (vector addition)</div>
+        <div class="note warn">
+          Do not add magnitudes unless the directions are the same. Use components if directions differ.
+        </div>
+
+        <details>
+          <summary>Worked Example: Net field at midpoint between +q and +q</summary>
+          <p><strong>Setup:</strong> Two identical +5.0 nC charges are separated by 0.40 m. Find <span class="vec">E</span> at the midpoint.</p>
+          <ol class="steps">
+            <li>Midpoint is 0.20 m from each charge.</li>
+            <li>Each charge produces field magnitude E = kq/r<sup>2</sup> at midpoint.</li>
+            <li>But directions are opposite: each field points away from its + charge.</li>
+            <li>At the midpoint, one field points right, the other left (equal magnitude).</li>
+            <li>Vector sum cancels: <span class="vec">E</span><sub>net</sub> = 0.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> <span class="vec">E</span><sub>net</sub> = 0 N/C at the midpoint (symmetry cancellation).</p>
+        </details>
+
+        <details>
+          <summary>Worked Example: Net field at midpoint between +q and −q (dipole-like)</summary>
+          <p><strong>Setup:</strong> +5.0 nC and −5.0 nC separated by 0.40 m. Find <span class="vec">E</span> at midpoint.</p>
+          <ol class="steps">
+            <li>Midpoint is 0.20 m from each charge.</li>
+            <li>Field from +q points away from +q (toward the −q side).</li>
+            <li>Field from −q points toward −q (also toward the −q side).</li>
+            <li>Directions match, so magnitudes add: E<sub>net</sub> = 2(kq/r<sup>2</sup>).</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Nonzero field pointing from + toward − at the midpoint.</p>
+        </details>
+      </section>
+
+      <!-- 22.3 -->
+      <section id="s223">
+        <h2>22.3 Electric Field of an Electric Dipole</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Dipole:</strong> two equal and opposite charges separated by distance d.</p>
+            <p class="tiny">Many molecules behave like dipoles (polar molecules).</p>
+          </div>
+          <div class="card">
+            <p><strong>Dipole moment:</strong> measures “strength” of the dipole.</p>
+            <div class="formula"><span class="vec">p</span> = q <span class="vec">d</span></div>
+            <p class="tiny">Direction is from − to +.</p>
+          </div>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula">Dipole axis (far away, z ≫ d):  E ≈ (1 / (2π ε<sub>0</sub>)) · (p / z<sup>3</sup>)</div>
+        <div class="note">
+          Big idea: dipole fields decrease as 1/z<sup>3</sup> (faster than a point charge’s 1/r<sup>2</sup>).
+        </div>
+
+        <details>
+          <summary>Worked Example: Compare how fast fields drop off (point charge vs dipole)</summary>
+          <p><strong>Question:</strong> If you double the distance from a source, how does E change?</p>
+          <ol class="steps">
+            <li>Point charge: E ∝ 1/r<sup>2</sup>. Doubling r ⇒ E becomes (1/2<sup>2</sup>)=1/4 as large.</li>
+            <li>Dipole (far field): E ∝ 1/r<sup>3</sup>. Doubling r ⇒ E becomes (1/2<sup>3</sup>)=1/8 as large.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Dipole fields weaken faster with distance than point-charge fields.</p>
+        </details>
+      </section>
+
+      <!-- 22.4 -->
+      <section id="s224">
+        <h2>22.4 Electric Field of a Continuous Charge Distribution</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Real objects are not point charges. For rods, rings, disks, etc., treat the charge as many tiny pieces dq,
+            compute dE from each piece, then add them up using symmetry and integration.
+          </p>
+        </div>
+
+        <h3>Rules/patterns/conditions</h3>
+        <ol class="steps">
+          <li>Break the object into elements dq.</li>
+          <li>Write dq using a charge density (λ, σ, ρ) and a small length/area/volume element.</li>
+          <li>Write dE using point-charge formula: dE = k dq / r<sup>2</sup> (vector form).</li>
+          <li>Use symmetry to cancel components (often sideways components cancel).</li>
+          <li>Integrate over the entire object.</li>
+        </ol>
+
+        <h3>Important formulas & meaning</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Density type</th>
+              <th>Symbol</th>
+              <th>Definition</th>
+              <th>Units</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Linear</td>
+              <td>λ</td>
+              <td>dq = λ dl</td>
+              <td>C/m</td>
+            </tr>
+            <tr>
+              <td>Surface</td>
+              <td>σ</td>
+              <td>dq = σ dA</td>
+              <td>C/m<sup>2</sup></td>
+            </tr>
+            <tr>
+              <td>Volume</td>
+              <td>ρ</td>
+              <td>dq = ρ dV</td>
+              <td>C/m<sup>3</sup></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Worked Example (Method): Uniformly charged rod — what cancels by symmetry?</summary>
+          <p><strong>Setup:</strong> A uniformly charged rod lies on the x-axis, and we want E at a point on the perpendicular bisector.</p>
+          <ol class="steps">
+            <li>Pick a small element dq on the left and a matching dq on the right (same distance to the point).</li>
+            <li>Their horizontal components point in opposite directions ⇒ cancel.</li>
+            <li>Their vertical components point the same way ⇒ add.</li>
+            <li>So you integrate only the component that survives (usually the perpendicular direction).</li>
+          </ol>
+          <p class="note">
+            Takeaway: symmetry can reduce a 2D/3D vector addition problem into a 1D integral.
+          </p>
+        </details>
+      </section>
+
+      <!-- 22.4.1 -->
+      <section id="s2241">
+        <h2>22.4.1 Charged Ring (Field on the axis)</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            For a uniformly charged ring, sideways components cancel by symmetry. Only the axial component survives.
+          </p>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula">On the axis:  E = (q z) / (4π ε<sub>0</sub> (z<sup>2</sup> + R<sup>2</sup>)<sup>3/2</sup>)</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>q</td><td>Total charge on ring</td></tr>
+            <tr><td>R</td><td>Ring radius</td></tr>
+            <tr><td>z</td><td>Distance from center along axis</td></tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Worked Example: Field at the center of a charged ring</summary>
+          <p><strong>Given:</strong> Any charged ring (total charge q), find E at z = 0 (the center).</p>
+          <ol class="steps">
+            <li>Use the axis formula: E = (q z) / (4π ε<sub>0</sub> (z<sup>2</sup> + R<sup>2</sup>)<sup>3/2</sup>).</li>
+            <li>At center, z = 0 ⇒ numerator qz = 0.</li>
+            <li>So E = 0.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> E = 0 at the exact center (perfect symmetry).</p>
+        </details>
+      </section>
+
+      <!-- 22.5 -->
+      <section id="s225">
+        <h2>22.5 Electric Field of a Charged Disk (Field on the axis)</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A uniformly charged disk can be treated as many rings. Integrating ring contributions gives the axial field.
+          </p>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula">E = (σ / (2 ε<sub>0</sub>)) · (1 − z / √(z<sup>2</sup> + R<sup>2</sup>))</div>
+        <p class="tiny">σ is surface charge density; R is disk radius; z is distance along axis from disk center.</p>
+
+        <details>
+          <summary>Worked Example: Infinite sheet limit (why E becomes constant)</summary>
+          <p><strong>Idea:</strong> Let the disk radius R become extremely large compared with z (R ≫ z).</p>
+          <ol class="steps">
+            <li>If R ≫ z, then √(z<sup>2</sup> + R<sup>2</sup>) ≈ R.</li>
+            <li>Then z/√(z<sup>2</sup>+R<sup>2</sup>) ≈ z/R ≈ 0.</li>
+            <li>So E ≈ (σ/(2 ε<sub>0</sub>))(1 − 0) = σ/(2 ε<sub>0</sub>).</li>
+          </ol>
+          <p class="note"><strong>Result:</strong> For an (effectively) infinite charged sheet, E is constant: E = σ/(2 ε<sub>0</sub>).</p>
+        </details>
+
+        <div class="note warn">
+          Concept check: “Constant field” does not mean “no field.” It means the magnitude does not change with distance from the sheet (ideal infinite model).
+        </div>
+      </section>
+
+      <!-- 22.6 -->
+      <section id="s226">
+        <h2>22.6 A Charge in an Electric Field</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Once you know <span class="vec">E</span> at a point, the force on a charge q placed there is immediate.
+            A positive charge accelerates along <span class="vec">E</span>; a negative charge accelerates opposite <span class="vec">E</span>.
+          </p>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula"><span class="vec">F</span> = q <span class="vec">E</span></div>
+        <table>
+          <thead>
+            <tr><th>Charge sign</th><th>Force direction</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>q &gt; 0</td><td>Same direction as <span class="vec">E</span></td></tr>
+            <tr><td>q &lt; 0</td><td>Opposite direction to <span class="vec">E</span></td></tr>
+          </tbody>
+        </table>
+
+        <details>
+          <summary>Worked Example: Force on an electron in a known field</summary>
+          <p><strong>Given:</strong> Uniform field E = 2.0×10<sup>4</sup> N/C to the right. Electron charge q = −1.60×10<sup>−19</sup> C.</p>
+          <p><strong>Find:</strong> Force on the electron (magnitude + direction).</p>
+          <ol class="steps">
+            <li>Use <span class="vec">F</span> = q<span class="vec">E</span>.</li>
+            <li>Magnitude: |F| = |q|E = (1.60×10<sup>−19</sup>)(2.0×10<sup>4</sup>) = 3.2×10<sup>−15</sup> N.</li>
+            <li>Direction: q is negative ⇒ force is opposite <span class="vec">E</span> ⇒ to the left.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> F = 3.2×10<sup>−15</sup> N to the left.</p>
+        </details>
+      </section>
+
+      <!-- 22.7 -->
+      <section id="s227">
+        <h2>22.7 Electric Dipole in an External Electric Field</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A dipole in a uniform external field experiences a <strong>torque</strong> that tends to align the dipole with the field.
+            Its potential energy depends on its orientation angle.
+          </p>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula"><span class="vec">τ</span> = <span class="vec">p</span> × <span class="vec">E</span>  &nbsp;&nbsp;⇒&nbsp;&nbsp;  τ = pE sinθ</div>
+        <div class="formula">U = −<span class="vec">p</span> · <span class="vec">E</span>  &nbsp;&nbsp;⇒&nbsp;&nbsp;  U = −pE cosθ</div>
+
+        <details>
+          <summary>Worked Example: Maximum torque condition</summary>
+          <p><strong>Question:</strong> At what angle θ is the torque on a dipole maximum?</p>
+          <ol class="steps">
+            <li>Torque magnitude: τ = pE sinθ.</li>
+            <li>sinθ is maximum at 1 when θ = 90°.</li>
+            <li>So τmax = pE occurs when dipole is perpendicular to the field.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Maximum torque at θ = 90°; τmax = pE.</p>
+        </details>
+
+        <details>
+          <summary>Worked Example: Lowest potential energy orientation</summary>
+          <p><strong>Question:</strong> Which orientation has minimum U?</p>
+          <ol class="steps">
+            <li>U = −pE cosθ.</li>
+            <li>cosθ is maximum at 1 when θ = 0°.</li>
+            <li>Thus U is most negative (minimum) when dipole aligns with the field.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Minimum energy at θ = 0° (dipole aligned with <span class="vec">E</span>).</p>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <strong>Study tip:</strong> For electric field problems, always decide <em>(1)</em> direction first, then <em>(2)</em> magnitude,
+      and finally <em>(3)</em> vector addition (components) if multiple sources exist.
+    </p>
+  </footer>
+</body>
+</html>

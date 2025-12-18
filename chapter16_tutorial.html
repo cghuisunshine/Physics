@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 16 — Waves I (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 16</span>
+      <span>•</span>
+      <span>Waves I</span>
+    </div>
+    <h1>Waves I</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: transverse waves, wave speed on strings, energy and power transport, the wave
+      equation, interference and phasors, and standing waves/resonance.
+      Source reading: <a href="24 - Chapter 16_ Waves—I.pdf#page=1&pagemode=bookmarks">24 - Chapter 16_ Waves—I.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s161">16.1 Transverse Waves</a>
+        <a class="pdf-link" href="24 - Chapter 16_ Waves—I.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s162">16.2 Wave Speed on a Stretched String</a>
+        <a class="pdf-link" href="24 - Chapter 16_ Waves—I.pdf#page=9&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s163">16.3 Energy and Power of a Wave on a String</a>
+        <a class="pdf-link" href="24 - Chapter 16_ Waves—I.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s164">16.4 The Wave Equation</a>
+        <a class="pdf-link" href="24 - Chapter 16_ Waves—I.pdf#page=13&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s165">16.5 Interference of Waves</a>
+        <a class="pdf-link" href="24 - Chapter 16_ Waves—I.pdf#page=15&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s166">16.6 Phasors</a>
+        <a class="pdf-link" href="24 - Chapter 16_ Waves—I.pdf#page=20&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s167">16.7 Standing Waves and Resonance</a>
+        <a class="pdf-link" href="24 - Chapter 16_ Waves—I.pdf#page=23&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s161">
+        <h2>16.1 Transverse Waves</h2>
+        <div class="card">
+          <p>
+            A transverse wave has medium displacement perpendicular to the direction of travel (e.g., a wave on a stretched string). A source
+            typically sets frequency <code>f</code> while the medium sets wave speed <code>v</code>; then wavelength is <code>λ = v/f</code>.
+          </p>
+          <div class="kpi">
+            <span class="pill">v = fλ</span>
+            <span class="pill">k = 2π/λ</span>
+            <span class="pill">ω = 2πf</span>
+          </div>
+        </div>
+        <h3>Standard traveling-wave form</h3>
+        <div class="formula">y(x,t) = y<sub>m</sub> cos(kx − ωt + φ)</div>
+        <p class="tiny">The sign convention indicates travel in +x (use +ωt for travel in −x).</p>
+      </section>
+
+      <section id="s162">
+        <h2>16.2 Wave Speed on a Stretched String</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              For small transverse oscillations of a string under tension, the wave speed depends on the string tension and its linear mass
+              density.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Wave speed (string)</h3>
+            <div class="formula">v = √(T/μ)</div>
+            <p class="tiny">T is tension (N), μ is linear density (kg/m).</p>
+          </div>
+        </div>
+        <details>
+          <summary>Quick check: units</summary>
+          <p class="tiny">T/μ has units (N)/(kg/m) = (kg·m/s²)/(kg/m) = m²/s², so √(T/μ) is m/s.</p>
+        </details>
+      </section>
+
+      <section id="s163">
+        <h2>16.3 Energy and Power of a Wave on a String</h2>
+        <div class="card">
+          <p>
+            A traveling wave transports energy. For sinusoidal waves on a string, average power scales with the square of amplitude and with
+            frequency squared: bigger amplitude or higher frequency means more power.
+          </p>
+        </div>
+        <h3>Key scalings (sinusoidal string wave)</h3>
+        <div class="formula">P̄ ∝ μvω<sup>2</sup>y<sub>m</sub><sup>2</sup></div>
+        <p class="tiny">Exact prefactors depend on the detailed derivation; the proportionality is the most important memory aid.</p>
+      </section>
+
+      <section id="s164">
+        <h2>16.4 The Wave Equation</h2>
+        <div class="card">
+          <p>
+            The wave equation is a differential equation whose solutions include traveling waves. In 1D it ties the curvature of the wave shape to
+            how the shape evolves in time.
+          </p>
+        </div>
+        <h3>1D wave equation</h3>
+        <div class="formula">∂<sup>2</sup>y/∂x<sup>2</sup> = (1/v<sup>2</sup>) ∂<sup>2</sup>y/∂t<sup>2</sup></div>
+        <p class="tiny">If a function y(x,t) satisfies this equation, it represents a wave traveling with speed v.</p>
+      </section>
+
+      <section id="s165">
+        <h2>16.5 Interference of Waves</h2>
+        <div class="card">
+          <p>
+            When waves overlap, the net displacement is the sum of displacements (superposition). The resulting amplitude depends on relative
+            phase: in-phase waves reinforce; out-of-phase waves can cancel.
+          </p>
+        </div>
+        <h3>Phase difference from path difference</h3>
+        <div class="formula">Δϕ = 2π(Δr/λ)</div>
+        <div class="note warn">
+          <p class="tiny">
+            Always decide what is held constant: same time at a point (standing patterns), or same position for a moving observer, etc.
+          </p>
+        </div>
+      </section>
+
+      <section id="s166">
+        <h2>16.6 Phasors</h2>
+        <div class="card">
+          <p>
+            Phasors represent sinusoidal oscillations as rotating vectors in the complex plane. Adding waves with the same frequency becomes vector
+            addition of their phasors, making interference and phase shifts much easier to compute.
+          </p>
+        </div>
+        <h3>Same-frequency addition</h3>
+        <div class="formula">A cos(ωt) + B cos(ωt + δ) = C cos(ωt + φ)</div>
+        <p class="tiny">C and φ come from phasor geometry (law of cosines and sines).</p>
+      </section>
+
+      <section id="s167">
+        <h2>16.7 Standing Waves and Resonance</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Standing waves arise from two waves traveling in opposite directions (often from reflection at a boundary). Nodes and antinodes form,
+              and only certain wavelengths fit boundary conditions.
+            </p>
+          </div>
+          <div class="card">
+            <h3>String fixed at both ends</h3>
+            <div class="formula">λ<sub>n</sub> = 2L/n</div>
+            <div class="formula">f<sub>n</sub> = nv/(2L) &nbsp; (n = 1,2,3,…)</div>
+          </div>
+        </div>
+        <details open>
+          <summary>Worked example: fundamental frequency of a string</summary>
+          <p><strong>Given:</strong> L = 0.65 m, tension T = 120 N, μ = 1.8×10<sup>−3</sup> kg/m.</p>
+          <ol class="steps">
+            <li>Compute wave speed: v = √(T/μ) = √(120/1.8×10<sup>−3</sup>) = 258 m/s.</li>
+            <li>Fundamental frequency: f<sub>1</sub> = v/(2L) = 258/(1.30) = 198 Hz.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> The fundamental is about 200 Hz.</p>
+        </details>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: separate wave kinematics (<code>v = fλ</code>, <code>k</code>, <code>ω</code>) from boundary conditions (what λ values fit).
+        Use phasors to add same-frequency waves quickly.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

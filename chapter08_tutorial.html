@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 8 — Potential Energy and Conservation of Energy (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 8</span>
+      <span>•</span>
+      <span>Energy Conservation</span>
+    </div>
+    <h1>Potential Energy and Conservation of Energy</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: potential energy, conservative forces, conservation of mechanical energy, reading
+      potential-energy curves, and how external work changes system energy.
+      Source reading: <a href="16 - Chapter 8_ Potential Energy and Conservation of Energy.pdf#page=1&pagemode=bookmarks">16 - Chapter 8_ Potential Energy and Conservation of Energy.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s081">8.1 Potential Energy</a>
+        <a class="pdf-link" href="16 - Chapter 8_ Potential Energy and Conservation of Energy.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s082">8.2 Conservation of Mechanical Energy</a>
+        <a class="pdf-link" href="16 - Chapter 8_ Potential Energy and Conservation of Energy.pdf#page=8&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s083">8.3 Reading a Potential Energy Curve</a>
+        <a class="pdf-link" href="16 - Chapter 8_ Potential Energy and Conservation of Energy.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s084">8.4 External Work on a System</a>
+        <a class="pdf-link" href="16 - Chapter 8_ Potential Energy and Conservation of Energy.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s085">8.5 Conservation of Energy</a>
+        <a class="pdf-link" href="16 - Chapter 8_ Potential Energy and Conservation of Energy.pdf#page=20&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s081">
+        <h2>8.1 Potential Energy</h2>
+        <div class="card">
+          <p>
+            Potential energy U is defined for conservative forces so that work depends only on endpoints. The change in potential energy is the
+            negative of the work done by the conservative force.
+          </p>
+        </div>
+        <div class="formula">ΔU = −W<sub>cons</sub></div>
+        <h3>Common examples</h3>
+        <div class="formula">U<sub>g</sub> = mgy (near Earth)</div>
+        <div class="formula">U<sub>s</sub> = (1/2)kx<sup>2</sup> (spring)</div>
+      </section>
+
+      <section id="s082">
+        <h2>8.2 Conservation of Mechanical Energy</h2>
+        <div class="card">
+          <p>
+            If only conservative forces do work within a system, mechanical energy is conserved: kinetic energy and potential energy trade off, but
+            their sum stays constant.
+          </p>
+        </div>
+        <div class="formula">K + U = constant</div>
+        <div class="note warn">
+          <p class="tiny">If friction or a motor does work, mechanical energy is not conserved; use the work–energy form instead.</p>
+        </div>
+      </section>
+
+      <section id="s083">
+        <h2>8.3 Reading a Potential Energy Curve</h2>
+        <div class="card">
+          <p>
+            A plot of U(x) tells you allowed motion and forces. Where total energy E intersects U(x) are turning points (K = 0). The slope gives the
+            force: F = −dU/dx.
+          </p>
+        </div>
+        <div class="formula">K(x) = E − U(x)</div>
+        <div class="formula">F(x) = −dU/dx</div>
+      </section>
+
+      <section id="s084">
+        <h2>8.4 Work Done on a System by an External Force</h2>
+        <div class="card">
+          <p>
+            If an external agent does work on the system, it changes the system’s mechanical energy. This is the clean way to include friction or a
+            push/pull without tracking microscopic details.
+          </p>
+        </div>
+        <div class="formula">W<sub>ext</sub> = Δ(K + U)</div>
+        <details open>
+          <summary>Worked example: push a block up a ramp</summary>
+          <p class="tiny">
+            You can treat the system as “block + Earth.” Then ΔU = mgΔy. Any extra energy beyond mgΔy must come from external work (and friction can
+            remove mechanical energy as negative work).
+          </p>
+        </details>
+      </section>
+
+      <section id="s085">
+        <h2>8.5 Conservation of Energy</h2>
+        <div class="card">
+          <p>
+            Energy can change form (mechanical ↔ thermal ↔ chemical, etc.) but total energy is conserved. If mechanical energy decreases because of
+            friction, it typically appears as thermal energy.
+          </p>
+        </div>
+        <div class="formula">ΔE<sub>total</sub> = 0</div>
+        <p class="tiny">For a chosen system, track energy transfers across the boundary as work/heat or other mechanisms.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: start by choosing the system. If only conservative forces act inside the system, use <code>K + U</code> conservation. If not, use
+        <code>W<sub>ext</sub> = Δ(K + U)</code>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

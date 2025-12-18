@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 44 — Quarks, Leptons, and the Big Bang (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 44</span>
+      <span>•</span>
+      <span>Quarks, Leptons, and the Big Bang</span>
+    </div>
+    <h1>Quarks, Leptons, and the Big Bang</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: conserved quantum numbers and antiparticles, how particles are classified
+      (leptons vs hadrons, baryons vs mesons, strangeness), quark model and messenger particles, and basic cosmology (expansion, redshift, CMB).
+      Source reading: <a href="52 - Chapter 44_ Quarks, Leptons, and the Big Bang.pdf#page=1&pagemode=bookmarks">52 - Chapter 44_ Quarks, Leptons, and the Big Bang.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s441">44.1 General Properties of Elementary Particles</a>
+        <a class="pdf-link" href="52 - Chapter 44_ Quarks, Leptons, and the Big Bang.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4411">44.1.1 Conservation laws and quantum numbers</a>
+      <a href="#s4412">44.1.2 Worked example: momentum from total energy</a>
+
+      <div class="toc-item">
+        <a href="#s442">44.2 Leptons, Hadrons, and Strangeness</a>
+        <a class="pdf-link" href="52 - Chapter 44_ Quarks, Leptons, and the Big Bang.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4421">44.2.1 Leptons vs hadrons; baryons vs mesons</a>
+      <a href="#s4422">44.2.2 Strangeness and “fast vs slow” decays</a>
+
+      <div class="toc-item">
+        <a href="#s443">44.3 Quarks and Messenger Particles</a>
+        <a class="pdf-link" href="52 - Chapter 44_ Quarks, Leptons, and the Big Bang.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4431">44.3.1 Quark charges and hadron composition</a>
+      <a href="#s4432">44.3.2 Worked example: quark content from charge</a>
+      <a href="#s4433">44.3.3 Four forces and messenger bosons</a>
+
+      <div class="toc-item">
+        <a href="#s444">44.4 Cosmology</a>
+        <a class="pdf-link" href="52 - Chapter 44_ Quarks, Leptons, and the Big Bang.pdf#page=22&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s4441">44.4.1 Redshift and expansion</a>
+      <a href="#s4442">44.4.2 Worked example: redshift and scale factor</a>
+      <a href="#s4443">44.4.3 Worked example: age scale from Hubble constant</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 44.1 -->
+      <section id="s441">
+        <h2>44.1 General Properties of Elementary Particles</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              Particle reactions/decays are constrained by <strong>conservation laws</strong>: energy, momentum, and certain quantum numbers
+              (like electric charge) must be the same before and after.
+            </p>
+            <div class="kpi">
+              <span class="pill">Antiparticles exist</span>
+              <span class="pill">Quantum numbers constrain reactions</span>
+              <span class="pill">Relativity is essential</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Relativistic energy–momentum</h3>
+            <div class="formula">E<sup>2</sup> = (pc)<sup>2</sup> + (mc<sup>2</sup>)<sup>2</sup></div>
+            <p class="tiny">For a massless particle (photon), m = 0 so E = pc.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 44.1.1 -->
+      <section id="s4411">
+        <h2>44.1.1 Conservation Laws and Quantum Numbers</h2>
+
+        <h3>Common “bookkeeping”</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Quantity</th>
+              <th>Symbol</th>
+              <th>Conserved in</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Electric charge</td>
+              <td>Q</td>
+              <td>All interactions</td>
+            </tr>
+            <tr>
+              <td>Energy, momentum</td>
+              <td>E, <span class="tiny">p</span></td>
+              <td>All interactions</td>
+            </tr>
+            <tr>
+              <td>Baryon number</td>
+              <td>B</td>
+              <td>Strong, EM, (effectively) weak</td>
+            </tr>
+            <tr>
+              <td>Lepton number</td>
+              <td>L</td>
+              <td>Weak (and also strong, EM)</td>
+            </tr>
+            <tr>
+              <td>Strangeness</td>
+              <td>S</td>
+              <td>Strong, EM (not weak)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <p>
+            Antiparticles have the same mass but opposite charge and opposite additive quantum numbers (like B and L). For example, an electron has L = +1,
+            a positron has L = −1.
+          </p>
+        </div>
+      </section>
+
+      <!-- 44.1.2 -->
+      <section id="s4412">
+        <h2>44.1.2 Worked Example: Momentum from Total Energy</h2>
+
+        <details open>
+          <summary>Find momentum of an electron with total energy 2.00 MeV</summary>
+          <p><strong>Given:</strong> Total energy E = 2.00 MeV. Electron rest energy m<sub>e</sub>c<sup>2</sup> = 0.511 MeV.</p>
+          <ol class="steps">
+            <li>Use E<sup>2</sup> = (pc)<sup>2</sup> + (mc<sup>2</sup>)<sup>2</sup> ⇒ pc = √(E<sup>2</sup> − (mc<sup>2</sup>)<sup>2</sup>).</li>
+            <li>pc = √((2.00)<sup>2</sup> − (0.511)<sup>2</sup>) MeV = √(4.000 − 0.261) MeV = 1.93 MeV.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> p ≈ 1.93 MeV/c.</p>
+        </details>
+      </section>
+
+      <!-- 44.2 -->
+      <section id="s442">
+        <h2>44.2 Leptons, Hadrons, and Strangeness</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Particles are grouped by how they interact. <strong>Leptons</strong> (e, μ, τ and neutrinos) do not feel the strong force.
+            <strong>Hadrons</strong> do feel the strong force and are built from quarks.
+          </p>
+        </div>
+      </section>
+
+      <!-- 44.2.1 -->
+      <section id="s4421">
+        <h2>44.2.1 Leptons vs Hadrons; Baryons vs Mesons</h2>
+
+        <h3>Classification snapshot</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Family</th>
+              <th>Examples</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Leptons</td>
+              <td>e, μ, τ, ν<sub>e</sub>, ν<sub>μ</sub>, ν<sub>τ</sub></td>
+              <td>No strong interaction; neutrinos are neutral and very weakly interacting</td>
+            </tr>
+            <tr>
+              <td>Baryons</td>
+              <td>p, n, Λ, Σ, …</td>
+              <td>Hadrons with three quarks; baryon number B = +1</td>
+            </tr>
+            <tr>
+              <td>Mesons</td>
+              <td>π, K, …</td>
+              <td>Hadrons with quark + antiquark; baryon number B = 0</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          <p>
+            Neutrinos make lepton-number bookkeeping possible in beta decay and many particle decays: they carry away energy/momentum “quietly.”
+          </p>
+        </div>
+      </section>
+
+      <!-- 44.2.2 -->
+      <section id="s4422">
+        <h2>44.2.2 Strangeness and “Fast vs Slow” Decays</h2>
+
+        <h3>Why some hadrons live longer</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Strong decays</h3>
+            <p class="tiny">
+              If a decay can happen via the strong interaction, it is extremely fast and typically conserves strangeness S.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Weak decays</h3>
+            <p class="tiny">
+              If strangeness must change, the decay proceeds via the weak interaction, which is much slower (longer lifetimes).
+            </p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Rule of thumb</summary>
+          <p class="tiny">
+            “Strange” particles (like kaons) can be produced readily in strong interactions, but many of them decay via weak interactions because
+            the strong interaction would forbid changing S.
+          </p>
+        </details>
+      </section>
+
+      <!-- 44.3 -->
+      <section id="s443">
+        <h2>44.3 Quarks and Messenger Particles</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            The quark model organizes hadrons: baryons are made of three quarks, mesons are quark–antiquark pairs. Fundamental interactions are
+            described as exchanges of <strong>messenger bosons</strong> (force carriers).
+          </p>
+        </div>
+      </section>
+
+      <!-- 44.3.1 -->
+      <section id="s4431">
+        <h2>44.3.1 Quark Charges and Hadron Composition</h2>
+
+        <h3>Charges (common flavors)</h3>
+        <div class="formula">u, c, t: +2/3e  &nbsp;&nbsp;&nbsp; d, s, b: −1/3e</div>
+
+        <details open>
+          <summary>Examples: proton and neutron</summary>
+          <p class="tiny">
+            Proton: uud ⇒ Q = 2/3 + 2/3 − 1/3 = +1. Neutron: udd ⇒ Q = 2/3 − 1/3 − 1/3 = 0.
+          </p>
+        </details>
+
+        <div class="note warn">
+          <p>
+            The strong interaction depends on <em>color charge</em> (not the same as electric charge). Hadrons are color-neutral combinations.
+          </p>
+        </div>
+      </section>
+
+      <!-- 44.3.2 -->
+      <section id="s4432">
+        <h2>44.3.2 Worked Example: Quark Content from Charge</h2>
+
+        <details open>
+          <summary>Determine the quark content of π<sup>+</sup> and K<sup>+</sup></summary>
+          <p><strong>Given:</strong> π<sup>+</sup> and K<sup>+</sup> are mesons (quark + antiquark) with total charge +1.</p>
+          <ol class="steps">
+            <li>Try u (charge +2/3) with an antiquark of charge +1/3. The antiquark with +1/3 is <span class="tiny">d̄</span> (since d is −1/3).</li>
+            <li>Thus π<sup>+</sup> = u<span class="tiny">d̄</span>.</li>
+            <li>For K<sup>+</sup>, include strangeness: use u with <span class="tiny">s̄</span> (since s is −1/3, so s̄ is +1/3).</li>
+            <li>Thus K<sup>+</sup> = u<span class="tiny">s̄</span>.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> π<sup>+</sup> = u<span class="tiny">d̄</span>, K<sup>+</sup> = u<span class="tiny">s̄</span>.</p>
+        </details>
+      </section>
+
+      <!-- 44.3.3 -->
+      <section id="s4433">
+        <h2>44.3.3 Four Forces and Messenger Bosons</h2>
+
+        <h3>Force carriers</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Interaction</th>
+              <th>Acts on</th>
+              <th>Messenger particle(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Strong</td>
+              <td>Quarks (color)</td>
+              <td>Gluons (g)</td>
+            </tr>
+            <tr>
+              <td>Electromagnetic</td>
+              <td>Electric charge</td>
+              <td>Photon (γ)</td>
+            </tr>
+            <tr>
+              <td>Weak</td>
+              <td>Quarks and leptons</td>
+              <td>W<sup>±</sup>, Z<sup>0</sup></td>
+            </tr>
+            <tr>
+              <td>Gravitational</td>
+              <td>Mass/energy</td>
+              <td>(No confirmed quantum carrier in this level of treatment)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 44.4 -->
+      <section id="s444">
+        <h2>44.4 Cosmology</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Modern cosmology describes an expanding universe that began in a hot, dense state. Expansion stretches wavelengths of light
+            (<strong>redshift</strong>). A major observational pillar is the cosmic microwave background (CMB), relic radiation from early times.
+          </p>
+        </div>
+      </section>
+
+      <!-- 44.4.1 -->
+      <section id="s4441">
+        <h2>44.4.1 Redshift and Expansion</h2>
+
+        <h3>Definitions</h3>
+        <div class="formula">z = (λ<sub>obs</sub> − λ<sub>emit</sub>)/λ<sub>emit</sub> = λ<sub>obs</sub>/λ<sub>emit</sub> − 1</div>
+        <div class="formula">1 + z = a<sub>now</sub>/a<sub>emit</sub></div>
+        <p class="tiny">a is the cosmological scale factor: expansion means a grows with time.</p>
+
+        <details>
+          <summary>Hubble’s law (nearby galaxies)</summary>
+          <div class="formula">v ≈ H<sub>0</sub>d</div>
+          <p class="tiny">v is recession speed, d distance, H<sub>0</sub> is the Hubble constant.</p>
+        </details>
+      </section>
+
+      <!-- 44.4.2 -->
+      <section id="s4442">
+        <h2>44.4.2 Worked Example: Redshift and Scale Factor</h2>
+
+        <details open>
+          <summary>Find z and a<sub>now</sub>/a<sub>emit</sub> from an observed line</summary>
+          <p><strong>Given:</strong> A spectral line emitted at λ<sub>emit</sub> = 656 nm is observed at λ<sub>obs</sub> = 984 nm.</p>
+          <ol class="steps">
+            <li>z = λ<sub>obs</sub>/λ<sub>emit</sub> − 1 = 984/656 − 1 = 0.50.</li>
+            <li>Scale-factor ratio: 1 + z = a<sub>now</sub>/a<sub>emit</sub> = 1.50.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> z = 0.50 and the universe has expanded by a factor 1.5 since emission.</p>
+        </details>
+      </section>
+
+      <!-- 44.4.3 -->
+      <section id="s4443">
+        <h2>44.4.3 Worked Example: Age Scale from the Hubble Constant</h2>
+
+        <details open>
+          <summary>Estimate the “Hubble time” 1/H<sub>0</sub> for H<sub>0</sub> = 70 km/s/Mpc</summary>
+          <p><strong>Given:</strong> H<sub>0</sub> = 70 km/s/Mpc and 1 Mpc = 3.09×10<sup>19</sup> km.</p>
+          <ol class="steps">
+            <li>Convert: H<sub>0</sub> = 70/(3.09×10<sup>19</sup>) s<sup>−1</sup> = 2.27×10<sup>−18</sup> s<sup>−1</sup>.</li>
+            <li>Hubble time: 1/H<sub>0</sub> = 4.41×10<sup>17</sup> s.</li>
+            <li>Convert to years: (4.41×10<sup>17</sup> s)/(3.16×10<sup>7</sup> s/yr) = 1.4×10<sup>10</sup> yr.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> 1/H<sub>0</sub> ≈ 1.4×10<sup>10</sup> years (a useful age scale; modern estimates are of this order).</p>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: treat particle physics like accounting: list initial and final particles, then check charge, B, L (and S if relevant).
+        For cosmology, convert wavelength shifts into z, then relate z to a(t) via 1 + z.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

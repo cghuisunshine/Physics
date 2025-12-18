@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 17 — Waves II (Sound) (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:15px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      margin:2px 0;
+      border-radius:12px;
+      color:var(--text);
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      border-color:rgba(122,167,255,.35);
+      background:rgba(122,167,255,.08);
+    }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--line);
+      margin-top:10px;
+      background:rgba(0,0,0,.15);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.04);
+    }
+    tr:last-child td{ border-bottom:none; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95em;
+      background:rgba(255,255,255,.06);
+      padding:0 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 17</span>
+      <span>•</span>
+      <span>Waves II (Sound)</span>
+    </div>
+    <h1>Waves II: Sound</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: what sets the speed of sound, traveling sound waves and their variables,
+      interference and intensity, sound level (decibels), standing waves in musical instruments, beats, Doppler shifts, and supersonic shock waves.
+      Source reading: <a href="25 - Chapter 17_ Waves—II.pdf#page=1&pagemode=bookmarks">25 - Chapter 17_ Waves—II.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s171">17.1 Speed of Sound</a>
+        <a class="pdf-link" href="25 - Chapter 17_ Waves—II.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1711">17.1.1 What controls wave speed in a medium</a>
+      <a href="#s1712">17.1.2 Worked example: speed of sound vs temperature</a>
+
+      <div class="toc-item">
+        <a href="#s172">17.2 Traveling Sound Waves</a>
+        <a class="pdf-link" href="25 - Chapter 17_ Waves—II.pdf#page=4&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1721">17.2.1 Displacement, pressure, and particle speed</a>
+      <a href="#s1722">17.2.2 Intensity scales with amplitude</a>
+
+      <div class="toc-item">
+        <a href="#s173">17.3 Interference</a>
+        <a class="pdf-link" href="25 - Chapter 17_ Waves—II.pdf#page=7&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1731">17.3.1 Path difference and phase difference</a>
+      <a href="#s1732">17.3.2 Worked example: two-speaker interference</a>
+
+      <div class="toc-item">
+        <a href="#s174">17.4 Intensity and Sound Level</a>
+        <a class="pdf-link" href="25 - Chapter 17_ Waves—II.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1741">17.4.1 Sound level β (decibels)</a>
+      <a href="#s1742">17.4.2 Worked example: decibels and distance</a>
+
+      <div class="toc-item">
+        <a href="#s175">17.5 Sources of Musical Sound</a>
+        <a class="pdf-link" href="25 - Chapter 17_ Waves—II.pdf#page=14&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1751">17.5.1 Standing waves in strings and air columns</a>
+      <a href="#s1752">17.5.2 Harmonics and resonance conditions</a>
+
+      <div class="toc-item">
+        <a href="#s176">17.6 Beats</a>
+        <a class="pdf-link" href="25 - Chapter 17_ Waves—II.pdf#page=18&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1761">17.6.1 Beat frequency and tuning</a>
+
+      <div class="toc-item">
+        <a href="#s177">17.7 The Doppler Effect</a>
+        <a class="pdf-link" href="25 - Chapter 17_ Waves—II.pdf#page=20&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1771">17.7.1 Moving source and/or observer</a>
+      <a href="#s1772">17.7.2 Worked example: siren passes by</a>
+
+      <div class="toc-item">
+        <a href="#s178">17.8 Supersonic Speeds, Shock Waves</a>
+        <a class="pdf-link" href="25 - Chapter 17_ Waves—II.pdf#page=25&pagemode=bookmarks">PDF</a>
+      </div>
+      <a href="#s1781">17.8.1 Mach number and Mach cone</a>
+    </nav>
+
+    <div class="content">
+
+      <!-- 17.1 -->
+      <section id="s171">
+        <h2>17.1 Speed of Sound</h2>
+
+        <h3>Big idea</h3>
+        <div class="card">
+          <p>
+            Wave speed is determined by the medium (its “stiffness” and “inertia”), not by the source. For sound, the source sets the frequency,
+            and the medium sets the speed; then wavelength follows from <code>v = fλ</code>.
+          </p>
+          <div class="kpi">
+            <span class="pill">Medium sets v</span>
+            <span class="pill">Source sets f</span>
+            <span class="pill">λ = v/f</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 17.1.1 -->
+      <section id="s1711">
+        <h2>17.1.1 What Controls Wave Speed in a Medium</h2>
+
+        <h3>Stiffness ÷ density</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Fluids (including gases):</strong></p>
+            <div class="formula">v = √(B/ρ)</div>
+            <p class="tiny">B is the bulk modulus (how hard it is to compress), ρ is density.</p>
+          </div>
+          <div class="card">
+            <p><strong>Slender solids (longitudinal waves):</strong></p>
+            <div class="formula">v = √(Y/ρ)</div>
+            <p class="tiny">Y is Young’s modulus (stiffness against stretching/compression).</p>
+          </div>
+        </div>
+
+        <h3>Ideal gas temperature dependence</h3>
+        <div class="formula">v = √(γRT/M)</div>
+        <p class="tiny">
+          γ is the heat-capacity ratio, M is molar mass (kg/mol). This makes v increase roughly as √T. Humidity also matters (changes effective M).
+        </p>
+      </section>
+
+      <!-- 17.1.2 -->
+      <section id="s1712">
+        <h2>17.1.2 Worked Example: Speed of Sound vs Temperature</h2>
+
+        <details open>
+          <summary>Estimate v in air at 0 &deg;C and 20 &deg;C</summary>
+          <p>
+            <strong>Given:</strong> Use the √T scaling from v = √(γRT/M). Take v(0 &deg;C) ≈ 331 m/s at T<sub>0</sub> = 273.15 K.
+          </p>
+          <ol class="steps">
+            <li>At 20 &deg;C, T = 293.15 K, so v(20 &deg;C) ≈ v(0 &deg;C) √(T/T<sub>0</sub>).</li>
+            <li>v ≈ 331 √(293.15/273.15) = 343 m/s.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> v increases from about 331 m/s (0 &deg;C) to about 343 m/s (20 &deg;C).</p>
+        </details>
+      </section>
+
+      <!-- 17.2 -->
+      <section id="s172">
+        <h2>17.2 Traveling Sound Waves</h2>
+
+        <h3>Longitudinal wave picture</h3>
+        <div class="card">
+          <p>
+            Sound in a fluid is a longitudinal wave: the medium oscillates back and forth in the direction of wave travel, producing compressions
+            and rarefactions. A traveling wave carries energy without carrying matter along overall.
+          </p>
+        </div>
+      </section>
+
+      <!-- 17.2.1 -->
+      <section id="s1721">
+        <h2>17.2.1 Displacement, Pressure, and Particle Speed</h2>
+
+        <h3>Three “signals” in a sound wave</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Quantity</th>
+              <th>What it means</th>
+              <th>Typical form (sinusoidal)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Displacement s(x,t)</td>
+              <td>particle shift from equilibrium</td>
+              <td>s = s<sub>m</sub> cos(kx − ωt)</td>
+            </tr>
+            <tr>
+              <td>Pressure variation Δp(x,t)</td>
+              <td>pressure above/below ambient</td>
+              <td>Δp = Δp<sub>m</sub> sin(kx − ωt)</td>
+            </tr>
+            <tr>
+              <td>Particle speed u(x,t)</td>
+              <td>speed of the medium elements</td>
+              <td>u = ∂s/∂t</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          <p>
+            The wave speed v is not the same as the particle speed u. Particles oscillate locally; the pattern (phase) travels at speed v.
+          </p>
+        </div>
+      </section>
+
+      <!-- 17.2.2 -->
+      <section id="s1722">
+        <h2>17.2.2 Intensity Scales with Amplitude</h2>
+
+        <h3>Energy flow</h3>
+        <div class="formula">I = P/A</div>
+        <p class="tiny">Intensity I is power per area (W/m<sup>2</sup>).</p>
+
+        <div class="note">
+          <p>
+            For a sinusoidal sound wave in a fixed medium, intensity is proportional to the square of the amplitude (pressure amplitude or
+            displacement amplitude): doubling amplitude makes intensity about 4× larger.
+          </p>
+        </div>
+      </section>
+
+      <!-- 17.3 -->
+      <section id="s173">
+        <h2>17.3 Interference</h2>
+
+        <h3>Superposition</h3>
+        <div class="card">
+          <p>
+            When two waves overlap in space, the net disturbance is the sum of the individual disturbances. This can produce regions of
+            constructive interference (louder) and destructive interference (quieter).
+          </p>
+        </div>
+
+        <h3>Two coherent sources (same frequency)</h3>
+        <div class="formula">Δϕ = 2π(Δr/λ)</div>
+        <p class="tiny">Δr is path difference (difference in distances from the two sources to the point).</p>
+      </section>
+
+      <!-- 17.3.1 -->
+      <section id="s1731">
+        <h2>17.3.1 Path Difference and Phase Difference</h2>
+
+        <h3>Conditions</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Outcome</th>
+              <th>Path difference Δr</th>
+              <th>Phase difference Δϕ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Constructive</td>
+              <td>Δr = mλ</td>
+              <td>Δϕ = 2πm</td>
+            </tr>
+            <tr>
+              <td>Destructive</td>
+              <td>Δr = (m + 1/2)λ</td>
+              <td>Δϕ = (2m + 1)π</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="tiny">m is any integer (0, 1, 2, …).</p>
+      </section>
+
+      <!-- 17.3.2 -->
+      <section id="s1732">
+        <h2>17.3.2 Worked Example: Two-Speaker Interference</h2>
+
+        <details open>
+          <summary>Where is the first “quiet spot” on the centerline?</summary>
+          <p>
+            <strong>Setup:</strong> Two speakers emit the same tone (same f, in phase) and are separated by distance d. At a distant point on the
+            perpendicular bisector (“centerline”), the path difference is ~0, so it’s loud. Move sideways until the path difference becomes λ/2 to
+            get the first destructive interference.
+          </p>
+          <ol class="steps">
+            <li>Compute wavelength from λ = v/f using the medium’s v.</li>
+            <li>Set the geometric path difference to Δr = λ/2 and solve for the sideways position (often using small-angle approximations).</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> The first minimum occurs at the location where the distances differ by λ/2.</p>
+        </details>
+      </section>
+
+      <!-- 17.4 -->
+      <section id="s174">
+        <h2>17.4 Intensity and Sound Level</h2>
+
+        <h3>Inverse-square spreading</h3>
+        <div class="formula">I = P/(4πr<sup>2</sup>) &nbsp; (point source, no absorption)</div>
+        <p class="tiny">In real air, absorption and reflections complicate this, but inverse-square is a great first estimate.</p>
+
+        <h3>Why use decibels?</h3>
+        <div class="card">
+          <p>
+            Human hearing spans an enormous intensity range, so a logarithmic scale is convenient and matches perception more closely than a linear
+            scale.
+          </p>
+        </div>
+      </section>
+
+      <!-- 17.4.1 -->
+      <section id="s1741">
+        <h2>17.4.1 Sound Level β (Decibels)</h2>
+
+        <h3>Definition</h3>
+        <div class="formula">β = 10 log<sub>10</sub>(I/I<sub>0</sub>) &nbsp; dB</div>
+        <p class="tiny">Reference intensity I<sub>0</sub> = 1.0×10<sup>−12</sup> W/m<sup>2</sup> (approx threshold of hearing).</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Intensity change</th>
+              <th>Δβ</th>
+              <th>Rule of thumb</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>I × 10</td>
+              <td>+10 dB</td>
+              <td>“one decade” louder</td>
+            </tr>
+            <tr>
+              <td>I × 2</td>
+              <td>+3.0 dB</td>
+              <td>doubling intensity ≈ +3 dB</td>
+            </tr>
+            <tr>
+              <td>I ÷ 2</td>
+              <td>−3.0 dB</td>
+              <td>halving intensity ≈ −3 dB</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 17.4.2 -->
+      <section id="s1742">
+        <h2>17.4.2 Worked Example: Decibels and Distance</h2>
+
+        <details open>
+          <summary>How much does sound level drop when you double distance?</summary>
+          <p><strong>Assume:</strong> point source, no absorption. Then I ∝ 1/r<sup>2</sup>.</p>
+          <ol class="steps">
+            <li>Doubling distance: r → 2r makes intensity I → I/4.</li>
+            <li>Δβ = 10 log<sub>10</sub>((I/4)/I) = 10 log<sub>10</sub>(1/4) = −6.02 dB.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> About a 6 dB decrease when distance doubles (in free-field conditions).</p>
+        </details>
+      </section>
+
+      <!-- 17.5 -->
+      <section id="s175">
+        <h2>17.5 Sources of Musical Sound</h2>
+
+        <h3>Resonance creates strong tones</h3>
+        <div class="card">
+          <p>
+            Musical instruments usually produce a fundamental frequency plus harmonics because they create standing waves under boundary
+            constraints (fixed ends, open/closed pipe ends).
+          </p>
+        </div>
+      </section>
+
+      <!-- 17.5.1 -->
+      <section id="s1751">
+        <h2>17.5.1 Standing Waves in Strings and Air Columns</h2>
+
+        <h3>Strings (fixed ends)</h3>
+        <div class="formula">f<sub>n</sub> = n(v/2L), &nbsp; n = 1,2,3,…</div>
+        <p class="tiny">
+          Here L is the string length and v is the wave speed on the string (often v = √(T/μ), tension over linear density).
+        </p>
+
+        <h3>Air columns</h3>
+        <div class="note warn">
+          <p>
+            “Open” ends are displacement antinodes (pressure nodes). “Closed” ends are displacement nodes (pressure antinodes).
+          </p>
+        </div>
+      </section>
+
+      <!-- 17.5.2 -->
+      <section id="s1752">
+        <h2>17.5.2 Harmonics and Resonance Conditions</h2>
+
+        <h3>Open–open pipe (or open–open effective)</h3>
+        <div class="formula">f<sub>n</sub> = n(v/2L), &nbsp; n = 1,2,3,…</div>
+
+        <h3>Open–closed pipe</h3>
+        <div class="formula">f<sub>n</sub> = n(v/4L), &nbsp; n = 1,3,5,… (odd only)</div>
+        <p class="tiny">
+          Only odd harmonics fit because one end must be a node and the other an antinode.
+        </p>
+      </section>
+
+      <!-- 17.6 -->
+      <section id="s176">
+        <h2>17.6 Beats</h2>
+
+        <h3>Amplitude modulation from two close frequencies</h3>
+        <div class="formula">f<sub>beat</sub> = |f<sub>1</sub> − f<sub>2</sub>|</div>
+        <p class="tiny">
+          Beats are not a separate frequency “in the air”; they are the envelope pattern from superposition of two similar-frequency tones.
+        </p>
+      </section>
+
+      <!-- 17.6.1 -->
+      <section id="s1761">
+        <h2>17.6.1 Beat Frequency and Tuning</h2>
+
+        <details open>
+          <summary>Use beats to tune: make the beating stop</summary>
+          <ol class="steps">
+            <li>Play a reference tone (known f) and your instrument tone (unknown f).</li>
+            <li>Listen for beats and measure/estimate f<sub>beat</sub>.</li>
+            <li>Adjust until f<sub>beat</sub> → 0 (frequencies match).</li>
+          </ol>
+        </details>
+      </section>
+
+      <!-- 17.7 -->
+      <section id="s177">
+        <h2>17.7 The Doppler Effect</h2>
+
+        <h3>Idea</h3>
+        <div class="card">
+          <p>
+            When there is relative motion along the line of sight, the received frequency differs from the emitted frequency. In a medium (sound),
+            source motion and observer motion contribute differently.
+          </p>
+        </div>
+      </section>
+
+      <!-- 17.7.1 -->
+      <section id="s1771">
+        <h2>17.7.1 Moving Source and/or Observer</h2>
+
+        <h3>General form (sound in still air)</h3>
+        <div class="formula">f' = f (v ± v<sub>o</sub>)/(v ∓ v<sub>s</sub>)</div>
+        <p class="tiny">
+          Choose +v<sub>o</sub> when the observer moves toward the source; choose −v<sub>s</sub> in the denominator when the source moves toward the
+          observer (making wavefronts closer together).
+        </p>
+
+        <div class="note warn">
+          <p>
+            Keep directions straight: treat speeds along the line connecting source and observer. A quick check: approaching should increase f'.
+          </p>
+        </div>
+      </section>
+
+      <!-- 17.7.2 -->
+      <section id="s1772">
+        <h2>17.7.2 Worked Example: Siren Passes By</h2>
+
+        <details open>
+          <summary>Compute f' just before and after passing</summary>
+          <p>
+            <strong>Given:</strong> siren frequency f, sound speed v, source speed v<sub>s</sub> (observer stationary).
+          </p>
+          <ol class="steps">
+            <li>Approaching: f'<sub>app</sub> = f · v/(v − v<sub>s</sub>).</li>
+            <li>Receding: f'<sub>rec</sub> = f · v/(v + v<sub>s</sub>).</li>
+            <li>The “jump” you hear is from the sign change in the denominator at the pass-by.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Approaching gives a higher f', receding gives a lower f'.</p>
+        </details>
+      </section>
+
+      <!-- 17.8 -->
+      <section id="s178">
+        <h2>17.8 Supersonic Speeds, Shock Waves</h2>
+
+        <h3>When the source outruns its waves</h3>
+        <div class="card">
+          <p>
+            If a source moves faster than the wave speed in the medium (supersonic), the wavefronts pile up into a shock wave. The shock forms a
+            cone (in 3D) behind the source; observers hear a sonic boom when the shock passes.
+          </p>
+          <div class="kpi">
+            <span class="pill">Mach number</span>
+            <span class="pill">Mach cone</span>
+            <span class="pill">Sonic boom</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 17.8.1 -->
+      <section id="s1781">
+        <h2>17.8.1 Mach Number and Mach Cone</h2>
+
+        <h3>Definitions</h3>
+        <div class="formula">M = v<sub>s</sub>/v</div>
+        <div class="formula">sin θ = v/v<sub>s</sub> = 1/M</div>
+        <p class="tiny">θ is the half-angle of the Mach cone; larger M means a narrower cone.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for sound problems, write the three “layers” explicitly: (1) wave kinematics (v = fλ), (2) energy measures (I, β in dB),
+        and (3) geometry (path differences for interference; 1/r<sup>2</sup> spreading). Keep sign conventions consistent in Doppler problems.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

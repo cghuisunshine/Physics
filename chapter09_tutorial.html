@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 9 — Center of Mass and Linear Momentum (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 9</span>
+      <span>•</span>
+      <span>Center of Mass &amp; Momentum</span>
+    </div>
+    <h1>Center of Mass and Linear Momentum</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: center of mass, momentum and impulse, system viewpoint for Newton’s second law,
+      collisions (elastic/inelastic), and variable-mass systems (rocket idea).
+      Source reading: <a href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=1&pagemode=bookmarks">17 - Chapter 9_ Center of Mass and Linear Momentum.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s091">9.1 Center of Mass</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s092">9.2 Newton’s Second Law for a System of Particles</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=5&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s093">9.3 Linear Momentum</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s094">9.4 Collision and Impulse</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s095">9.5 Conservation of Linear Momentum</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s096">9.6 Momentum and Kinetic Energy in Collisions</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=19&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s097">9.7 Elastic Collisions in One Dimension</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=23&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s098">9.8 Collisions in Two Dimensions</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=27&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s099">9.9 Systems with Varying Mass: A Rocket</a>
+        <a class="pdf-link" href="17 - Chapter 9_ Center of Mass and Linear Momentum.pdf#page=28&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s091">
+        <h2>9.1 Center of Mass</h2>
+        <div class="card">
+          <p>
+            The center of mass (CM) is the “balance point” of a mass distribution. For motion problems, the CM behaves as if all mass were
+            concentrated there, as long as you account only for external forces.
+          </p>
+        </div>
+        <h3>Definition (discrete masses)</h3>
+        <div class="formula">r<sub>cm</sub> = (1/M)∑ m<sub>i</sub> r<sub>i</sub></div>
+        <p class="tiny">In components: x<sub>cm</sub> = (1/M)∑m<sub>i</sub>x<sub>i</sub>, etc.</p>
+      </section>
+
+      <section id="s092">
+        <h2>9.2 Newton’s Second Law for a System of Particles</h2>
+        <div class="card">
+          <p>
+            Internal forces cancel in pairs when summing over a system, so the net external force controls the system’s total momentum and the CM
+            acceleration.
+          </p>
+        </div>
+        <h3>System form</h3>
+        <div class="formula">F<sub>ext</sub> = dP/dt</div>
+        <div class="formula">F<sub>ext</sub> = M a<sub>cm</sub></div>
+        <p class="tiny">P is the total momentum of the system.</p>
+      </section>
+
+      <section id="s093">
+        <h2>9.3 Linear Momentum</h2>
+        <div class="card">
+          <p>
+            Momentum is the quantity conserved in collisions and explosions when external forces are negligible. It is the natural quantity tied to
+            Newton’s second law.
+          </p>
+        </div>
+        <div class="formula">p = mv</div>
+        <div class="formula">P = ∑ p<sub>i</sub></div>
+      </section>
+
+      <section id="s094">
+        <h2>9.4 Collision and Impulse</h2>
+        <div class="card">
+          <p>
+            Impulse measures the effect of a force over time. In a collision, large forces act for a short time, and impulse captures the net
+            momentum change.
+          </p>
+        </div>
+        <h3>Impulse–momentum theorem</h3>
+        <div class="formula">J = ∫ F dt = Δp</div>
+        <div class="formula">F̄Δt = Δp</div>
+      </section>
+
+      <section id="s095">
+        <h2>9.5 Conservation of Linear Momentum</h2>
+        <div class="card">
+          <p>
+            If the net external impulse is zero (or negligible), total momentum is conserved. This is the main tool for explosions and collisions.
+          </p>
+        </div>
+        <div class="formula">J<sub>ext</sub> = 0 ⇒ P<sub>initial</sub> = P<sub>final</sub></div>
+        <div class="note warn">
+          <p class="tiny">Momentum conservation does not require energy conservation (inelastic collisions lose kinetic energy).</p>
+        </div>
+      </section>
+
+      <section id="s096">
+        <h2>9.6 Momentum and Kinetic Energy in Collisions</h2>
+        <div class="card">
+          <p>
+            Collisions are classified by whether kinetic energy is conserved. Momentum is conserved (approximately) whenever external impulse is
+            negligible, but kinetic energy is only conserved in elastic collisions.
+          </p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Momentum</th>
+              <th>Kinetic energy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Elastic</td>
+              <td>Conserved</td>
+              <td>Conserved</td>
+            </tr>
+            <tr>
+              <td>Inelastic</td>
+              <td>Conserved</td>
+              <td>Decreases</td>
+            </tr>
+            <tr>
+              <td>Perfectly inelastic</td>
+              <td>Conserved</td>
+              <td>Decreases; objects stick</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="s097">
+        <h2>9.7 Elastic Collisions in One Dimension</h2>
+        <div class="card">
+          <p>
+            In 1D elastic collisions, you can solve using momentum conservation plus kinetic-energy conservation (or an equivalent relative-speed
+            relation).
+          </p>
+        </div>
+        <h3>Two equations (1D, elastic)</h3>
+        <div class="formula">m<sub>1</sub>v<sub>1i</sub> + m<sub>2</sub>v<sub>2i</sub> = m<sub>1</sub>v<sub>1f</sub> + m<sub>2</sub>v<sub>2f</sub></div>
+        <div class="formula">(1/2)m<sub>1</sub>v<sub>1i</sub><sup>2</sup> + (1/2)m<sub>2</sub>v<sub>2i</sub><sup>2</sup> = (1/2)m<sub>1</sub>v<sub>1f</sub><sup>2</sup> + (1/2)m<sub>2</sub>v<sub>2f</sub><sup>2</sup></div>
+      </section>
+
+      <section id="s098">
+        <h2>9.8 Collisions in Two Dimensions</h2>
+        <div class="card">
+          <p>
+            In 2D, conserve momentum in x and y separately. For many problems, energy conservation is not available (inelastic), so geometry and
+            components do the heavy lifting.
+          </p>
+        </div>
+        <h3>Component form</h3>
+        <div class="formula">P<sub>x,i</sub> = P<sub>x,f</sub> &nbsp; and &nbsp; P<sub>y,i</sub> = P<sub>y,f</sub></div>
+      </section>
+
+      <section id="s099">
+        <h2>9.9 Systems with Varying Mass: A Rocket</h2>
+        <div class="card">
+          <p>
+            For variable-mass systems, you must track momentum carried away by expelled mass. The key idea: thrust arises from momentum flux.
+          </p>
+        </div>
+        <h3>Useful result (ideal rocket, no external forces)</h3>
+        <div class="formula">Δv = v<sub>e</sub> ln(m<sub>0</sub>/m)</div>
+        <p class="tiny">v<sub>e</sub> is exhaust speed relative to the rocket; m decreases from m<sub>0</sub> to m.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for collisions, decide first what is conserved (momentum always if isolated; kinetic energy only if elastic). Draw “before/after”
+        diagrams and use components.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

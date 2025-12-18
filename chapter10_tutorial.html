@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 10 — Rotation (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 10</span>
+      <span>•</span>
+      <span>Rotation</span>
+    </div>
+    <h1>Rotation</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: angular variables, constant angular acceleration, connecting linear and angular
+      motion, rotational kinetic energy, rotational inertia, torque, and work–energy in rotation.
+      Source reading: <a href="18 - Chapter 10_ Rotation.pdf#page=1&pagemode=bookmarks">18 - Chapter 10_ Rotation.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s101">10.1 Rotational Variables</a>
+        <a class="pdf-link" href="18 - Chapter 10_ Rotation.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s102">10.2 Constant Angular Acceleration</a>
+        <a class="pdf-link" href="18 - Chapter 10_ Rotation.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s103">10.3 Relating Linear and Angular Variables</a>
+        <a class="pdf-link" href="18 - Chapter 10_ Rotation.pdf#page=12&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s104">10.4 Kinetic Energy of Rotation</a>
+        <a class="pdf-link" href="18 - Chapter 10_ Rotation.pdf#page=16&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s105">10.5 Calculating the Rotational Inertia</a>
+        <a class="pdf-link" href="18 - Chapter 10_ Rotation.pdf#page=17&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s106">10.6 Torque</a>
+        <a class="pdf-link" href="18 - Chapter 10_ Rotation.pdf#page=22&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s107">10.7 Newton’s Second Law for Rotation</a>
+        <a class="pdf-link" href="18 - Chapter 10_ Rotation.pdf#page=23&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s108">10.8 Work and Rotational Kinetic Energy</a>
+        <a class="pdf-link" href="18 - Chapter 10_ Rotation.pdf#page=27&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s101">
+        <h2>10.1 Rotational Variables</h2>
+        <div class="card">
+          <p>
+            Rotation uses angular analogs of linear variables: angle θ, angular velocity ω, and angular acceleration α. The kinematics parallels
+            1D motion.
+          </p>
+        </div>
+        <h3>Definitions</h3>
+        <div class="formula">ω = dθ/dt</div>
+        <div class="formula">α = dω/dt</div>
+      </section>
+
+      <section id="s102">
+        <h2>10.2 Rotation with Constant Angular Acceleration</h2>
+        <div class="card">
+          <p>
+            With constant α, the same “constant acceleration” equations apply with θ ↔ x, ω ↔ v, and α ↔ a.
+          </p>
+        </div>
+        <h3>Kinematics (constant α)</h3>
+        <div class="formula">ω = ω<sub>0</sub> + αt</div>
+        <div class="formula">θ − θ<sub>0</sub> = ω<sub>0</sub>t + (1/2)αt<sup>2</sup></div>
+        <div class="formula">ω<sup>2</sup> = ω<sub>0</sub><sup>2</sup> + 2α(θ − θ<sub>0</sub>)</div>
+      </section>
+
+      <section id="s103">
+        <h2>10.3 Relating the Linear and Angular Variables</h2>
+        <div class="card">
+          <p>
+            Points on a rigid rotating body have linear speed proportional to radius: larger radius moves faster.
+          </p>
+        </div>
+        <h3>Rigid-body relations</h3>
+        <div class="formula">v = ωr</div>
+        <div class="formula">a<sub>t</sub> = αr</div>
+        <div class="formula">a<sub>r</sub> = ω<sup>2</sup>r = v<sup>2</sup>/r</div>
+      </section>
+
+      <section id="s104">
+        <h2>10.4 Kinetic Energy of Rotation</h2>
+        <div class="card">
+          <p>
+            Rotation stores kinetic energy depending on how mass is distributed about the rotation axis (rotational inertia).
+          </p>
+        </div>
+        <div class="formula">K<sub>rot</sub> = (1/2)Iω<sup>2</sup></div>
+      </section>
+
+      <section id="s105">
+        <h2>10.5 Calculating the Rotational Inertia</h2>
+        <div class="card">
+          <p>
+            Rotational inertia is I = Σmr<sup>2</sup> (discrete) or I = ∫r<sup>2</sup>dm (continuous). The parallel-axis theorem shifts I to a
+            different axis.
+          </p>
+        </div>
+        <h3>Definitions</h3>
+        <div class="formula">I = ∑ m<sub>i</sub>r<sub>i</sub><sup>2</sup></div>
+        <div class="formula">I = ∫ r<sup>2</sup> dm</div>
+        <div class="formula">I = I<sub>cm</sub> + Md<sup>2</sup> (parallel-axis)</div>
+      </section>
+
+      <section id="s106">
+        <h2>10.6 Torque</h2>
+        <div class="card">
+          <p>
+            Torque is the rotational “push” produced by a force at a lever arm. Perpendicular lever arm matters most.
+          </p>
+        </div>
+        <div class="formula">τ = rF sin θ</div>
+      </section>
+
+      <section id="s107">
+        <h2>10.7 Newton’s Second Law for Rotation</h2>
+        <div class="card">
+          <p>
+            For rotation about a fixed axis, net torque produces angular acceleration proportional to I.
+          </p>
+        </div>
+        <div class="formula">τ<sub>net</sub> = Iα</div>
+        <details open>
+          <summary>Worked example: angular acceleration from torque</summary>
+          <p class="tiny">
+            If τ = 6.0 N·m acts on a wheel with I = 0.50 kg·m<sup>2</sup>, then α = τ/I = 12 rad/s<sup>2</sup>.
+          </p>
+        </details>
+      </section>
+
+      <section id="s108">
+        <h2>10.8 Work and Rotational Kinetic Energy</h2>
+        <div class="card">
+          <p>
+            Work in rotation parallels linear work: torque does work through angular displacement, changing rotational kinetic energy.
+          </p>
+        </div>
+        <h3>Work–energy</h3>
+        <div class="formula">W = ∫ τ dθ</div>
+        <div class="formula">W = ΔK<sub>rot</sub> = (1/2)I(ω<sub>f</sub><sup>2</sup> − ω<sub>i</sub><sup>2</sup>)</div>
+        <div class="formula">P = τω</div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: translate problems into the rotational analogs: x→θ, v→ω, a→α, F→τ, m→I, and K=(1/2)mv²→(1/2)Iω².
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+

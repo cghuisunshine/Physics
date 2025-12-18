@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 23 — Gauss’ Law (Textbook-Style Notes + Worked Examples)</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#111a33;
+      --panel2:#0f1730;
+      --text:#e8ecff;
+      --muted:#b9c2ff;
+      --accent:#7aa7ff;
+      --accent2:#7dffcf;
+      --line:rgba(255,255,255,.12);
+      --warn:#ffd37a;
+      --ok:#7dffcf;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --math: ui-serif, "STIX Two Math", "Cambria Math", "Times New Roman", Times, serif;
+    }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(122,167,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(125,255,207,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 70%);
+      line-height:1.55;
+    }
+    header{
+      padding:42px 18px 22px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      font-size:14px;
+      color:var(--muted);
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:40px;
+      line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .subtitle{
+      color:var(--muted);
+      max-width:72ch;
+      font-size:16px;
+    }
+    main{
+      max-width:980px;
+      margin:0 auto;
+      padding:0 18px 70px;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:18px;
+    }
+    nav{
+      position:sticky;
+      top:14px;
+      align-self:start;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 14px;
+      box-shadow: var(--shadow);
+    }
+    nav h2{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      display:block;
+      padding:8px 10px;
+      border-radius:10px;
+      text-decoration:none;
+      color:var(--text);
+      border:1px solid transparent;
+    }
+    nav a:hover{
+      background:rgba(122,167,255,.08);
+      border-color:rgba(122,167,255,.22);
+    }
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    section{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    section h2{
+      margin:2px 0 10px;
+      font-size:24px;
+      letter-spacing:-.01em;
+    }
+    section h3{
+      margin:16px 0 8px;
+      font-size:16px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .card{
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px 14px;
+    }
+    .card strong{ color:var(--accent2); }
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:10px 0 0;
+    }
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .formula{
+      font-family:var(--math);
+      background:rgba(122,167,255,.10);
+      border:1px solid rgba(122,167,255,.28);
+      border-radius:12px;
+      padding:10px 12px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .vec,
+    .hat{
+      position:relative;
+      display:inline-block;
+      padding:0 .05em;
+    }
+    .vec::after{
+      content:"→";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.8em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .hat::after{
+      content:"ˆ";
+      position:absolute;
+      left:0;
+      right:0;
+      top:-.75em;
+      text-align:center;
+      font-size:.85em;
+      line-height:1;
+    }
+    .formula sup,
+    .formula sub{
+      font-size:.8em;
+      line-height:0;
+      position:relative;
+      vertical-align:baseline;
+    }
+    .formula sup{ top:-.55em; }
+    .formula sub{ bottom:-.2em; }
+    .note{
+      border-left:4px solid rgba(125,255,207,.55);
+      padding:10px 12px;
+      margin:12px 0 0;
+      background:rgba(125,255,207,.06);
+      border-radius:12px;
+    }
+    .warn{
+      border-left:4px solid rgba(255,211,122,.6);
+      background:rgba(255,211,122,.07);
+    }
+    details{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(0,0,0,.16);
+      padding:10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .steps{
+      margin:10px 0 0;
+      padding-left:20px;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.14);
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+      font-size:14px;
+    }
+    th{ color:var(--muted); font-weight:600; }
+    tr:last-child td{ border-bottom:none; }
+    footer{
+      max-width:980px;
+      margin:0 auto;
+      padding:22px 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ font-size:13px; color:var(--muted); }
+    .toc-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .toc-item > a:first-child{ flex:1; }
+    .pdf-link{
+      font-size:12px;
+      padding:2px 8px;
+      border:1px solid rgba(148,163,184,.35);
+      border-radius:999px;
+      color:var(--muted);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .pdf-link:hover{ border-color:rgba(148,163,184,.6); color:var(--text); }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      nav{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 23</span>
+      <span>•</span>
+      <span>Gauss’ Law</span>
+    </div>
+    <h1>Gauss’ Law</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: electric flux, Gaussian surfaces, Gauss’ law,
+      conductors, and using symmetry (cylindrical/planar/spherical) to find <span class="vec">E</span> quickly.
+      Source reading: <a href="31 - Chapter 23_ Gauss’ Law.pdf#page=1&pagemode=bookmarks">31 - Chapter 23_ Gauss’ Law.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+      <div class="toc-item">
+        <a href="#s231">23.1 Electric Flux</a>
+        <a class="pdf-link" href="31 - Chapter 23_ Gauss’ Law.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s2311">23.1.1 Flux, Area Vectors, and Signs</a>
+        <a class="pdf-link" href="31 - Chapter 23_ Gauss’ Law.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s232">23.2 Gauss’ Law</a>
+        <a class="pdf-link" href="31 - Chapter 23_ Gauss’ Law.pdf#page=6&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s232a">23.2a How to Use Gauss’ Law (Method)</a>
+        <a class="pdf-link" href="31 - Chapter 23_ Gauss’ Law.pdf#page=6&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s233">23.3 A Charged Isolated Conductor</a>
+        <a class="pdf-link" href="31 - Chapter 23_ Gauss’ Law.pdf#page=10&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s234">23.4 Applying Gauss’ Law: Cylindrical Symmetry</a>
+        <a class="pdf-link" href="31 - Chapter 23_ Gauss’ Law.pdf#page=13&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s235">23.5 Applying Gauss’ Law: Planar Symmetry</a>
+        <a class="pdf-link" href="31 - Chapter 23_ Gauss’ Law.pdf#page=15&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s236">23.6 Applying Gauss’ Law: Spherical Symmetry</a>
+        <a class="pdf-link" href="31 - Chapter 23_ Gauss’ Law.pdf#page=18&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+
+      <!-- 23.1 -->
+      <section id="s231">
+        <h2>23.1 Electric Flux</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            <strong>Electric flux</strong> Φ measures how much electric field “pierces” a surface (field lines crossing the surface),
+            not how much skims along it.
+          </p>
+          <div class="kpi">
+            <span class="pill">Flux depends on field direction + surface orientation</span>
+            <span class="pill">Use a dot product: piercing component only</span>
+            <span class="pill">Net flux is defined for closed (Gaussian) surfaces</span>
+          </div>
+        </div>
+
+        <h3>Important formulas & meaning</h3>
+        <div class="formula">dΦ = <span class="vec">E</span> · d<span class="vec">A</span></div>
+        <div class="formula">Φ = ∫ <span class="vec">E</span> · d<span class="vec">A</span>  (total flux through a surface)</div>
+        <div class="tiny">
+          Units of flux: N·m<sup>2</sup>/C. For a closed surface, use the closed-surface integral symbol: ∮.
+        </div>
+
+        <details>
+          <summary>Worked Example: Uniform field through a tilted flat surface</summary>
+          <p><strong>Given:</strong> Uniform field E = 300 N/C. A flat surface has area A = 0.020 m<sup>2</sup>. The area vector makes angle θ = 60° with <span class="vec">E</span>.</p>
+          <p><strong>Find:</strong> Flux through the surface.</p>
+          <ol class="steps">
+            <li>For a flat surface in uniform field, Φ = <span class="vec">E</span> · <span class="vec">A</span> = EA cosθ.</li>
+            <li>Compute: Φ = (300)(0.020)cos60° = 6.0(0.50) = 3.0 N·m<sup>2</sup>/C.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Φ = +3.0 N·m<sup>2</sup>/C (positive because the field has a component along the area vector).</p>
+        </details>
+      </section>
+
+      <!-- 23.1.1 -->
+      <section id="s2311">
+        <h2>23.1.1 Flux, Area Vectors, and Signs</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              <strong>Area vector:</strong> For a small patch, d<span class="vec">A</span> points <strong>perpendicular</strong> to the surface patch.
+              Its magnitude is the patch area dA.
+            </p>
+          </div>
+          <div class="card">
+            <p>
+              <strong>Closed surface sign rule:</strong> For a closed surface, d<span class="vec">A</span> is defined as pointing <strong>outward</strong>.
+              Field entering the surface gives negative contribution; field leaving gives positive.
+            </p>
+          </div>
+        </div>
+
+        <h3>Dot product shortcut</h3>
+        <div class="formula"><span class="vec">E</span> · d<span class="vec">A</span> = E dA cosθ</div>
+        <p class="tiny">
+          θ is the angle between <span class="vec">E</span> and the area vector (not the surface itself).
+        </p>
+
+        <details>
+          <summary>Worked Example: Net flux through a cube in a uniform field</summary>
+          <p><strong>Given:</strong> A cube is in a uniform electric field (same magnitude/direction everywhere). No charge is inside the cube.</p>
+          <p><strong>Find:</strong> Net flux Φ through the cube.</p>
+          <ol class="steps">
+            <li>Uniform field lines enter some faces and leave opposite faces.</li>
+            <li>For each pair of opposite faces, the flux contributions cancel (same magnitude, opposite sign).</li>
+            <li>Therefore the net flux through the closed surface is zero.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> Φ = 0, consistent with Gauss’ law when q<sub>enc</sub> = 0.</p>
+        </details>
+
+        <div class="note warn">
+          Common mistake: Using the surface’s “tilt angle” directly. Always use the angle between <span class="vec">E</span> and the
+          area vector (normal direction).
+        </div>
+      </section>
+
+      <!-- 23.2 -->
+      <section id="s232">
+        <h2>23.2 Gauss’ Law</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            Gauss’ law relates the <strong>net flux</strong> through a <strong>closed surface</strong> (a Gaussian surface)
+            to the <strong>net enclosed charge</strong> q<sub>enc</sub>.
+          </p>
+          <div class="kpi">
+            <span class="pill">Only enclosed charge matters for net flux</span>
+            <span class="pill">Outside charges can distort <span class="vec">E</span>, but not net flux</span>
+            <span class="pill">Best when symmetry makes <span class="vec">E</span> constant on the surface</span>
+          </div>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula">ε<sub>0</sub> Φ = q<sub>enc</sub></div>
+        <div class="formula">ε<sub>0</sub> ∮ <span class="vec">E</span> · d<span class="vec">A</span> = q<sub>enc</sub></div>
+        <p class="tiny">
+          If q<sub>enc</sub> &gt; 0, net flux is outward (positive). If q<sub>enc</sub> &lt; 0, net flux is inward (negative).
+        </p>
+
+        <details>
+          <summary>Worked Example: Enclosed charge from measured net flux</summary>
+          <p><strong>Given:</strong> Net flux through a closed surface is Φ = +2.4×10<sup>3</sup> N·m<sup>2</sup>/C.</p>
+          <p><strong>Find:</strong> Enclosed charge q<sub>enc</sub>.</p>
+          <ol class="steps">
+            <li>Use Gauss’ law: q<sub>enc</sub> = ε<sub>0</sub>Φ.</li>
+            <li>q<sub>enc</sub> = (8.85×10<sup>−12</sup> C<sup>2</sup>/(N·m<sup>2</sup>))(2.4×10<sup>3</sup> N·m<sup>2</sup>/C)</li>
+            <li>q<sub>enc</sub> ≈ 2.1×10<sup>−8</sup> C.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> q<sub>enc</sub> ≈ +2.1×10<sup>−8</sup> C (positive because flux is outward).</p>
+        </details>
+
+        <details>
+          <summary>Checkpoint 23.2.1 (concept): Outside charge and net flux</summary>
+          <p><strong>Question:</strong> If you bring a big charge close to (but outside) a Gaussian surface, does that charge change the net flux through the surface?</p>
+          <p class="note"><strong>Answer:</strong> No. Outside charges can change the field pattern on the surface, but Gauss’ law says the net flux depends only on q<sub>enc</sub>.</p>
+        </details>
+      </section>
+
+      <!-- 23.2a -->
+      <section id="s232a">
+        <h2>23.2a How to Use Gauss’ Law (Method)</h2>
+
+        <h3>When Gauss’ law gives you E quickly</h3>
+        <div class="card">
+          <p>
+            Gauss’ law is always true, but it only makes finding <span class="vec">E</span> easy when you can choose a Gaussian surface where
+            <span class="vec">E</span> is either constant in magnitude and parallel to d<span class="vec">A</span>, or else perpendicular to d<span class="vec">A</span> (zero dot product) on parts of the surface.
+          </p>
+        </div>
+
+        <h3>Problem-solving checklist</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>What to decide</th>
+              <th>Common choice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>What symmetry does the charge distribution have?</td>
+              <td>Spherical / cylindrical / planar</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Pick a Gaussian surface matching that symmetry.</td>
+              <td>Sphere / cylinder / pillbox</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Evaluate ∮ <span class="vec">E</span> · d<span class="vec">A</span> by symmetry.</td>
+              <td>E is constant over parts of surface</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Compute enclosed charge q<sub>enc</sub>.</td>
+              <td>Point charge / λL / σA / ρV</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Solve for E and state direction.</td>
+              <td>Use sign of charge + symmetry</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note warn">
+          If the charge distribution lacks symmetry (or the Gaussian surface cannot be chosen so that E is constant over it),
+          Gauss’ law usually won’t directly give you E; you may need Coulomb’s law/integration methods from Chapter 22.
+        </div>
+      </section>
+
+      <!-- 23.3 -->
+      <section id="s233">
+        <h2>23.3 A Charged Isolated Conductor</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Excess charge lives on the surface:</strong> In electrostatic equilibrium, any excess charge on a conductor moves to its outer surface.</p>
+            <p class="tiny">Reason: if <span class="vec">E</span> existed inside the conductor, charges would keep moving.</p>
+          </div>
+          <div class="card">
+            <p><strong>Field inside is zero:</strong> The electric field inside the conducting material is zero in electrostatic equilibrium.</p>
+            <p class="tiny">This is a key “boundary condition” you use with Gaussian surfaces.</p>
+          </div>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula">E = σ / ε<sub>0</sub>  (just outside a conductor surface)</div>
+        <p class="tiny">
+          Direction: perpendicular to the surface; outward if σ &gt; 0 and inward if σ &lt; 0. (Inside the conductor: E = 0.)
+        </p>
+
+        <details>
+          <summary>Worked Example (Checkpoint-style): Charge in a spherical conducting shell</summary>
+          <p><strong>Given:</strong> A spherical metal shell contains a central point charge +Q. The shell has net charge +3Q.</p>
+          <p><strong>Find:</strong> (a) charge on inner surface, (b) charge on outer surface, (c) effective q in E = kq/r<sup>2</sup> in different regions.</p>
+          <ol class="steps">
+            <li><strong>(a)</strong> Inner surface must have charge −Q so that the field inside the conductor material is zero.</li>
+            <li><strong>(b)</strong> Shell’s total is +3Q, so outer surface has +3Q − (−Q) = +4Q.</li>
+            <li><strong>(c)</strong> For r between the point charge and the inner surface, q = +Q (enclosed is just the point charge).</li>
+            <li><strong>(d)</strong> For r within the conductor material (between inner and outer surfaces), E = 0 (do not use kq/r<sup>2</sup>).</li>
+            <li><strong>(e)</strong> For r outside the outer surface, enclosed net is +Q + 3Q = +4Q, so q = +4Q.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> q<sub>inner</sub> = −Q, q<sub>outer</sub> = +4Q; use q = +Q inside cavity, E = 0 in conductor, q = +4Q outside.</p>
+        </details>
+
+        <div class="note warn">
+          On nonspherical conductors, σ is generally not uniform. Sharp curvature tends to concentrate charge (larger σ),
+          making the local field just outside larger.
+        </div>
+      </section>
+
+      <!-- 23.4 -->
+      <section id="s234">
+        <h2>23.4 Applying Gauss’ Law: Cylindrical Symmetry</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            For an <strong>infinitely long line of charge</strong> (or a long uniformly charged rod), the electric field is radial
+            and depends only on the perpendicular distance r from the axis.
+          </p>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula">E = λ / (2π ε<sub>0</sub> r)  (infinite line of charge)</div>
+        <p class="tiny">
+          λ is linear charge density (C/m). Direction: radially outward for λ &gt; 0, inward for λ &lt; 0.
+        </p>
+
+        <details>
+          <summary>Worked Example: Field near a line of charge</summary>
+          <p><strong>Given:</strong> λ = −2.0 μC/m. Find the field magnitude at r = 0.10 m.</p>
+          <p><strong>Find:</strong> E (magnitude + direction).</p>
+          <ol class="steps">
+            <li>Use E = |λ|/(2π ε<sub>0</sub> r).</li>
+            <li>E = (2.0×10<sup>−6</sup>)/(2π(8.85×10<sup>−12</sup>)(0.10)) ≈ 3.6×10<sup>5</sup> N/C.</li>
+            <li>Since λ is negative, the field points radially <strong>toward</strong> the line.</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> E ≈ 3.6×10<sup>5</sup> N/C, directed inward toward the line.</p>
+        </details>
+
+        <details>
+          <summary>Optional extension: Infinite solid cylinder with uniform volume charge density</summary>
+          <p><strong>Result (from Gauss’ law):</strong> For a cylinder of radius R with uniform ρ, using a coaxial Gaussian cylinder:</p>
+          <div class="formula">E(r&lt;R) = ρr / (2ε<sub>0</sub>), &nbsp;&nbsp; E(r&gt;R) = ρR<sup>2</sup> / (2ε<sub>0</sub>r)</div>
+          <p class="tiny">Direction is radial outward for ρ &gt; 0 and inward for ρ &lt; 0.</p>
+        </details>
+      </section>
+
+      <!-- 23.5 -->
+      <section id="s235">
+        <h2>23.5 Applying Gauss’ Law: Planar Symmetry</h2>
+
+        <h3>Key ideas</h3>
+        <div class="card">
+          <p>
+            A large (effectively infinite) charged sheet produces a uniform electric field that is perpendicular to the sheet.
+            A “pillbox” Gaussian surface makes the flux calculation simple.
+          </p>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula">E = σ / (2ε<sub>0</sub>)  (infinite nonconducting sheet)</div>
+        <div class="formula">E = σ / ε<sub>0</sub>  (just outside a charged conductor surface)</div>
+        <p class="tiny">
+          For the sheet, the field has the same magnitude on both sides (opposite directions). For the conductor, the field is zero inside.
+        </p>
+
+        <details>
+          <summary>Worked Example: Two infinite parallel sheets (superposition)</summary>
+          <p><strong>Given:</strong> Two infinite nonconducting sheets are parallel. Sheet A has σ<sub>A</sub> = +6.8 μC/m<sup>2</sup>, sheet B has σ<sub>B</sub> = −4.3 μC/m<sup>2</sup>.</p>
+          <p><strong>Find:</strong> Net field magnitude and direction (i) between the sheets, (ii) outside the pair.</p>
+          <ol class="steps">
+            <li>Field from one sheet: E = |σ|/(2ε<sub>0</sub>), directed away from +σ and toward −σ.</li>
+            <li>Between the sheets, both fields point the same way (from + toward −), so magnitudes add.</li>
+            <li>Outside the sheets, the fields oppose, so magnitudes subtract.</li>
+          </ol>
+          <p class="note">
+            <strong>Answer:</strong> Between: E = (|σ<sub>A</sub>|+|σ<sub>B</sub>|)/(2ε<sub>0</sub>) directed from A to B.
+            Outside: E = (|σ<sub>A</sub>|−|σ<sub>B</sub>|)/(2ε<sub>0</sub>) with direction set by the larger |σ|.
+          </p>
+        </details>
+      </section>
+
+      <!-- 23.6 -->
+      <section id="s236">
+        <h2>23.6 Applying Gauss’ Law: Spherical Symmetry</h2>
+
+        <h3>Key ideas</h3>
+        <div class="grid-2">
+          <div class="card">
+            <p><strong>Spherical shell (outside):</strong> Field is the same as if all the charge were at the center.</p>
+            <p class="tiny">E points radially outward for +q and inward for −q.</p>
+          </div>
+          <div class="card">
+            <p><strong>Spherical shell (inside):</strong> Field due to a uniform spherical shell is zero at any point inside the shell.</p>
+            <p class="tiny">This is a powerful symmetry result (a “shell theorem”).</p>
+          </div>
+        </div>
+
+        <h3>Important formulas & their meaning</h3>
+        <div class="formula">E = (1 / (4π ε<sub>0</sub>)) · (q / r<sup>2</sup>)  (outside a spherical shell)</div>
+        <div class="formula">E = (1 / (4π ε<sub>0</sub>)) · (q / R<sup>3</sup>) · r  (inside a uniformly charged solid sphere)</div>
+        <p class="tiny">
+          In the solid-sphere formula, q is the total charge, R is the sphere radius, and r is the distance from the center (r &lt; R).
+        </p>
+
+        <details>
+          <summary>Worked Example: Field inside vs outside a uniformly charged solid sphere</summary>
+          <p><strong>Given:</strong> A nonconducting sphere has radius R = 0.20 m and total charge q = +6.0 nC uniformly distributed.</p>
+          <p><strong>Find:</strong> E at (a) r = 0.10 m and (b) r = 0.30 m.</p>
+          <ol class="steps">
+            <li><strong>(a) Inside (r &lt; R):</strong> E = (1/(4π ε<sub>0</sub>))(q/R<sup>3</sup>)r. Using k = 8.99×10<sup>9</sup>, E = k q r / R<sup>3</sup>.</li>
+            <li>E = (8.99×10<sup>9</sup>)(6.0×10<sup>−9</sup>)(0.10)/(0.20)<sup>3</sup> ≈ 6.7×10<sup>2</sup> N/C.</li>
+            <li><strong>(b) Outside (r &gt; R):</strong> Treat as point charge: E = kq/r<sup>2</sup> = (8.99×10<sup>9</sup>)(6.0×10<sup>−9</sup>)/(0.30)<sup>2</sup> ≈ 6.0×10<sup>2</sup> N/C.</li>
+            <li>Direction in both cases: radially outward (q positive).</li>
+          </ol>
+          <p class="note"><strong>Answer:</strong> E(0.10 m) ≈ 6.7×10<sup>2</sup> N/C outward; E(0.30 m) ≈ 6.0×10<sup>2</sup> N/C outward.</p>
+        </details>
+
+        <div class="note warn">
+          Key pattern: for spherical symmetry, Gauss’ law reduces the field problem to “how much charge is enclosed within radius r?”
+          Then E depends only on q<sub>enc</sub>(r) and r.
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <strong>Study tip:</strong> When using Gauss’ law to find <span class="vec">E</span>, always write (1) the symmetry,
+      (2) the Gaussian surface, (3) the flux integral simplification, and (4) q<sub>enc</sub>. If any of these is unclear,
+      step back and redraw the geometry and field direction.
+    </p>
+    <p class="tiny">
+      Related: <a href="chapter22_tutorial.html">chapter22_tutorial.html</a>.
+    </p>
+  </footer>
+</body>
+</html>

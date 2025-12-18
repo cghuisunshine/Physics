@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chapter 15 — Oscillations (Textbook-Style Notes + Worked Examples)</title>
+  <link rel="stylesheet" href="assets/tutorial.css" />
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>Physics Notes</span>
+      <span>•</span>
+      <span>Chapter 15</span>
+      <span>•</span>
+      <span>Oscillations</span>
+    </div>
+    <h1>Oscillations</h1>
+    <p class="subtitle">
+      Textbook-style tutorial notes with worked examples. Focus: simple harmonic motion (SHM), energy in SHM, angular SHM, pendulums, damping, and
+      forced oscillations/resonance.
+      Source reading: <a href="23 - Chapter 15_ Oscillations.pdf#page=1&pagemode=bookmarks">23 - Chapter 15_ Oscillations.pdf</a>.
+    </p>
+  </header>
+
+  <main>
+    <nav aria-label="Table of contents">
+      <h2>Contents</h2>
+
+      <div class="toc-item">
+        <a href="#s151">15.1 Simple Harmonic Motion</a>
+        <a class="pdf-link" href="23 - Chapter 15_ Oscillations.pdf#page=1&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s152">15.2 Energy in Simple Harmonic Motion</a>
+        <a class="pdf-link" href="23 - Chapter 15_ Oscillations.pdf#page=9&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s153">15.3 An Angular Simple Harmonic Oscillator</a>
+        <a class="pdf-link" href="23 - Chapter 15_ Oscillations.pdf#page=11&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s154">15.4 Pendulums, Circular Motion</a>
+        <a class="pdf-link" href="23 - Chapter 15_ Oscillations.pdf#page=13&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s155">15.5 Damped Simple Harmonic Motion</a>
+        <a class="pdf-link" href="23 - Chapter 15_ Oscillations.pdf#page=18&pagemode=bookmarks">PDF</a>
+      </div>
+      <div class="toc-item">
+        <a href="#s156">15.6 Forced Oscillations and Resonance</a>
+        <a class="pdf-link" href="23 - Chapter 15_ Oscillations.pdf#page=21&pagemode=bookmarks">PDF</a>
+      </div>
+    </nav>
+
+    <div class="content">
+      <section id="s151">
+        <h2>15.1 Simple Harmonic Motion</h2>
+        <div class="grid-2">
+          <div class="card">
+            <p>
+              SHM occurs when the restoring force is proportional to displacement and opposite in direction: <code>F = −kx</code>. The result is
+              sinusoidal motion with a single natural frequency.
+            </p>
+            <div class="kpi">
+              <span class="pill">F = −kx</span>
+              <span class="pill">x is sinusoidal</span>
+              <span class="pill">ω is constant</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Core forms</h3>
+            <div class="formula">x(t) = A cos(ωt + φ)</div>
+            <div class="formula">ω = √(k/m)</div>
+            <div class="formula">T = 2π/ω</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s152">
+        <h2>15.2 Energy in Simple Harmonic Motion</h2>
+        <div class="card">
+          <p>
+            In ideal SHM (no damping), total mechanical energy stays constant and swaps between kinetic and potential forms.
+          </p>
+        </div>
+        <h3>Mass–spring energy</h3>
+        <div class="formula">E = (1/2)kA<sup>2</sup> = (1/2)kx<sup>2</sup> + (1/2)mv<sup>2</sup></div>
+        <p class="tiny">Maximum speed occurs at equilibrium: v<sub>max</sub> = ωA.</p>
+      </section>
+
+      <section id="s153">
+        <h2>15.3 An Angular Simple Harmonic Oscillator</h2>
+        <div class="card">
+          <p>
+            Rotational analog of SHM: a restoring torque proportional to angular displacement gives sinusoidal angular motion.
+          </p>
+        </div>
+        <h3>Torsion oscillator</h3>
+        <div class="formula">τ = −κθ</div>
+        <div class="formula">ω = √(κ/I)</div>
+        <p class="tiny">κ is torsion constant; I is rotational inertia about the axis.</p>
+      </section>
+
+      <section id="s154">
+        <h2>15.4 Pendulums, Circular Motion</h2>
+        <div class="card">
+          <p>
+            For small angular displacements, the restoring torque on a simple pendulum is approximately linear in angle, leading to SHM.
+          </p>
+        </div>
+        <h3>Small-angle simple pendulum</h3>
+        <div class="formula">ω ≈ √(g/L)</div>
+        <div class="formula">T ≈ 2π√(L/g)</div>
+        <div class="note warn">
+          <p class="tiny">The approximation requires small angles (typically &lt; 10–15&deg; for good accuracy).</p>
+        </div>
+      </section>
+
+      <section id="s155">
+        <h2>15.5 Damped Simple Harmonic Motion</h2>
+        <div class="card">
+          <p>
+            Real oscillators lose energy to friction/drag. Damping makes the amplitude decay in time; depending on damping strength, the system may
+            still oscillate (underdamped) or return without oscillation (overdamped).
+          </p>
+        </div>
+        <h3>Underdamped qualitative form</h3>
+        <div class="formula">x(t) = A e<sup>−bt/2m</sup> cos(ω<sub>d</sub>t + φ)</div>
+        <p class="tiny">ω<sub>d</sub> is the damped angular frequency; b is the damping constant (in a linear drag model).</p>
+      </section>
+
+      <section id="s156">
+        <h2>15.6 Forced Oscillations and Resonance</h2>
+        <div class="card">
+          <p>
+            A driven oscillator responds most strongly when the driving frequency is near the natural frequency. Damping limits the peak amplitude
+            and sets the resonance width (quality factor idea).
+          </p>
+        </div>
+        <h3>Resonance idea</h3>
+        <div class="formula">Driving frequency near ω<sub>0</sub> ⇒ largest steady-state amplitude</div>
+        <details open>
+          <summary>Worked example: identify resonance condition</summary>
+          <p>
+            If a mass–spring system has k = 200 N/m and m = 0.50 kg, then ω<sub>0</sub> = √(k/m) = √(400) = 20 rad/s, so the resonance is near
+            f<sub>0</sub> = ω<sub>0</sub>/(2π) = 3.18 Hz.
+          </p>
+          <p class="note"><strong>Answer:</strong> Drive near 3.2 Hz for the largest response (with damping limiting the peak).</p>
+        </details>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="note">
+      <p>
+        Study tip: for oscillations, keep the “translation table” in mind: restoring force/torque sets ω, energy sets amplitude, and damping/driving
+        sets how amplitude evolves in time.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
+
